@@ -9,9 +9,6 @@ hero:
     src: /dolphin.png
     alt: lyn
   actions:
-    - theme: brand
-      text: 快速开始
-      link: /front/
     - theme: alt
       text: View on GitHub
       link: https://github.com/llwodexue/vitepress-blog
