@@ -1,12 +1,8 @@
-# [vitepress-blog](https://github.com/llwodexue/vitepress-blog)
+# vitepress-blog
 
-vitepress 空模板
+参考 vitepress 官方教程：[https://vitepress.dev/guide/deploy#github-pages](https://vitepress.dev/guide/deploy#github-pages)
 
-## 部署方法
-
-参考 vitepress 官方教程 https://vitepress.dev/guide/deploy#github-pages
-
-### 1.添加 github actions 配置
+## 设置Actions
 
 ```yml
 # .github/workflows/main.yml
@@ -46,30 +42,27 @@ jobs:
         uses: actions/deploy-pages@v1
 ```
 
-### 2.设置 Pages
+## 设置Pages
 
-![github-pages-settings](http://cdn.zuo11.com/imgs/github-pages-settings.png)
+![image-20231201172803212](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231201172803212.png)
 
-### 3. 关于 base 设置
+## 设置base
 
-由于 github pages 使用的是 `https://dev-zuo.github.io/仓库名/` 而非 `https://dev-zuo.github.io`，因此 vitepress 中的 base 需要设置为 项目名
+vitepress 中的 base 需要设置为 项目名
 
-为了在 github pages 和在其他地方部署都不需要修改代码使用 node 的 process.env.BASE 参数做处理。
+修改 `package.json`
 
-```js
-// package.json
+```json
 "scripts": {
-    // 专门针对 github pages 目录设置的变量, 设置 process.env.BASE 值
-    "build": "cross-env BASE=/new-vitepress-demo/ vitepress build",
-    // 如果是部署到其他地方直接 vitepress build 即可
-    "build-other-place": "vitepress build"
-  },
+  // 专门针对 github pages 目录设置的变量, 设置 process.env.BASE 值
+  "build": "cross-env BASE=/vitepress-blog/ vitepress build"
+}
+```
 
-// vitepress
-// .vitepress\config.ts
+修改 `.vitepress/config.ts`
+
+```typescript
 const base = process.env.BASE || '/'
-
-// --vp-code-block-bg
 export default defineConfig({
   base,
 }
