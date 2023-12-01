@@ -1,0 +1,17 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+build
+lib
+types
+*.local
+pnpm-lock.yaml
+yarn-error.log
+.history
+.vscode
+.idea
+lerna-debug.log
+metadata.json
+
+.vitepress/cache
