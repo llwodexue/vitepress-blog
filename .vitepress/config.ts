@@ -5,7 +5,7 @@ const base = process.env.BASE || '/'
 // --vp-code-block-bg
 export default defineConfig({
   base,
-  title: 'VitePress123',
+  title: 'Lyn Blog',
   markdown: {
     theme: {
       light: 'vitesse-light',
