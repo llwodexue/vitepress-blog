@@ -1,8 +1,30 @@
 import { defineConfig, type DefaultTheme } from 'vitepress'
+import {
+  sidebarJavaScript,
+  sidebarEngine,
+  sidebarBase,
+  sidebarVue,
+  sidebarReact,
+  sidebarOps,
+  sidebarOther,
+  sidebarMini,
+  sidebarNode
+} from './sidebar'
 
 const base = process.env.BASE || '/'
 
-// --vp-code-block-bg
+const SIDEBAR: Record<string, string> = {
+  js: '/1-js/',
+  engine: '/2-engine/',
+  base: '/3-base/',
+  vue: '/4-vue/',
+  react: '/5-react/',
+  node: '/6-node/',
+  ops: '/7-ops/',
+  mini: '/8-mini/',
+  other: '/10-other/'
+}
+
 export default defineConfig({
   base,
   title: 'Lyn Blog',
@@ -15,47 +37,49 @@ export default defineConfig({
   themeConfig: {
     logo: '/avatar.png',
     siteTitle: 'Lyn Blog',
-
-    nav: [
-      // { text: '前端', link: '/front/' },
-      // { text: '后端', link: '/back/' },
-      // { text: '工程化', link: '/engine/' },
-      { text: '运维部署', link: '/7-ops/云服务器-1.免密登陆' }
-    ],
-
+    nav: nav(),
     socialLinks: [
       { icon: 'github', link: 'https://github.com/llwodexue/vitepress-blog' }
     ],
-
-    sidebar: [
-      {
-        base: '/7-ops/',
-        items: sidebarOps()
-      }
-    ],
-
+    sidebar: {
+      [SIDEBAR.js]: { base: SIDEBAR.js, items: sidebarJavaScript() },
+      [SIDEBAR.engine]: { base: SIDEBAR.engine, items: sidebarEngine() },
+      [SIDEBAR.base]: { base: SIDEBAR.base, items: sidebarBase() },
+      [SIDEBAR.vue]: { base: SIDEBAR.vue, items: sidebarVue() },
+      [SIDEBAR.react]: { base: SIDEBAR.react, items: sidebarReact() },
+      [SIDEBAR.node]: { base: SIDEBAR.node, items: sidebarNode() },
+      [SIDEBAR.ops]: { base: SIDEBAR.ops, items: sidebarOps() },
+      [SIDEBAR.mini]: { base: SIDEBAR.mini, items: sidebarMini() },
+      [SIDEBAR.other]: { base: SIDEBAR.other, items: sidebarOther() }
+    },
     footer: {
       message: '常备不懈，才能有备无患'
     }
   },
-  head: [['meta', { name: 'referrer', content: 'never' }]]
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/dolphin.svg' }],
+    ['link', { rel: 'icon', type: 'image/png', href: '/dolphin.png' }],
+    ['meta', { name: 'referrer', content: 'never' }]
+  ]
 })
 
-function sidebarOps(): DefaultTheme.SidebarItem[] {
+function nav(): DefaultTheme.NavItem[] {
+  const transNav = (base: string, arrFn: () => DefaultTheme.SidebarItem[]) => {
+    const nav = arrFn().map(i => {
+      const link = i.items![0].link
+      return { text: i!.text || '', link: `${base}${link}` }
+    })
+    return nav
+  }
   return [
-    {
-      text: '云服务器',
-      collapsed: false,
-      items: [
-        { text: '免密登陆', link: '云服务器-1.免密登陆' },
-        { text: '部署后端环境', link: '云服务器-2.部署后端环境' },
-        { text: '部署自动化构建环境', link: '云服务器-3.部署自动化构建环境' },
-        { text: '部署数据库环境', link: '云服务器-4.部署数据库环境' },
-        { text: '部署前端环境', link: '云服务器-5.部署前端环境' },
-        { text: '部署Docker和Frp', link: '云服务器-6.部署Docker和Frp' },
-        { text: '自动化脚本和域名绑定', link: '云服务器-7.自动化脚本和域名绑定' },
-        { text: '阿里云效一键部署前后端', link: '云服务器-8.阿里云效一键部署前后端' }
-      ]
-    }
+    { text: 'JavaScript', items: transNav(SIDEBAR.js, sidebarJavaScript) },
+    { text: '工程化', items: transNav(SIDEBAR.engine, sidebarEngine) },
+    { text: '计算机基础', items: transNav(SIDEBAR.base, sidebarBase) },
+    { text: 'Vue', items: transNav(SIDEBAR.vue, sidebarVue) },
+    { text: 'React', items: transNav(SIDEBAR.react, sidebarReact) },
+    { text: 'Node', items: transNav(SIDEBAR.node, sidebarNode) },
+    { text: '运维部署', items: transNav(SIDEBAR.ops, sidebarOps) },
+    { text: '小程序', items: transNav(SIDEBAR.mini, sidebarMini) },
+    { text: '其他', items: transNav(SIDEBAR.other, sidebarOther) }
   ]
 }
