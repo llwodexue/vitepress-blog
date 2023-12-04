@@ -27,12 +27,14 @@ const SIDEBAR: Record<string, string> = {
 
 export default defineConfig({
   base,
+  lang: 'zh-CN',
   title: 'Lyn Blog',
   markdown: {
     theme: {
       light: 'vitesse-light',
       dark: 'vitesse-dark'
-    }
+    },
+    lineNumbers: true
   },
   themeConfig: {
     logo: '/avatar.png',
@@ -54,7 +56,8 @@ export default defineConfig({
     },
     footer: {
       message: '常备不懈，才能有备无患'
-    }
+    },
+    outline: 'deep'
   },
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/dolphin.svg' }],
