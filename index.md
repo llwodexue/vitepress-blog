@@ -1,17 +1,21 @@
 ---
 layout: home
+title: LynDocs
 
 hero:
-  name: Lyn Blog
-  text: 知识体系、点点滴滴
-  # tagline: 专注全栈开发、用户体验、交互设计、性能优化等
+  name: LynDocs
+  text: Front-end learning
+  tagline: 一站式前端内容网站，包括学习路线、知识体系
   image:
     src: /dolphin.png
     alt: lyn
   actions:
+    - theme: brand
+      text: 开始阅读
+      link: /3-base/01-基本概念
     - theme: alt
-      text: View on GitHub
-      link: https://github.com/llwodexue/vitepress-blog
+      text: 运维部署
+      link: /7-ops/云服务器-1.免密登陆
 
 features:
   - icon: 🛠️

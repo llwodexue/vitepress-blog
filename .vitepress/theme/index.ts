@@ -1,9 +1,9 @@
 import DefaultTheme from 'vitepress/theme'
-import './style/var.css'
-import './style/global.css'
 import { useRoute } from 'vitepress'
 import { onMounted, watch, nextTick } from 'vue'
 import mediumZoom from 'medium-zoom'
+import './style/vars.css'
+import './style/global.css'
 
 export default {
   ...DefaultTheme,
