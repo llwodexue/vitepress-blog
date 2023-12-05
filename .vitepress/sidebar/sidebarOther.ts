@@ -20,6 +20,11 @@ export default function sidebarOther(): DefaultTheme.SidebarItem[] {
         { text: '前沿优化解决方案', link: '优化7.前沿优化解决方案.md' },
         { text: '性能优化问题面试指南', link: '优化8.性能优化问题面试指南.md' }
       ]
+    },
+    {
+      text: 'math',
+      collapsed: false,
+      items: [{ text: 'Bezier曲线曲面绘制', link: 'Bezier曲线曲面绘制.md' }]
     }
   ]
 }

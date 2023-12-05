@@ -30,6 +30,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: 'Lyn Blog',
   markdown: {
+    math: true,
     theme: {
       light: 'vitesse-light',
       dark: 'vitesse-dark'
