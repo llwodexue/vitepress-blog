@@ -13,6 +13,7 @@ yarn-error.log
 .idea
 lerna-debug.log
 metadata.json
+run-sidebarItem.cjs
 
 .vitepress/cache
-run-sidebarItem.cjs
+.vitepress/config.ts.timestamp*.mjs
