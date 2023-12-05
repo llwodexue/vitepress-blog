@@ -6,7 +6,6 @@ build
 lib
 types
 *.local
-pnpm-lock.yaml
 yarn-error.log
 .history
 .vscode
