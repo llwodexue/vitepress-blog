@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vitepress dev",
     "build": "cross-env BASE=/vitepress-blog/ vitepress build",
-    "build:blog": "cross-env BASE=/ vitepress build",
+    "build:blog": "vitepress build",
     "serve": "vitepress serve"
   },
   "dependencies": {
