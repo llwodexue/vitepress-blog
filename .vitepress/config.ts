@@ -10,6 +10,11 @@ export default defineConfig({
   locales: {
     root: { label: '简体中文', lang: 'zh-CN' }
   },
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1500
+    }
+  },
   markdown: {
     math: true,
     lineNumbers: true
