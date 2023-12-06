@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { sidebar, nav } from './sidebar'
+import algolia from './algolia'
 import { name, keywords } from './meta'
 
 const base = process.env.BASE || '/'
@@ -38,6 +39,7 @@ export default defineConfig({
       message: '常备不懈，才能有备无患'
       // copyright: `版权所有 © 2022-${new Date().getFullYear()}`
     },
+    algolia,
     nav,
     sidebar
   },
