@@ -43,10 +43,14 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
       text: '数据结构与算法',
       collapsed: false,
       items: [
-        { text: '栈结构', link: '20-栈结构.md' },
-        { text: '队列结构', link: '21-队列结构.md' },
-        { text: '算法复杂度和哈希表', link: '22-算法复杂度和哈希表.md' },
-        { text: '树结构和BST树', link: '23-树结构和BST树.md' }
+        { text: '数据结构与算法', link: '21-数据结构与算法.md' },
+        { text: '栈结构', link: '22-栈结构.md' },
+        { text: '队列结构', link: '23-队列结构.md' },
+        { text: '链表结构', link: '24-链表结构.md' },
+        { text: '算法复杂度', link: '25-算法复杂度.md' },
+        { text: '哈希表', link: '26-哈希表.md' },
+        { text: '树结构', link: '27-树结构.md' },
+        { text: '封装BST树', link: '28-封装BST树.md' }
       ]
     }
   ]
