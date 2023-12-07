@@ -1,5 +1,5 @@
 {
-  "index_name": "lyn",
+  "index_name": "llmysnow",
   "start_urls": ["https://www.llmysnow.top/"],
   "rateLimit": 8,
   "maxDepth": 10,

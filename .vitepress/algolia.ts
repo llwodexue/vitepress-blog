@@ -1,7 +1,7 @@
 export default {
-  appId: 'HYTRTUE4AC',
-  apiKey: 'c033d40af66a1d4f9a955d9c9d9cb0fc',
-  indexName: 'chocn',
+  appId: 'QAG7BMFALJ',
+  apiKey: '23e9a27c4829d4c3eb785cc1b400f5e5',
+  indexName: 'llmysnow',
   placeholder: '请输入关键词',
   translations: {
     button: {
