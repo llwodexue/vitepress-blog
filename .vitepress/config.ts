@@ -16,6 +16,9 @@ export default defineConfig({
       chunkSizeWarningLimit: 1500
     }
   },
+  sitemap: {
+    hostname: 'https://www.llmysnow.top/'
+  },
   markdown: {
     math: true,
     lineNumbers: true
