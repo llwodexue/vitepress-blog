@@ -556,7 +556,7 @@ class TreeNode<T> extends Node<T> {
 - 这样相对比较简单，每次删除节点不会改变原有的树结构
 - 但是在二叉树的存储中，还保留这那些本已经被删除掉的节点
 
-## 完整代码
+## 二叉搜索树完整代码
 
 ```typescript
 import { btPrint } from 'hy-algokit'
