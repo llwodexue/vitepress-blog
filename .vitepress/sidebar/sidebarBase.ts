@@ -53,7 +53,8 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
         { text: '封装BST树', link: '28-封装BST树.md' },
         { text: '图结构', link: '29-图结构.md' },
         { text: '双向链表', link: '30-双向链表.md' },
-        { text: '堆结构', link: '31.堆结构.md' }
+        { text: '堆结构', link: '31.堆结构.md' },
+        { text: '双端、优先级队列', link: '32.双端、优先级队列.md' }
       ]
     }
   ]
