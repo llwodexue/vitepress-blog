@@ -8,6 +8,7 @@ const base = process.env.BASE || '/'
 export default defineConfig({
   base,
   title: name,
+  lastUpdated: true,
   locales: {
     root: { label: '简体中文', lang: 'zh-CN' }
   },
@@ -24,6 +25,9 @@ export default defineConfig({
     lineNumbers: true
   },
   themeConfig: {
+    // search: {
+    //   provider: 'local'
+    // },
     logo: '/avatar.png',
     docFooter: {
       prev: '上一篇',
@@ -35,9 +39,7 @@ export default defineConfig({
     sidebarMenuLabel: '归档',
     lastUpdatedText: '最后一次更新于',
     outline: 'deep',
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/llwodexue/vitepress-blog' }
-    ],
+    socialLinks: [{ icon: 'github', link: 'https://github.com/llwodexue' }],
     footer: {
       message: '常备不懈，才能有备无患'
       // copyright: `版权所有 © 2022-${new Date().getFullYear()}`
@@ -47,7 +49,8 @@ export default defineConfig({
     sidebar
   },
   head: [
-    ['meta', { name: 'referrer', content: 'never' }],
+    // ['meta', { name: 'referrer', content: 'never' }],
+    ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     ['meta', { name: 'keywords', content: keywords }],
     ['meta', { name: 'author', content: 'lyn' }],
 
