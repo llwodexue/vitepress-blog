@@ -1,4 +1,4 @@
-# Node事件循环及多线程
+# Node 事件循环及多线程
 
 ## 浏览器事件循环
 
@@ -39,19 +39,19 @@
 
 |                         | 浏览器 | Node |
 | ----------------------- | ------ | ---- |
-| `I/O`                   | ✔️      | ✔️    |
-| `setTimeout`            | ✔️      | ✔️    |
-| `setInterval`           | ✔️      | ✔️    |
-| `setImmediate`          | ❌      | ✔️    |
-| `requestAnimationFrame` | ✔️      | ❌    |
+| `I/O`                   | ✔️     | ✔️   |
+| `setTimeout`            | ✔️     | ✔️   |
+| `setInterval`           | ✔️     | ✔️   |
+| `setImmediate`          | ❌     | ✔️   |
+| `requestAnimationFrame` | ✔️     | ❌   |
 
 - 微任务
 
-|                                                              | 浏览器 | Node |
-| ------------------------------------------------------------ | ------ | ---- |
-| `process.nextTick`                                           | ❌      | ✔️    |
-| [`MutationObserver`](http://javascript.ruanyifeng.com/dom/mutationobserver.html) | ✔️      | ❌    |
-| `Promise.then catch finally`                                 | ✔️      | ✔️    |
+|                                                                                  | 浏览器 | Node |
+| -------------------------------------------------------------------------------- | ------ | ---- |
+| `process.nextTick`                                                               | ❌     | ✔️   |
+| [`MutationObserver`](http://javascript.ruanyifeng.com/dom/mutationobserver.html) | ✔️     | ❌   |
+| `Promise.then catch finally`                                                     | ✔️     | ✔️   |
 
 - 练习：
 
@@ -93,7 +93,7 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 
 ### 事件循环六个阶段
 
-> [一次弄懂Event Loop（彻底解决此类面试问题）](https://juejin.cn/post/6844903764202094606#heading-28)
+> [一次弄懂 Event Loop（彻底解决此类面试问题）](https://juejin.cn/post/6844903764202094606#heading-28)
 >
 > [The Node.js Event Loop](https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/)
 
@@ -135,7 +135,7 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 **不同版本 Node**
 
 - 浏览器只要执行了一个宏任务就会执行微任务队列
-- Node 10(11以下) 中只有全部执行了 **timers** 阶段队列的全部任务才执行微任务队列
+- Node 10(11 以下) 中只有全部执行了 **timers** 阶段队列的全部任务才执行微任务队列
 - Node 11 在 **timers** 阶段的 `setTimeout()`、`setInterval()` 和在 **check** 阶段的 `setImmediate()` 修改为一旦执行一个阶段里的一个任务就会执行微任务队列
 
 ### fs 和 setTimeout 的关系
@@ -177,7 +177,7 @@ fileReaderTime 2
 
 1. 执行 `setTimeout(fn, 5)`，当前时间为 0ms， **timers** 阶段没有任何 `callback` 加入，跳过
 2. 执行 **pending callbacks** 阶段，执行定时器或 `setImmediate` 以外的回调，没有跳过
-3. 执行 **poll** 阶段，`poll` 队列为空且没有 `setImmediate()` ，会阻塞等待 5ms，当前时间为 5ms，此时 `poll` 队列为空且设定了 `timer`，事件循环会进入 **timers** 阶段，执行`setTimeout(fn, 5)` 
+3. 执行 **poll** 阶段，`poll` 队列为空且没有 `setImmediate()` ，会阻塞等待 5ms，当前时间为 5ms，此时 `poll` 队列为空且设定了 `timer`，事件循环会进入 **timers** 阶段，执行`setTimeout(fn, 5)`
 4. 重新执行阶段，走到 **poll** 阶段，继续阻塞，当前时间等待到 9ms，执行 `fs.readFile`
 
 ```js
@@ -214,9 +214,9 @@ fileReaderTime 9
 >
 > 在浏览器里，`setTimeout(fn, 0) === setTimeout(fn, 4)`
 
-setTimeout  和 setImmediate 执行顺序不确定
+setTimeout 和 setImmediate 执行顺序不确定
 
-- 因为事件循环启动也是需要时间的，可能执行 **poll** 阶段已经超过了 1ms，此时 `setTimeout` 会先执行，反之 `setImmediate`  先执行
+- 因为事件循环启动也是需要时间的，可能执行 **poll** 阶段已经超过了 1ms，此时 `setTimeout` 会先执行，反之 `setImmediate` 先执行
 
 ```js
 setImmediate(() => {
@@ -230,7 +230,7 @@ setTimeout(() => {
 // 一次 setTimeout setImmediate
 ```
 
-setTimeout  和 setImmediate 执行顺序是确定的
+setTimeout 和 setImmediate 执行顺序是确定的
 
 - 一开始 `poll` 队列为空，没有设定 `setImmediate `，代码会进行阻塞，执行 `fs.readFile`，2ms 后读取文件完毕，执行其回调
 
@@ -295,18 +295,18 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
    ```js
    const http = require('http')
-   
+
    function compute() {
      process.nextTick(compute)
    }
-   
+
    http
      .createServer((req, res) => {
        res.writeHead(200, { 'Content-Type': 'text/plain' })
        res.end('hello world')
      })
      .listen(5000, '127.0.0.1')
-   
+
    compute()
    ```
 
@@ -320,7 +320,7 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
      else callback(false)
    }
    asyncFake('bar', result => {})
-   
+
    const client = net.connect(8124, () => {
      console.log('client connected')
      client.write('hello world\r\n')
@@ -345,9 +345,9 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
    ```js
    const EventEmitter = require('events').EventEmitter
-   
+
    class App extends EventEmitter {}
-   
+
    const app = new App()
    app.on('start', () => {
      console.log('start')
@@ -362,16 +362,16 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
    ```js
    const EventEmitter = require('events').EventEmitter
-   
+
    function StreamLibrary() {
      const self = this
-   
+
      process.nextTick(() => {
        self.emit('start')
      })
    }
    StreamLibrary.prototype.__proto__ = EventEmitter.prototype
-   
+
    const stream = new StreamLibrary()
    // 保证订阅在发布之前
    stream.on('start', () => {
@@ -416,14 +416,14 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
 - 多进程还是多线程一般是结合起来使用，千万不要陷入非此即彼的误区
 
-| 对比维度       | 多进程                                                       | 多线程                                                       | 总结     |
-| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | -------- |
-| 数据共享、同步 | 数据共享复杂，需要用IPC：数据是分开的，同步简单              | 因为共享进程数据，数据共享简单，但也是因为这个原因导致同步复杂 | 各有优势 |
-| 内存、CPU      | 占用内存多，切换复杂，CPU利用率低                            | 占用内存少，切换简单，CPU利用率高                            | 线程占优 |
-| 创建销毁、切换 | 创建销毁、切换复杂，速度慢                                   | 创建销毁、切换简单，速度很快                                 | 线程占优 |
-| 编程、调试     | 编程简单、调试简单                                           | 编程复杂、调试复杂                                           | 进程占优 |
-| 可靠性         | 进程间不会互相影响                                           | 一个线程挂掉会导致整个进程挂掉                               | 进程占优 |
-| 分布式         | 适应于多核、多机分布式：如果一台机器不够，扩展到多台机器比较简单 | 适应于多核分布式                                             | 进程占优 |
+| 对比维度       | 多进程                                                           | 多线程                                                         | 总结     |
+| -------------- | ---------------------------------------------------------------- | -------------------------------------------------------------- | -------- |
+| 数据共享、同步 | 数据共享复杂，需要用 IPC：数据是分开的，同步简单                 | 因为共享进程数据，数据共享简单，但也是因为这个原因导致同步复杂 | 各有优势 |
+| 内存、CPU      | 占用内存多，切换复杂，CPU 利用率低                               | 占用内存少，切换简单，CPU 利用率高                             | 线程占优 |
+| 创建销毁、切换 | 创建销毁、切换复杂，速度慢                                       | 创建销毁、切换简单，速度很快                                   | 线程占优 |
+| 编程、调试     | 编程简单、调试简单                                               | 编程复杂、调试复杂                                             | 进程占优 |
+| 可靠性         | 进程间不会互相影响                                               | 一个线程挂掉会导致整个进程挂掉                                 | 进程占优 |
+| 分布式         | 适应于多核、多机分布式：如果一台机器不够，扩展到多台机器比较简单 | 适应于多核分布式                                               | 进程占优 |
 
 1. **需要频繁创建销毁的优先使用线程**
 
@@ -451,13 +451,13 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
 ## cluster
 
-> [理解Node.js中的"多线程"](https://www.cnblogs.com/ShuiNian/p/15423317.html)
+> [理解 Node.js 中的"多线程"](https://www.cnblogs.com/ShuiNian/p/15423317.html)
 >
 > [Node.js 真·多线程 Worker Threads 初探](https://juejin.cn/post/6844903740768518152)
 >
 > [Node API cluster 集群](http://nodejs.cn/api/cluster.html)
 
-`Worker Threads` 特性是在2018年6月20日的 v10.5.0 版本引入的
+`Worker Threads` 特性是在 2018 年 6 月 20 日的 v10.5.0 版本引入的
 
 cluster 是 Node 进行多线程的模块
 
@@ -508,13 +508,13 @@ if (cluster.isMaster) {
 
 **安装 Apache**
 
-- 安装 Apache 可以参考这篇文章：[Windows 10 安装Apache](https://www.skyfinder.cc/2020/08/14/windows10installapacheserver/)
+- 安装 Apache 可以参考这篇文章：[Windows 10 安装 Apache](https://www.skyfinder.cc/2020/08/14/windows10installapacheserver/)
 - 安装问题可能出现的问题：[通常每个套接字地址(协议/网络地址/端口)只允许使用一次::443](https://www.cnblogs.com/hahayixiao/p/11366148.html)
 - CMD 中使用 `netstat -a -o ` 查看哪些端口被占用
 
 ab 是 apache 自带的压力测试工具，Mac 原生自带，无需安装
 
-`ab -n1000 -c50 127.0.0.1:8000/` 
+`ab -n1000 -c50 127.0.0.1:8000/`
 
 - `-n` 请求数
 - `-c` 并发数
@@ -526,18 +526,18 @@ ab 是 apache 自带的压力测试工具，Mac 原生自带，无需安装
 
 ```json
 {
-    // 使用 IntelliSense 了解相关属性。 
-    // 悬停以查看现有属性的描述。
-    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\你运行的JS文件"
-        }
-    ]
+  // 使用 IntelliSense 了解相关属性。
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${workspaceFolder}\\你运行的JS文件"
+    }
+  ]
 }
 ```
 
@@ -583,7 +583,7 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
 
    ```js
    const exec = require('child_process').exec
-   
+
    // 回调方式
    exec('ls', (err, stdout, stderr) => {
      if (err) {
@@ -597,7 +597,7 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
 
    ```js
    const { exec } = require('child_process')
-   
+
    // 通过流的方式接受结果，类似文件读取
    const child = exec('ls')
    child.stdout.on('data', data => {
@@ -625,7 +625,7 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
 
    ```js
    const { execFile } = require('child_process')
-   
+
    execFile('ls', ['-c'], (error, stdout, stderr) => {
      if (error) console.error('error', error)
      console.log('stdout', stdout)
@@ -638,9 +638,9 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
 
    ```js
    const { spawn } = require('child_process')
-   
+
    const child = spawn('ls')
-   
+
    // data是Buffer
    child.stdout.on('data', data => console.log('data', data.toString()))
    child.on('close', code => console.log('code:', code))
@@ -655,7 +655,7 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
    ```js
    const child_process = require('child_process')
    const path = require('path')
-   
+
    const child = child_process.fork(path.resolve(__dirname, './son.js'))
    child.on('message', data => console.log('father received:', data))
    child.send('father send')
@@ -794,7 +794,8 @@ process.on('message', (m, handle) => {
 })
 
 const buf = 'hello nodejs'
-const res = ['HTTP/1.1 200 OK', 'content-length:' + buf.length].join('\r\n') + '\r\n\r\n' + buf
+const res =
+  ['HTTP/1.1 200 OK', 'content-length:' + buf.length].join('\r\n') + '\r\n\r\n' + buf
 
 const data = {}
 
@@ -808,7 +809,7 @@ function start(server) {
     console.log('got a connection on worker, pid = %d', process.pid, data[pid])
 
     const socket = new net.Socket({
-      handle: handle,
+      handle: handle
     })
     socket.readable = socket.writable = true
     socket.end(res)
@@ -894,14 +895,15 @@ process.on('message', (m, handle) => {
 })
 
 const buf = 'hello nodejs'
-const res = ['HTTP/1.1 200 OK', 'content-length:' + buf.length].join('\r\n') + '\r\n\r\n' + buf
+const res =
+  ['HTTP/1.1 200 OK', 'content-length:' + buf.length].join('\r\n') + '\r\n\r\n' + buf
 
 function start(server) {
   server.listen()
   server.onconnection = (err, handle) => {
     console.log('got a connection on worker, pid = %d', data[pid])
     const socket = new net.Socket({
-      handle: handle,
+      handle: handle
     })
     socket.readable = socket.writable = true
     socket.end(res)

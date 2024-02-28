@@ -17,6 +17,14 @@ export default function sidebarOps(): DefaultTheme.SidebarItem[] {
       ]
     },
     {
+      text: '集群环境搭建',
+      collapsed: false,
+      items: [
+        { text: 'Docker使用', link: '虚拟-1.Docker使用.md' },
+        { text: '离线安装KubeSphere', link: '虚拟-2.离线安装KubeSphere.md' }
+      ]
+    },
+    {
       text: '其他环境搭建',
       collapsed: false,
       items: [

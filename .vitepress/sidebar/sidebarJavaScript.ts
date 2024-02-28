@@ -23,6 +23,14 @@ export default function sidebarJavaScript(): DefaultTheme.SidebarItem[] {
         { text: '练习题二', link: '09-练习题二.md' },
         { text: '补充二', link: '10-补充二.md' }
       ]
+    },
+    {
+      text: 'TypeScript',
+      collapsed: false,
+      items: [
+        { text: 'TypeScript入门', link: '11-TypeScript入门.md' },
+        { text: 'TypeScript进阶', link: '12-TypeScript进阶.md' }
+      ]
     }
   ]
 }

@@ -20,12 +20,19 @@ export default function sidebarNode(): DefaultTheme.SidebarItem[] {
       ]
     },
     {
-      text: '安全',
+      text: 'Node安全',
       collapsed: false,
       items: [
-        { text: '前端JS加密常用方法', link: '其他2-前端JS加密常用方法.md' },
-        { text: '常见Web攻击', link: '其他3-常见Web攻击.md' },
-        { text: 'Node事件循环及多线程', link: '其他1-Node事件循环及多线程.md' }
+        { text: '前端JS加密常用方法', link: '安全1-前端JS加密常用方法.md' },
+        { text: '常见Web攻击', link: '安全2-常见Web攻击.md' }
+      ]
+    },
+    {
+      text: 'Node补充',
+      collapsed: false,
+      items: [
+        { text: 'Node事件循环及多线程', link: '补充1-Node事件循环及多线程.md' },
+        { text: '文件下载的奥秘', link: '补充2-文件下载的奥秘.md' }
       ]
     }
   ]

@@ -26,17 +26,26 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
       text: '计算机网络安全',
       collapsed: false,
       items: [
+        { text: '网络安全', link: '08-网络安全.md' },
         { text: 'HTTPS', link: '09-HTTPS.md' },
-        { text: 'HTTP版本', link: '10-HTTP版本.md' },
-        { text: '其他协议', link: '11-其他协议.md' },
-        { text: 'Websocket', link: '13-Websocket.md' }
+        { text: '设置Http头保障安全', link: '14-设置Http头保障安全.md' }
       ]
     },
     {
-      text: '工欲善其事',
+      text: 'HTTP补充',
       collapsed: false,
       items: [
-        { text: 'VScode前端常用配置设置问题', link: '14-VScode前端常用配置设置问题.md' }
+        { text: 'HTTP版本', link: '10-HTTP版本.md' },
+        { text: 'HTTP状态码', link: '15.HTTP状态码.md' }
+      ]
+    },
+    {
+      text: '其他协议',
+      collapsed: false,
+      items: [
+        { text: '其他协议', link: '11-其他协议.md' },
+        { text: 'Websocket', link: '13-Websocket.md' },
+        { text: 'RPC与HTTP', link: '16.RPC与HTTP.md' }
       ]
     },
     {
@@ -55,6 +64,13 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
         { text: '双向链表', link: '30-双向链表.md' },
         { text: '堆结构', link: '31.堆结构.md' },
         { text: '双端、优先级队列', link: '32.双端、优先级队列.md' }
+      ]
+    },
+    {
+      text: '工欲善其事',
+      collapsed: false,
+      items: [
+        { text: 'VScode前端常用配置设置问题', link: '40-VScode前端常用配置设置问题.md' }
       ]
     }
   ]
