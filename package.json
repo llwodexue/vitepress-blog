@@ -11,6 +11,7 @@
     "serve": "vitepress serve"
   },
   "dependencies": {
+    "blueimp-md5": "^2.19.0",
     "dayjs": "^1.11.10",
     "gitalk": "^1.8.0",
     "markdown-it-footnote": "^3.0.3",
@@ -19,6 +20,7 @@
     "vitepress": "1.0.0-rc.44"
   },
   "devDependencies": {
+    "@types/blueimp-md5": "^2.18.2",
     "@types/node": "^20.10.1",
     "busuanzi.pure.js": "^1.0.3",
     "cross-env": "^7.0.3",

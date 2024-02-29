@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  blueimp-md5:
+    specifier: ^2.19.0
+    version: 2.19.0
   dayjs:
     specifier: ^1.11.10
     version: 1.11.10
@@ -25,6 +28,9 @@ dependencies:
     version: 1.0.0-rc.44(@algolia/client-search@4.20.0)(@types/node@20.10.3)(markdown-it-mathjax3@4.3.2)(react-dom@15.7.0)(react@15.7.0)(search-insights@2.11.0)
 
 devDependencies:
+  '@types/blueimp-md5':
+    specifier: ^2.18.2
+    version: 2.18.2
   '@types/node':
     specifier: ^20.10.1
     version: 20.10.3
@@ -565,6 +571,10 @@ packages:
       shiki: 1.1.7
     dev: false
 
+  /@types/blueimp-md5@2.18.2:
+    resolution: {integrity: sha512-dJ9yRry9Olt5GAWlgCtE5dK9d/Dfhn/V7hna86eEO2Pn76+E8Y0S0n61iEUEGhWXXgtKtHxtZLVNwL8X+vLHzg==}
+    dev: true
+
   /@types/linkify-it@3.0.5:
     resolution: {integrity: sha512-yg6E+u0/+Zjva+buc3EIb+29XEg4wltq7cSmd4Uc2EE/1nUVmxyzpX6gUXD0V8jIrG0r7YeOGVIbYRkxeooCtw==}
     dev: false
@@ -925,6 +935,10 @@ packages:
       follow-redirects: 1.5.10
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /blueimp-md5@2.19.0:
+    resolution: {integrity: sha512-DRQrD6gJyy8FbiE4s+bDoXS9hiW3Vbx5uCdwvcCf3zLHL+Iv7LtGHLpr+GZV8rHG8tK766FGYBwRbu8pELTt+w==}
     dev: false
 
   /boolbase@1.0.0:

@@ -6,14 +6,19 @@
 import { onMounted } from 'vue'
 import 'gitalk/dist/gitalk.css'
 import Gitalk from 'gitalk'
+import { useData } from 'vitepress'
+import md5 from 'blueimp-md5'
+
+const { page } = useData()
 
 // 初始化评论组件配置
 let gitalk = new Gitalk({
   clientID: '013e5673e91fe10c293f',
   clientSecret: 'bb3a3512d7ec932e47f082b955658861d3b45f87',
-  repo: 'vitepress-blog',
-  owner: 'Lyn',
-  admin: ['Lyn'],
+  repo: 'vitepress-blog-gitalk',
+  owner: 'llwodexue',
+  admin: ['llwodexue'],
+  id: md5(page.value.relativePath),
   language: 'zh-CN',
   distractionFreeMode: false,
   // 默认: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
