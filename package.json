@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "dayjs": "^1.11.10",
+    "gitalk": "^1.8.0",
     "markdown-it-footnote": "^3.0.3",
     "markdown-it-task-checkbox": "^1.0.6",
     "medium-zoom": "^1.1.0",
-    "vitepress": "1.0.0-rc.31"
+    "vitepress": "1.0.0-rc.44"
   },
   "devDependencies": {
     "@types/node": "^20.10.1",
