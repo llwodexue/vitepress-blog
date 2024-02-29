@@ -1,7 +1,8 @@
 import { defineConfig } from 'vitepress'
 import { sidebar, nav } from './sidebar'
-import algolia from './algolia'
-import { name, keywords } from './meta'
+import algolia from './config/algolia'
+import markdown from './config/markdown'
+import { name, keywords } from './config/meta'
 
 const base = process.env.BASE || '/'
 
@@ -20,10 +21,7 @@ export default defineConfig({
   sitemap: {
     hostname: 'https://www.llmysnow.top/'
   },
-  markdown: {
-    math: true,
-    lineNumbers: true
-  },
+  markdown: markdown,
   themeConfig: {
     // search: {
     //   provider: 'local'
@@ -38,7 +36,10 @@ export default defineConfig({
     darkModeSwitchLabel: '外观',
     sidebarMenuLabel: '归档',
     lastUpdatedText: '最后一次更新于',
-    outline: 'deep',
+    outline: {
+      level: 'deep',
+      label: '目录'
+    },
     socialLinks: [{ icon: 'github', link: 'https://github.com/llwodexue' }],
     footer: {
       message: '常备不懈，才能有备无患'
@@ -49,8 +50,10 @@ export default defineConfig({
     sidebar
   },
   head: [
-    // ['meta', { name: 'referrer', content: 'never' }],
-    ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
+    // not never(no-referer), image cannot be accessed
+    ['meta', { name: 'referrer', content: 'never' }],
+    // must be referer, get the number of articles accessed
+    // ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
     ['meta', { name: 'keywords', content: keywords }],
     ['meta', { name: 'author', content: 'lyn' }],
 

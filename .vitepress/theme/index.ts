@@ -1,28 +1,24 @@
 import DefaultTheme from 'vitepress/theme'
 import { inBrowser, useRoute } from 'vitepress'
 import type { EnhanceAppContext, Theme } from 'vitepress'
-import { onMounted, watch, nextTick, h } from 'vue'
+import { onMounted, watch, nextTick } from 'vue'
 import mediumZoom from 'medium-zoom'
-import busuanzi from 'busuanzi.pure.js'
+// import busuanzi from 'busuanzi.pure.js'
 import './style/vars.css'
 import './style/global.css'
-import Statistics from './components/Statistics.vue'
+import Layout from './Layout.vue'
 import PageInfo from './components/PageInfo.vue'
 
 const theme: Theme = {
   ...DefaultTheme,
-  Layout() {
-    return h(DefaultTheme.Layout, null, {
-      'home-features-after': () => h(Statistics),
-      'doc-before': () => h(PageInfo)
-    })
-  },
-  enhanceApp({ router }: EnhanceAppContext) {
-    if (inBrowser) {
-      router.onAfterRouteChanged = to => {
-        busuanzi.fetch()
-      }
-    }
+  Layout: Layout,
+  enhanceApp({ router, app }: EnhanceAppContext) {
+    // if (inBrowser) {
+    //   ctx.router.onAfterRouteChanged = to => {
+    //     busuanzi.fetch()
+    //   }
+    // }
+    app.component('PageInfo', PageInfo)
   },
   setup() {
     const route = useRoute()

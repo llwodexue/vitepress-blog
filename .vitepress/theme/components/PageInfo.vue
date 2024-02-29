@@ -1,7 +1,12 @@
 <script setup>
 import { useData } from 'vitepress'
 import { ref } from 'vue'
-import { getDate } from '../utils'
+import { getDate } from '../../utils'
+
+defineProps({
+  readTime: [String, Number],
+  words: [String, Number]
+})
 
 const defaultAuthor = 'Lyn'
 const author = ref(defaultAuthor)
@@ -23,13 +28,21 @@ if (frontmatter.value?.author) {
       🕐
       <span>发表于: {{ publishedTime }}</span>
     </span>
-    <span class="page_info_item">
+    <span v-if="words != null" class="page_info_item">
+      📝
+      <span>字数: {{ words }}字</span>
+    </span>
+    <span v-if="readTime != null" class="page_info_item">
+      📖
+      <span>阅读时间: {{ readTime }}分钟</span>
+    </span>
+    <!-- <span class="page_info_item">
       📔
       <span id="busuanzi_container_page_pv">
         阅读量:
         <span id="busuanzi_value_page_pv"></span>
       </span>
-    </span>
+    </span> -->
   </div>
 </template>
 
