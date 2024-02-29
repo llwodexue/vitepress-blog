@@ -23,9 +23,9 @@ export default defineConfig({
   },
   markdown: markdown,
   themeConfig: {
-    // search: {
-    //   provider: 'local'
-    // },
+    search: {
+      provider: 'local'
+    },
     logo: '/avatar.png',
     docFooter: {
       prev: '上一篇',
@@ -45,7 +45,7 @@ export default defineConfig({
       message: '常备不懈，才能有备无患'
       // copyright: `版权所有 © 2022-${new Date().getFullYear()}`
     },
-    algolia,
+    // algolia,
     nav,
     sidebar
   },
