@@ -9,7 +9,7 @@ const markdown: MarkdownOptions = {
       let htmlResult = slf.renderToken(tokens, idx, options)
       if (tokens[idx].tag === 'h1') {
         let code = env.content
-        code = code.replace(/[^\w\s{}%!-\[\]]/g, '')
+        // code = code.replace(/[^\w\s{}]/g, '')
         const { readTime, words } = getReadingTime(code)
         htmlResult += `\n<ClientOnly><PageInfo :frontmatter="$frontmatter" :readTime="${readTime}" :words="${words}" /></ClientOnly>`
       }

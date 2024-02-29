@@ -4,8 +4,8 @@ import { ref } from 'vue'
 import { getDate } from '../../utils'
 
 defineProps({
-  readTime: [String, Number],
-  words: [String, Number]
+  readTime: Number,
+  words: Number
 })
 
 const defaultAuthor = 'Lyn'
@@ -30,7 +30,9 @@ if (frontmatter.value?.author) {
     </span>
     <span v-if="words != null" class="page_info_item">
       📝
-      <span>字数: {{ words }}字</span>
+      <span>
+        字数: {{ words >= 1000 ? `${Math.round(words / 100) / 10}k` : words }}字
+      </span>
     </span>
     <span v-if="readTime != null" class="page_info_item">
       📖
@@ -48,7 +50,8 @@ if (frontmatter.value?.author) {
 
 <style>
 .page_info {
-  margin-bottom: 48px;
+  margin-top: 15px;
+  margin-bottom: 25px;
 }
 
 .page_info .page_info_item {

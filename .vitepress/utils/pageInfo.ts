@@ -31,12 +31,11 @@ export function getWordNumber(content: string): number {
 
 export function getReadingTime(
   content: string,
-  cnWordPerMinute = 350,
-  enWordPerMinute = 160
+  cnWordPerMinute = 260,
+  enWordPerMinute = 180
 ): PageInfo {
-  debugger
   const count = getWordNumber(content || '')
-  const words = count >= 1000 ? `${Math.round(count / 100) / 10}k` : count
+  const words = count
 
   const enWord = getEnWordCount(content)
   const cnWord = getCnWordCount(content)
