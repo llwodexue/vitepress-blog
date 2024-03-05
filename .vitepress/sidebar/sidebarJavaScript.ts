@@ -31,6 +31,16 @@ export default function sidebarJavaScript(): DefaultTheme.SidebarItem[] {
         { text: 'TypeScript入门', link: '11-TypeScript入门.md' },
         { text: 'TypeScript进阶', link: '12-TypeScript进阶.md' }
       ]
+    },
+    {
+      text: 'HTML5',
+      collapsed: false,
+      items: [
+        { text: 'Fetch使用', link: '20-Fetch.md' },
+        { text: 'WebWorker使用', link: '21-WebWorker.md' },
+        { text: 'Websocket使用', link: '22-Websocket.md' },
+        { text: 'WebStorage使用', link: '23-WebStorage.md' }
+      ]
     }
   ]
 }

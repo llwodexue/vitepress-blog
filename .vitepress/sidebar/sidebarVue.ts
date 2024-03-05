@@ -60,7 +60,8 @@ export default function sidebarVue(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         { text: '项目搭建规范', link: '19-项目搭建规范.md' },
-        { text: '项目打包和自动化部署', link: '20-项目打包和自动化部署.md' }
+        { text: '项目打包和自动化部署', link: '20-项目打包和自动化部署.md' },
+        { text: 'Vue升级指南', link: '26-Vue升级指南.md' }
       ]
     }
   ]

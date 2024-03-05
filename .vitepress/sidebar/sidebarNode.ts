@@ -32,7 +32,8 @@ export default function sidebarNode(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         { text: 'Node事件循环及多线程', link: '补充1-Node事件循环及多线程.md' },
-        { text: '文件下载的奥秘', link: '补充2-文件下载的奥秘.md' }
+        { text: '文件下载的奥秘', link: '补充2-文件下载的奥秘.md' },
+        { text: 'pnpm使用', link: '补充3-pnpm.md' }
       ]
     }
   ]

@@ -17,7 +17,6 @@ const SIDEBAR: Record<string, string> = {
   react: '/5-react/',
   node: '/6-node/',
   ops: '/7-ops/',
-  mini: '/8-mini/',
   other: '/10-other/'
 }
 const sidebar = {
@@ -28,7 +27,6 @@ const sidebar = {
   [SIDEBAR.react]: { base: SIDEBAR.react, items: sidebarReact() },
   [SIDEBAR.node]: { base: SIDEBAR.node, items: sidebarNode() },
   [SIDEBAR.ops]: { base: SIDEBAR.ops, items: sidebarOps() },
-  [SIDEBAR.mini]: { base: SIDEBAR.mini, items: sidebarMini() },
   [SIDEBAR.other]: { base: SIDEBAR.other, items: sidebarOther() }
 }
 const transNav = (base: string, arrFn: () => DefaultTheme.SidebarItem[]) => {
@@ -46,7 +44,6 @@ const nav: DefaultTheme.NavItem[] = [
   { text: 'React', items: transNav(SIDEBAR.react, sidebarReact) },
   { text: 'Node', items: transNav(SIDEBAR.node, sidebarNode) },
   { text: '运维部署', items: transNav(SIDEBAR.ops, sidebarOps) },
-  { text: '小程序', items: transNav(SIDEBAR.mini, sidebarMini) },
   { text: '其他', items: transNav(SIDEBAR.other, sidebarOther) }
 ]
 
