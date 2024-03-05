@@ -36,15 +36,8 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         { text: 'HTTP版本', link: '10-HTTP版本.md' },
-        { text: 'HTTP状态码', link: '15.HTTP状态码.md' }
-      ]
-    },
-    {
-      text: '其他协议',
-      collapsed: false,
-      items: [
+        { text: 'HTTP状态码', link: '15.HTTP状态码.md' },
         { text: '其他协议', link: '11-其他协议.md' },
-        { text: 'Websocket', link: '13-Websocket.md' },
         { text: 'RPC与HTTP', link: '16.RPC与HTTP.md' }
       ]
     },
