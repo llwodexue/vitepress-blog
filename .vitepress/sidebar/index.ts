@@ -6,7 +6,6 @@ import sidebarVue from './sidebarVue'
 import sidebarReact from './sidebarReact'
 import sidebarNode from './sidebarNode'
 import sidebarOps from './sidebarOps'
-import sidebarMini from './sidebarMini'
 import sidebarOther from './sidebarOther'
 
 const SIDEBAR: Record<string, string> = {
