@@ -25,6 +25,7 @@
     "busuanzi.pure.js": "^1.0.3",
     "cross-env": "^7.0.3",
     "markdown-it-mathjax3": "^4.3.2",
+    "sass": "^1.71.1",
     "vue": "^3.3.9"
   },
   "keywords": [],
