@@ -1,12 +1,14 @@
 import DefaultTheme from 'vitepress/theme'
-import { inBrowser } from 'vitepress'
+import { inBrowser, useRoute } from 'vitepress'
 import type { EnhanceAppContext, Theme } from 'vitepress'
-import type { App } from 'vue'
 // import busuanzi from 'busuanzi.pure.js'
 import './style/index.scss'
 import Layout from './Layout.vue'
 import PageInfo from './components/PageInfo.vue'
-import { createMediumZoomProvider } from '../utils/useMediumZoom'
+import { watch, nextTick, onMounted } from 'vue'
+import mediumZoom from 'medium-zoom'
+
+const defaultSelector = ':not(a) > img:not(.image-src, .vp-sponsor-grid-image)'
 
 const theme: Theme = {
   extends: DefaultTheme,
@@ -17,8 +19,20 @@ const theme: Theme = {
       //   busuanzi.fetch()
       // }
     }
-    createMediumZoomProvider(app as any as App, router)
     app.component('PageInfo', PageInfo)
+  },
+  setup() {
+    const route = useRoute()
+    const initZoom = () => {
+      mediumZoom(defaultSelector)
+    }
+    onMounted(() => {
+      initZoom()
+    })
+    watch(
+      () => route.path,
+      () => nextTick(() => initZoom())
+    )
   }
 }
 
