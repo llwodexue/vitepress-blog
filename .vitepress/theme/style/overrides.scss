@@ -1,5 +1,3 @@
-/***** vitepress 样式覆盖 ******/
-
 /* 大屏大一点 */
 @media (min-width: 1440px) {
   .VPDoc.has-aside .content-container.content-container {
@@ -99,6 +97,10 @@ table {
 .dark .edit-link-button.edit-link-button,
 .dark .pager-link .title {
   color: var(--vp-c-brand-lighter);
+}
+.dark .VPContent {
+  background-color: rgb(10, 10, 11);
+  background-image: url('/grid.svg');
 }
 .dark .vp-doc a:hover,
 .dark .vp-doc a > code:hover {
