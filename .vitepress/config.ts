@@ -1,15 +1,17 @@
 import { defineConfig } from 'vitepress'
 import { sidebar, nav } from './sidebar'
-import algolia from './config/algolia'
+// import algolia from './config/algolia'
 import markdown from './config/markdown'
 import { name, keywords } from './config/meta'
 
 const base = process.env.BASE || '/'
 
 export default defineConfig({
+  outDir: '../dist',
   base,
   title: name,
   lastUpdated: true,
+  cleanUrls: true,
   locales: {
     root: { label: '简体中文', lang: 'zh-CN' }
   },
@@ -57,6 +59,6 @@ export default defineConfig({
     ['meta', { name: 'keywords', content: keywords }],
     ['meta', { name: 'author', content: 'lyn' }],
 
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/dolphin.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/rem.svg' }]
   ]
 })

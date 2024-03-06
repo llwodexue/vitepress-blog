@@ -1,5 +1,6 @@
 ---
 layout: home
+layoutClass: 'l-home-layout'
 title: LynDocs
 
 hero:
@@ -7,7 +8,7 @@ hero:
   text: Front-end learning
   tagline: 一站式前端内容网站，包括学习路线、知识体系
   image:
-    src: /dolphin.png
+    src: /rem.png
     alt: lyn
   actions:
     - theme: brand
@@ -31,3 +32,13 @@ features:
     title: 运维部署
     details: 前端环境、后端环境、数据库环境、容器环境、自动部署...
 ---
+
+<style>
+.l-home-layout .image-src {
+  border-radius: 50%;
+}
+.l-home-layout .image-src:hover {
+  transform: translate(-50%, -50%) rotate(666turn);
+  transition: transform 59s 1s cubic-bezier(0.3, 0, 0.8, 1);
+}
+</style>

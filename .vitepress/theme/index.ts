@@ -1,37 +1,24 @@
 import DefaultTheme from 'vitepress/theme'
-import { inBrowser, useRoute } from 'vitepress'
+import { inBrowser } from 'vitepress'
 import type { EnhanceAppContext, Theme } from 'vitepress'
-import { onMounted, watch, nextTick } from 'vue'
-import mediumZoom from 'medium-zoom'
+import type { App } from 'vue'
 // import busuanzi from 'busuanzi.pure.js'
-import './style/vars.css'
-import './style/global.css'
+import './style/index.scss'
 import Layout from './Layout.vue'
 import PageInfo from './components/PageInfo.vue'
+import { createMediumZoomProvider } from '../utils/useMediumZoom'
 
 const theme: Theme = {
-  ...DefaultTheme,
+  extends: DefaultTheme,
   Layout: Layout,
   enhanceApp({ router, app }: EnhanceAppContext) {
-    // if (inBrowser) {
-    //   ctx.router.onAfterRouteChanged = to => {
-    //     busuanzi.fetch()
-    //   }
-    // }
-    app.component('PageInfo', PageInfo)
-  },
-  setup() {
-    const route = useRoute()
-    const initZoom = () => {
-      mediumZoom('.main img', { background: 'var(--vp-img-bg)' })
+    if (inBrowser) {
+      // router.onAfterRouteChanged = to => {
+      //   busuanzi.fetch()
+      // }
     }
-    onMounted(() => {
-      initZoom()
-    })
-    watch(
-      () => route.path,
-      () => nextTick(() => initZoom())
-    )
+    createMediumZoomProvider(app as any as App, router)
+    app.component('PageInfo', PageInfo)
   }
 }
 
