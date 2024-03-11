@@ -59,6 +59,6 @@ export default defineConfig({
     ['meta', { name: 'keywords', content: keywords }],
     ['meta', { name: 'author', content: 'lyn' }],
 
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/rem.svg' }]
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: base + 'rem.svg' }]
   ]
 })
