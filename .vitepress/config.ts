@@ -7,7 +7,7 @@ import { name, keywords } from './config/meta'
 const base = process.env.BASE || '/'
 
 export default defineConfig({
-  outDir: '../dist',
+  // outDir: '../dist',
   base,
   title: name,
   lastUpdated: true,
