@@ -32,7 +32,8 @@ export default function sidebarOps(): DefaultTheme.SidebarItem[] {
         { text: 'nexus搭建npm私库', link: '其他-2.nexus搭建npm私库.md' },
         { text: 'YApi接口平台搭建', link: '其他-3.YApi接口平台搭建.md' },
         { text: '前端必备nginx', link: '其他-4.前端必备nginx.md' },
-        { text: '离线安装SVN', link: '其他-5.离线安装SVN.md' }
+        { text: '离线安装SVN', link: '其他-5.离线安装SVN.md' },
+        { text: '生成可信任的SSL证书', link: '其他-6.生成可信任的SSL证书.md' }
       ]
     }
   ]
