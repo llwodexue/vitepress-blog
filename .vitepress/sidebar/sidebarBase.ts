@@ -38,7 +38,9 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
         { text: 'HTTP版本', link: '10-HTTP版本.md' },
         { text: 'HTTP状态码', link: '15.HTTP状态码.md' },
         { text: '其他协议', link: '11-其他协议.md' },
-        { text: 'RPC与HTTP', link: '16.RPC与HTTP.md' }
+        { text: 'RPC与HTTP', link: '16.RPC与HTTP.md' },
+        { text: 'HTTP1与HTTP2对比', link: '17.HTTP1与HTTP2对比.md' },
+        { text: 'HTTP缓存', link: '18.HTTP缓存.md' }
       ]
     },
     {
@@ -65,6 +67,11 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
       items: [
         { text: 'VScode前端常用配置设置问题', link: '40-VScode前端常用配置设置问题.md' }
       ]
+    },
+    {
+      text: 'Git',
+      collapsed: false,
+      items: [{ text: 'Git安装与原理', link: '46-Git安装与原理.md' }]
     }
   ]
 }
