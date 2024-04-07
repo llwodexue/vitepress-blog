@@ -55,10 +55,25 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
         { text: '哈希表', link: '26-哈希表.md' },
         { text: '树结构', link: '27-树结构.md' },
         { text: '封装BST树', link: '28-封装BST树.md' },
-        { text: '图结构', link: '29-图结构.md' },
+        { text: '图结构', link: '29-图结构.md' }
+      ]
+    },
+    {
+      text: '数据结构与算法进阶',
+      collapsed: false,
+      items: [
         { text: '双向链表', link: '30-双向链表.md' },
         { text: '堆结构', link: '31.堆结构.md' },
         { text: '双端、优先级队列', link: '32.双端、优先级队列.md' }
+      ]
+    },
+    {
+      text: '操作系统',
+      collapsed: false,
+      items: [
+        { text: '操作系统基础', link: '50.操作系统基础.md' },
+        { text: '进程线程互斥', link: '51.进程线程互斥.md' },
+        { text: '操作系统补充', link: '52.操作系统补充.md' }
       ]
     },
     {
