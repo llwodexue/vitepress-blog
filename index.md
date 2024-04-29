@@ -8,7 +8,7 @@ hero:
   text: Front-end learning
   tagline: 学习是成长进步的阶梯，实践是提高本领的途径
   image:
-    src: /rem.png
+    src: /images/rem.png
     alt: lyn
   actions:
     - theme: brand

@@ -32,7 +32,7 @@ export default withPwa(
       search: {
         provider: 'local'
       },
-      logo: '/avatar.png',
+      logo: '/images/avatar.png',
       docFooter: {
         prev: '上一篇',
         next: '下一篇'
@@ -63,7 +63,8 @@ export default withPwa(
       ['meta', { name: 'keywords', content: keywords }],
       ['meta', { name: 'author', content: 'lyn' }],
 
-      ['link', { rel: 'icon', type: 'image/svg+xml', href: base + 'rem.svg' }]
+      ['link', { rel: 'icon', type: 'image/x-icon', href: base + 'favicon.ico' }],
+      ['link', { rel: 'icon', type: 'image/svg+xml', href: base + 'favicon.svg' }]
     ]
   })
 )
