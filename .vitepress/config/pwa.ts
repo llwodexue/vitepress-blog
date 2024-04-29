@@ -10,7 +10,7 @@ import { name, keywords } from './meta'
  */
 export const pwa: Partial<VitePWAOptions> = {
   // outDir: '../dist',
-  registerType: 'autoUpdate',
+  registerType: 'prompt',
   includeAssets: fg.sync('**/*.{png,svg,gif,ico,txt}', {
     cwd: resolve(__dirname, '../../public')
   }),
