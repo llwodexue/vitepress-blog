@@ -52,13 +52,3 @@ features:
     details: 微信小程序、uniapp、性能优化、数学、调研...
     link: /10-other/01-邂逅小程序开发
 ---
-
-<style>
-.l-home-layout .image-src {
-  border-radius: 50%;
-}
-.l-home-layout .image-src:hover {
-  transform: translate(-50%, -50%) rotate(666turn);
-  transition: transform 59s 1s cubic-bezier(0.3, 0, 0.8, 1);
-}
-</style>

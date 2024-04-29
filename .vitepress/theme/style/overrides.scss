@@ -117,3 +117,11 @@ table {
 .VPImage.logo {
   border-radius: 50%;
 }
+
+.l-home-layout .image-src {
+  border-radius: 50%;
+}
+.l-home-layout .image-src:hover {
+  transform: translate(-50%, -50%) rotate(666turn);
+  transition: transform 59s 1s cubic-bezier(0.3, 0, 0.8, 1);
+}
