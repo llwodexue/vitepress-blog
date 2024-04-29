@@ -67,6 +67,7 @@ export default function sidebarBase(): DefaultTheme.SidebarItem[] {
         { text: '双端、优先级队列', link: '32.双端、优先级队列.md' },
         { text: '平衡二叉树', link: '33.平衡二叉树.md' },
         { text: '红黑树', link: '34.红黑树.md' },
+        { text: '排序算法', link: '35.排序算法.md' }
       ]
     },
     {
