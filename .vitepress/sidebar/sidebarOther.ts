@@ -42,6 +42,16 @@ export default function sidebarOther(): DefaultTheme.SidebarItem[] {
       text: 'math',
       collapsed: false,
       items: [{ text: 'Bezier曲线曲面绘制', link: 'Bezier曲线曲面绘制.md' }]
+    },
+    {
+      text: '有趣的植物',
+      collapsed: false,
+      items: [{ text: '小麦', link: '31.小麦.md' }]
+    },
+    {
+      text: '美食合集',
+      collapsed: false,
+      items: [{ text: '上海吃吃吃', link: '41.上海吃吃吃.md' }]
     }
   ]
 }
