@@ -16,7 +16,7 @@ export default function sidebarEngine(): DefaultTheme.SidebarItem[] {
       collapsed: false,
       items: [
         { text: 'Webpack打包', link: '04-Webpack打包.md' },
-        { text: '其他打包工具和Eslint', link: '05-其他打包工具和Eslint.md' }
+        { text: 'Rollup和Eslint', link: '05-Rollup和Eslint.md' }
       ]
     },
     {
