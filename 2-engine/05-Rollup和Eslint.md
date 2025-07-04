@@ -187,6 +187,136 @@ Rollup 缺点
 - webpack 大而全
 - rollup 小而美
 
+## Rollup 实现 alias插件
+
+### 构建钩子
+
+钩子是在构建的各个阶段调用的函数。钩子可以影响构建的运行方式，提供关于构建的信息，或在构建完成后修改构建
+
+> [构建钩子](https://cn.rollupjs.org/plugin-development/#build-hooks)
+
+![image-20250417095827614](https://gitee.com/lilyn/pic/raw/master/md-img/image-20250417095827614.png)
+
+### 初步实现一个插件
+
+初始化 `package.json`(pnpm init) 和 typescript.json(tsc --init)
+
+创建 `src/index.ts` 文件，并安装 `rollup`
+
+```typescript
+import { Plugin } from 'rollup'
+
+export function alias(): Plugin {
+  return {
+    name: 'alias',
+    resolveId(source: string, importer: string | undefined) {
+      console.log('alias - resolveId ->', source, importer)
+      // 这里可以先写死，把 @/add -> @/src/add
+      return source
+    }
+  }
+}
+```
+
+创建 `rollup.config.js` 文件，并安装 `@rollup/plugin-typescript`
+
+```typescript
+import { defineConfig } from 'rollup'
+import typescript from '@rollup/plugin-typescript'
+
+export default defineConfig({
+  input: './src/index.ts',
+  output: {
+    file: './dist/index.js',
+    format: 'es'
+  },
+  plugins: [
+    typescript({
+      module: 'esnext'
+    })
+  ]
+})
+```
+
+在 `package.json` 中增加 `"build": "rollup -c rollup.config.js"`，直接运行会报如下警告
+
+- 由于 commonjs 和 esm 有冲突，需要在 `package.json` 中增加 `"type": "module"`
+
+![image-20250417101521678](https://gitee.com/lilyn/pic/raw/master/md-img/image-20250417101521678.png)
+
+之后即可打包成功，之后还需要指定 `"main": "./dist/index.js"`
+
+![image-20250417102548895](https://gitee.com/lilyn/pic/raw/master/md-img/image-20250417102548895.png)
+
+### 完善插件结构
+
+由于 alias 会接受 options 入参，需要对入参做类型校验
+
+- 比如：先对 entries 做校验
+
+```typescript
+interface AliasOptions {
+  entries: {
+    [key: string]: string
+  }
+}
+```
+
+为了良好的代码提示，需要把声明以 .d.ts 文件形式输出到 dist 目录，需要修改 `tsconfig.json`
+
+```json
+/* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+"declaration": true,
+/* Specify an output folder for all emitted files. */
+"outDir": "./dist",   
+```
+
+给 `package.json` 文件增加 `"types": "./dist/index.d.ts"`
+
+之后就可以完善 `rollup.config.js` 了
+
+```typescript
+import { Plugin } from 'rollup'
+
+interface AliasOptions {
+  entries: {
+    [key: string]: string
+  }
+}
+export function alias(options: AliasOptions): Plugin {
+  const { entries } = options
+  return {
+    name: 'alias',
+    resolveId(source: string) {
+      // 看看是不是有对应的 alias match
+      const key = Object.keys(entries).find(e => source.startsWith(e))
+      if (!key) return source
+      return source.replace(key, entries[key]) + '.js'
+    }
+  }
+}
+```
+
+### 使用单元测试提高开发效率
+
+安装 `vitest`，并修改 `package.json` 中 `"test": "vitest"`
+
+如果报如下错误，说明 node 版本太低了，切换到 v18 以上即可
+
+```bash
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯file:///xx/alias/node_modules/.pnpm/vite@6.3.1/node_modules/vite/dist/node/chunks/dep-Bxmd1Uxj.js:4
+import fsp, { constants as constants$3 } from 'node:fs/promises';
+              ^^^^^^^^^
+SyntaxError: The requested module 'node:fs/promises' does not provide an export named 'constants'
+    at ModuleJob._instantiate (node:internal/modules/esm/module_job:128:21)        
+    at async ModuleJob.run (node:internal/modules/esm/module_job:194:5)
+    at async Promise.all (index 0)
+    at async ESMLoader.import (node:internal/modules/esm/loader:385:24)
+    at async start (file:///E:/learn/lagouBigFront/md/Webpack/code/alias/node_modules/.pnpm/vitest@3.1.1/node_modules/vitest/dist/chunks/cac.DK21mt6F.js:1467:27) 
+```
+
+
+
 ## Eslint
 
 **为什么要有规范化标准**
