@@ -38,6 +38,7 @@ export default function sidebarOps(): DefaultTheme.SidebarItem[] {
         { text: 'Docker实战', link: '其他-8.Docker实战.md' },
         { text: '安装nextcloud', link: '其他-9.安装nextcloud.md' },
         { text: '安装OpenVPN', link: '其他-10.安装OpenVPN.md' },
+        { text: '离线部署文档', link: '其他-11.离线部署文档.md' },
       ]
     }
   ]
