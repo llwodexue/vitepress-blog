@@ -52,6 +52,16 @@ export default function sidebarOther(): DefaultTheme.SidebarItem[] {
       text: '美食合集',
       collapsed: false,
       items: [{ text: '上海吃吃吃', link: '41.上海吃吃吃.md' }]
+    },
+    {
+      text: '配置电脑',
+      collapsed: false,
+      items: [{ text: '台式机配置', link: '51.台式机配置.md' }]
+    },
+    {
+      text: '游戏攻略',
+      collapsed: false,
+      items: [{ text: '三国冰河时代玩', link: '61.三国冰河时代玩法.md' }]
     }
   ]
 }
