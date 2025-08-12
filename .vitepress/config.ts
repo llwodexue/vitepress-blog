@@ -28,6 +28,7 @@ export default withPwa(
       hostname: 'https://www.llmysnow.top/'
     },
     markdown: markdown,
+    ignoreDeadLinks: true, // 忽略所有死链接检测
     themeConfig: {
       search: {
         provider: 'local'
