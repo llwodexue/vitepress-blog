@@ -1798,3 +1798,53 @@ declare namespace $ {
 }
 ```
 
+## 与Vue结合使用
+
+使用 withDefaults 和直接 defineProps 设置默认值的区别：
+
+1. 代码可读性和维护性方面
+
+   使用 defineProps：
+
+   - 优点：defineProps 直接设置默认比较简洁，props 定义包括类型和默认值都集中在一个地方，一目了然
+   - 缺点：当 props 定义比较复杂或需要对默认值进行一些复杂计算时，会使 defineProps 代码变得臃肿
+
+   ```js
+   const props = defineProps({
+     count: { type: Number, default: 0 },
+     name: { type: String, default: 'Guest' }
+   })
+   ```
+
+   使用 withDefaults：
+
+   - 优点：withDefaults 将默认值与 props 类型定义分离开，使得代码更加清晰。props 定义复杂或者有多个 props 需要设置默认值时，这种分离可以提高代码可读性
+   - 缺点：代码位置相对分散，需要查看两个地方才能完整地了解 props 定义和默认值情况
+
+   ```js
+   const props = defineProps({ count: Number, name: String })
+   withDefaults(props, { count: 0, name: 'Guest' })
+   ```
+
+2. 功能实现细节方
+
+   使用 defineProps：
+
+   - 当 props 是一个复杂的对象类型，并且默认值是一个对象时，直接在 defineProps 中设置值可以很好利用对象的结构特性
+
+   ```js
+   const props = defineProps({
+     user: { type: Object, default: () => ({ name: 'Guest', age: 18 }) }
+   })
+   ```
+
+   使用 withDefaults：
+
+   - 在处理复杂对象类型的默认值时，与直接在 defineProps 中设置默认值功能类似，但语法上略有不同
+
+   ```js
+   const props = defineProps({ user: Object })
+   withDefaults(props, { user: () => ({ name: 'Guest', age: 18 }) })
+   ```
+
+   

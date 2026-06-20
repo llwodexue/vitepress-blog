@@ -92,7 +92,7 @@ const useAppStore = defineStore('app', {
   },
   actions: {
     increment (num) {
-      this.state.count += num
+      this.count += num
     }
   }
 })

@@ -219,7 +219,7 @@ createApp({
 - 需要解析模板 template，需要手动指定 vue.esm-bundler
 
 ```js
-import { createApp } from 'vue/dist/vue.esm-bundler
+import { createApp } from 'vue/dist/vue.esm-bundler'
 ```
 
 ### 打包后不同版本解析

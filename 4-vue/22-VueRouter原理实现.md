@@ -361,7 +361,7 @@ Vue.component('router-link', {
   },
   render(h) {
     return h('a', {
-      attr: {
+      attrs: {
         href: this.to
       }
     }, [this.$slots.default])

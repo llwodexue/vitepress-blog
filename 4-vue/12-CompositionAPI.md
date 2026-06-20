@@ -846,7 +846,6 @@ const getCounter = payload => {
 <button @click="emitEvent">发射事件</button>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
 const props = defineProps({
   message: {
     type: String,

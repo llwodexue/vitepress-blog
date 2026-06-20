@@ -245,7 +245,7 @@ const store = createStore({
     }
   },
   getters: {
-    totalPrice(state) {
+    totalPrice(state, getters) {
       let totalPrice = 0
       for (const book of state.books) {
         totalPrice += book.count * book.price

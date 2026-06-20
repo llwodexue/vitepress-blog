@@ -13,7 +13,7 @@
 **源码通过 monorepo 的形式来管理源代码**
 
 - mono：单个的意思；repo： repository仓库的简写
-- 主要是将许多项目的代码存储在同一个 respository 中
+- 主要是将许多项目的代码存储在同一个 repository 中
 
 我们来看下面的图片，对比 vue2 和 vue3 源码的不同管理方式：
 
@@ -34,7 +34,7 @@
 
 **使用 Proxy 进行数据劫持**
 
-- 在 Vue2.x 的时候，使用 `Object.defineProperty` 来劫持数据的数据的 `getter` 和 `setter` 方法的
+- 在 Vue2.x 的时候，使用 `Object.defineProperty` 来劫持数据的 `getter` 和 `setter` 方法的
 
   这种方式一直存在一个缺陷就是当给对象添加或者删除属性时，是无法劫持和监听的
 
