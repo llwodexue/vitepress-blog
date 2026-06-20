@@ -18,7 +18,7 @@ Vue 做的要好于 React：
 - 通过 lang 属性来设置你喜欢的 less、sass 等预处理器
 - 通过内联样式风格的方式来根据最新状态设置和改变 css
 
-相比而言，React 官方并没有给出在React中统一的样式风格：
+相比而言，React 官方并没有给出在 React 中统一的样式风格：
 
 - 由此，从普通的 `css`，到 `css modules`，再到 `css in js`，有几十种不同的解决方案，上百个不同的库
 
@@ -26,7 +26,7 @@ Vue 做的要好于 React：
 
 内联样式是官方推荐的一种 css 样式的写法：
 
-- style 接受一个采用小驼峰命名属性的 JavaScript 对象，，而不是 CSS 字符串
+- style 接受一个采用小驼峰命名属性的 JavaScript 对象，而不是 CSS 字符串
 - 并且可以引用 state 中的状态来设置相关的样式
 
 内联样式的优点:

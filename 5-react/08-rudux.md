@@ -182,7 +182,7 @@ sagaMiddleware.run(mySaga)
 export default store
 ```
 
-- takeEvery：可以传入多个监听的 actionType，每一个都可以被执行（对应有一个 takeLastest，会取消前面的）
+- takeEvery：可以传入多个监听的 actionType，每一个都可以被执行（对应有一个 takeLatest，会取消前面的）
 - put：在saga中派发 action 不再是通过 dispatch，而是通过 put
 - all：可以在 yield 的时候 put 多个 action
 

@@ -270,10 +270,6 @@ const App = memo(() => {
     console.log('increment')
     setCount(count + 1)
   }, [count])
-  // 普通的函数
-  const increment = () => {
-    setCount(count+1)
-  }
   return (
     <div>
       <h2>计数: {count}</h2>
@@ -553,7 +549,7 @@ function useLocalStorage(key) {
   // 2.监听data改变, 一旦发生改变就存储data最新值
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(data))
-  }, [data, key])
+  }, [data])
 
   // 3.将data/setData的操作返回给组件, 让组件可以使用和修改值
   return [data, setData]
