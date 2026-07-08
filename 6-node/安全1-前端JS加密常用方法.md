@@ -10,7 +10,7 @@
 
 node 中有原生 crypto 模块，该模块提供了 hash、hmac、加密解密等一整套封装。因为是 node 中的模块，所以需要使用 `const crypto = require('crypto')` 来引入
 
-MD5、SHA1 也成散列算法
+MD5、SHA1 也称散列算法
 
 #### crypto 进行 MD5 SHA 加密
 
@@ -79,7 +79,7 @@ const salt = Math.random() * 99999 + new Date().getTime()
 encryptPassword(salt, psw) // 5927975bb4e8453b54e244ae4640426f
 ```
 
-crypto 里有 `createHmac()` 方法，hmac 类似加盐版 hash 算法，hmac 是密钥相关的哈希运算消息认证码（Hash-basees Message Authentication Code）
+crypto 里有 `createHmac()` 方法，hmac 类似加盐版 hash 算法，hmac 是密钥相关的哈希运算消息认证码（Hash-based Message Authentication Code）
 
 ```js
 const crypto = require('crypto')
@@ -183,7 +183,7 @@ console.log(crypto.getCiphers())
 
 cryoto 模块中提供了 `createCipheriv` 和 `createDecipheriv` 来进行加密和解密的功能，这两个方法都接收 3 个参数：
 
-1. algorithm 同于指定加密算法
+1. algorithm 用于指定加密算法
 
    `aes-128-cbc`  算法是 128
 
@@ -256,7 +256,7 @@ CryptoJS 加密出的结果是一个对象：`CryptoJs.AES.encrypt(src, key, { i
 
   详细可见：[块加密 工作模式 ECB、CBC、PCBC、CFB、OFB、CTR](https://blog.csdn.net/jerry81333/article/details/78336616)
 
-  ECB 模式下，向量 iv 是没有用的。ECB 加密原理：根据加密块的大小分成若干块，之后将每块使用相同的秘钥单独加密即可
+  ECB 模式下，向量 iv 是没有用的。ECB 加密原理：根据加密块的大小分成若干块，之后将每块使用相同的密钥单独加密即可
 
   CBC 模式下，向量 iv 是有用的。CBC 加密原理：每个明文块进行异或后再进行加密，每个密文块都依赖前面的所有明文块
 
@@ -578,7 +578,7 @@ console.log('公钥验证：' + verifyRSA(sign, signature))
 
 到此为止前后端交互通信已经做了加密操作，接下来最重要的就是如何保证加密的 key 不泄露？
 
-- 服务端啊安全性较高，可以存储在数据库文件或配置文件中，前端就很危险了
+- 服务端安全性较高，可以存储在数据库文件或配置文件中，前端就很危险了
 
 下面是动态获取加密 key 的方式：
 

@@ -30,7 +30,7 @@ type 和 interface 的异同？
 
   好处：
 
-  - 增程序的可扩展性：函数或类可以很轻松地支持多种类型
+  - 增强程序的可扩展性：函数或类可以很轻松地支持多种类型
   - 增强代码的可读性：不必写多条函数重载，或者冗长的联合类型声明
   - 灵活地控制类型之间的约束
 
@@ -78,7 +78,7 @@ function* gen(): Generator<AnyType, AnyReturnType, AnyNextType> {
 }
 ```
 
-- `?:` 表示参数可以缺省、可以不传。但是，如果我们声明了参数类型为 `xxx | undefined`，就表示函数参数是不可缺省且类型必须是 xxx 或者 undfined
+- `?:` 表示参数可以缺省、可以不传。但是，如果我们声明了参数类型为 `xxx | undefined`，就表示函数参数是不可缺省且类型必须是 xxx 或者 undefined
 
 ![image-20230109091115908](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230109091115908.png)
 
@@ -232,7 +232,7 @@ reflectSpecified(true)
 
   any 类型可以赋值给除了 never 之外的任意其他类型，反过来其他类型也可以赋值给 any
 
-- unkonwn
+- unknown
 
   不能把 unknown 赋值给除了 any 之外任何其他类型，反过来其他类型都可以赋值给 unknown
 
@@ -632,7 +632,7 @@ compilerOptions
 
 - **noFallthroughCasesInSwitch**
 
-  禁止 switch 语句中的穿透的情况。开启 noFallthroughCasesInSwitch 后，如果 switch 语句的流程分支中没有 break 或 return ，则会抛出错误，从而避免了意外的 swtich 判断穿透导致的问题
+  禁止 switch 语句中的穿透的情况。开启 noFallthroughCasesInSwitch 后，如果 switch 语句的流程分支中没有 break 或 return ，则会抛出错误，从而避免了意外的 switch 判断穿透导致的问题
 
 - **moduleResolution**
 
@@ -688,7 +688,7 @@ compilerOptions
 
 - **skipLibCheck**
 
-  开启 skipLibChec 选项，表示可以跳过检查声明文件
+  开启 skipLibCheck 选项，表示可以跳过检查声明文件
 
 - **forceConsistentCasingInFileNames**
 

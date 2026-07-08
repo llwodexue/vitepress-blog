@@ -551,7 +551,7 @@ class MyPromise {
       },
       reason => {
         return MyPromise.resolve(callback()).then(() => {
-          throw reason()
+          throw reason
         })
       }
     )
@@ -660,7 +660,7 @@ class MyPromise {
       },
       reason => {
         return MyPromise.resolve(callback()).then(() => {
-          throw reason()
+          throw reason
         })
       }
     )

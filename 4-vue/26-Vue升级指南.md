@@ -73,7 +73,7 @@ Upgrading @vue/cli-plugin-eslint from 4.4.4 to 5.0.8
    + "@babel/core": "^7.12.16"
    ```
 
-   还需要升级 `eslint` 对应的 parser，安装 `@babel/eslint-parse`
+   还需要升级 `eslint` 对应的 parser，安装 `@babel/eslint-parser`
 
    ```bash
    $ npm un babel-eslint
@@ -87,9 +87,13 @@ Upgrading @vue/cli-plugin-eslint from 4.4.4 to 5.0.8
 
    ```js
    module.exports = {
-     parserOptions: {
-       parser: '@babel/eslint-parser'
-     }
+parserOptions: {
+        parser: '@babel/eslint-parser',
+        requireConfigFile: false,
+        babelOptions: {
+          configFile: './babel.config.js'
+        }
+      }
    }
    ```
 

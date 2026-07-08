@@ -361,7 +361,7 @@ Loader 专注实现资源模块加载，从而实现整体项目的打包，Plug
 - `clean-webpack-plugin`
 
 ```bash
-yarn add clean-webpack-plugins --dev
+yarn add clean-webpack-plugin --dev
 ```
 
 ```js
@@ -629,9 +629,9 @@ fetch('/api/users') // http://localhost:8080/api/users
 ### Source Map
 
 - eval：将模块代码放到 `eval` 函数执行，通过 `sourceURL` 标注模块文件的路径，并没有生成 `Source-Map`，无法定位哪一个文件除了错误
-- eval-souce-map：使用 `eval` 函数执行代码，不仅可以定位错误出现的文件还可以定位行和列的信息
-- cheap-eval-source-map：相对于 `eval-souce-map` 它只能定位行的信息，不能定位列的信息
-- cheap-module-eval-source-map：`cheap-eval-source-map` 展示的是 ES6 转换后的结果，`cheap-module-eval-source-map` 定位的源代码跟我们编写的代码是一样的
+- eval-source-map：使用 `eval` 函数执行代码，不仅可以定位错误出现的文件还可以定位行和列的信息
+- cheap-eval-source-map：相对于 `eval-source-map` 它只能定位行的信息，不能定位列的信息
+- eval-cheap-module-source-map：`cheap-eval-source-map` 展示的是 ES6 转换后的结果，`eval-cheap-module-source-map` 定位的源代码跟我们编写的代码是一样的
 
 总结：
 
@@ -672,7 +672,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const allModes = [
 	'eval',
 	'cheap-eval-source-map',
-	'cheap-module-eval-source-map',
+	'eval-cheap-module-source-map',
 	'eval-source-map',
 	'cheap-source-map',
 	'cheap-module-source-map',
@@ -716,7 +716,7 @@ module.exports = allModes.map(item => {
 
 **选择合适 Source Map**
 
-- 开发环境使用：cheap-module-eval-source-map
+- 开发环境使用：eval-cheap-module-source-map
 
   代码每行不会超过 80 个字符
 
@@ -843,7 +843,7 @@ if (module.hot) {
 module.exports = (env, argv) => {
   const config = {
     mode: 'development',
-    devtool: 'cheap-eval-module-source-map',
+    devtool: 'eval-cheap-module-source-map',
     // ...
   }
 

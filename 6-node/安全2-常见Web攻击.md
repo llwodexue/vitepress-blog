@@ -230,7 +230,7 @@ eval("UNTRUSTED")
 
 ## CSRF
 
-CSRF（Cross Site Request Forgery），即跨站请求伪造，是一种常见 Web 攻击，它利用用户已登录的身份，在用户毫不知情的情况下，已用户的名义完成非法操作
+CSRF（Cross Site Request Forgery），即跨站请求伪造，是一种常见 Web 攻击，它利用用户已登录的身份，在用户毫不知情的情况下，以用户的名义完成非法操作
 
 CSRF 攻击流程：
 
@@ -322,7 +322,7 @@ cookie 的应用场景：
 **Samesite Cookie 属性**
 
 - `Samesite=Strict`：严格模式，表明这个 Cookie 在任何情况下都不可能作为第三方 Cookie
-- `Samesite=Lax`：宽松模式，比 Strict 放宽了点限制，假如这个请求是这个请求且是个 GET 请求，则这个 Cookie 可以作为第三方 Cookie
+- `Samesite=Lax`：宽松模式，比 Strict 放宽了点限制，假如这个请求是顶级导航请求且为 GET 请求，则这个 Cookie 可以作为第三方 Cookie
 
 注意：这个可以解决 `某些 Cookie 滥用推荐的“SameSite“属性 ` 问题
 
@@ -352,9 +352,9 @@ Cookies.set('lang', lang, {
 
   `X-FRAME-OPTIONS` 是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头就是为了防御用 iframe 嵌套的点击劫持
 
-  改响应头有三个值可选，分别是：
+  该响应头有三个值可选，分别是：
 
-  - `DENT` ：页面不允许通过 iframe 的方式展示
+  - `DENY` ：页面不允许通过 iframe 的方式展示
   - `SAMEORIGIN` ：页面可以在相同域名下通过 iframe 的方式展示
   - `ALLOW-FROM` ：页面可以在指定来源的 iframe 中展示
 
@@ -418,7 +418,7 @@ exec(`git clone ${params.repo} /some/path`);
 
 ### DDOS
 
-distributed denial of service，DDOS 不是一种攻击，而是一大类攻击的总称。其中，比较常见的一种攻击是 cc 攻击。它就是简单粗暴地送来大量正常的请求，超出服务器的最大承受量，导致宕机
+distributed denial of service，DDOS 不是一种攻击，而是一大类攻击的总称。其中，比较常见的一种攻击是 cc 攻击。它就是简单粗暴地发送大量正常的请求，超出服务器的最大承受量，导致宕机
 
 - SYN Flood
 

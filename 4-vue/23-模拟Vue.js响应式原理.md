@@ -304,7 +304,7 @@ class Vue {
 **功能**
 
 - 负责把 data 选项中的属性转换成响应式的数据
-- data 中的某个属性也是对象，把改属性转换成响应式数据
+- data 中的某个属性也是对象，把该属性转换成响应式数据
 - 数据变化发送通知
 
 ![image-20220519112916746](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220519112916746.png)
@@ -359,7 +359,7 @@ class Observer {
 这里有两个问题：
 
 1. 如果 data 中的某个属性是对象，则需要继续遍历让其内部属性转换成响应式数据
-2. 如果 data 中的某个属性重新赋值，需要该属性的也变成响应式
+2. 如果 data 中的某个属性重新赋值，需要将该属性的值也变成响应式
 
 ### Compiler
 
@@ -432,7 +432,7 @@ class Compiler {
   // 编译文本节点，处理差值表达式
   compileText(node) {
     // {{  msg }}
-    let reg = /\{\{(.+?)\}\}/
+    let reg = /\{\{(.+?)\}\}/g
     let value = node.textContent
     if (reg.test(value)) {
       // console.dir(RegExp)
@@ -495,7 +495,7 @@ class Dep {
 ![image-20220522154738419](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220522154738419.png)
 
 - data 中的对象在　getter 中通过 Dep 对象收集依赖，在 setter 中触发依赖
-- data 中的每一个属性都要创建一个对应的 Dep 对象，在收集依赖时把依赖数据的 watcher 添加到 Dep 对象的 `subs` 数组中，在触发依赖时调用 Dep 对象的 `notify` 发送通知通知所有 wathcer 对象更新视图
+- data 中的每一个属性都要创建一个对应的 Dep 对象，在收集依赖时把依赖数据的 watcher 添加到 Dep 对象的 `subs` 数组中，在触发依赖时调用 Dep 对象的 `notify` 发送通知通知所有 watcher 对象更新视图
 
 **功能**
 

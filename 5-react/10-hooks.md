@@ -34,7 +34,7 @@ useState 来自 react，需要从 react 中导入，它是一个 hook
 
 - **参数：初始化值，如果不设置为 undefined**
 - **返回值：数组，包含两个元素**
-  - **元素一：当前状态的值（第一调用为初始化值）**
+  - **元素一：当前状态的值（第一次调用为初始化值）**
   - **元素二：设置状态值的函数**
 
 但是使用它们会有两个额外的规则：
@@ -82,7 +82,7 @@ useEffect 的解析：
 
 - 通过 useEffect 的 Hook，可以告诉 React 需要在渲染后执行某些操作
 - **useEffect 要求我们传入一个回调函数，在 React 执行完更新 DOM 操作之后，就会回调这个函数**
-- 默认情况下，无论是第一次渲染之后，还没每次更新之后，都会执行这个回调函数
+- 默认情况下，无论是第一次渲染之后，以及每次更新之后，都会执行这个回调函数
 
 在 class 组件的编写过程中，某些副作用的代码，我们需要在 componentWillUnmount 中进行清除：
 
@@ -374,7 +374,7 @@ const App = memo(() => {
 
 ## useRef
 
-**useRef 返回一个 ref 对象，返回的 ref 对象再组件的整个生命周期保持不变**
+**useRef 返回一个 ref 对象，返回的 ref 对象在组件的整个生命周期保持不变**
 
 最常用的 ref 是两种用法：
 
@@ -539,7 +539,7 @@ localStorage 数据存储
 import { useEffect, useState } from 'react'
 
 function useLocalStorage(key) {
-  // 1.从localStorage中获取数据, 并且数据数据创建组件的state
+  // 1.从localStorage中获取数据, 并且根据数据创建组件的state
   const [data, setData] = useState(() => {
     const item = localStorage.getItem(key)
     if (!item) return ''
@@ -696,7 +696,7 @@ const App = memo(() => {
 import React, { memo, useState, useTransition } from 'react'
 import { faker } from '@faker-js/faker'
 
-const namesArray = new Array(10000).fill(0).map(() => faker.name.fullName())
+const namesArray = new Array(10000).fill(0).map(() => faker.person.fullName())
 
 const App = memo(() => {
   const [showNames, setShowNames] = useState(namesArray)
@@ -733,11 +733,11 @@ const App = memo(() => {
 import React, { memo, useState, useDeferredValue } from 'react'
 import { faker } from '@faker-js/faker'
 
-const namesArray = new Array(10000).fill(0).map(() => faker.name.fullName())
+const namesArray = new Array(10000).fill(0).map(() => faker.person.fullName())
 
 const App = memo(() => {
   const [showNames, setShowNames] = useState(namesArray)
-  const deferedShowNames = useDeferredValue(showNames)
+  const deferredShowNames = useDeferredValue(showNames)
 
   function valueChangeHandle(event) {
     const keyword = event.target.value
@@ -749,7 +749,7 @@ const App = memo(() => {
       <input type='text' onInput={valueChangeHandle} />
       <h2>用户名列表: </h2>
       <ul>
-        {deferedShowNames.map((item, index) => {
+        {deferredShowNames.map((item, index) => {
           return <li key={index}>{item}</li>
         })}
       </ul>

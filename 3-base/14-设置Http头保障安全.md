@@ -27,7 +27,7 @@ Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' http
 
 > [X-Content-Type-Options](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-Content-Type-Options)
 
-X-Content-Type-Options：被服务器用来提示客户端一定要遵循在 Content-Type 首部中对 MIME 类型 的设定，而不能对其进行修改。这就禁用了客户端的 MIME 类型嗅探行
+X-Content-Type-Options：被服务器用来提示客户端一定要遵循在 Content-Type 首部中对 MIME 类型 的设定，而不能对其进行修改。这就禁用了客户端的 MIME 类型嗅探行为
 
 ```http
 X-Content-Type-Options: nosniff

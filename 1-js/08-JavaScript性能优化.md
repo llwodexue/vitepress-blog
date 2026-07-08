@@ -425,7 +425,7 @@ GC 的目的是为了实现内存空间的良性循环
     body: [
       {
         type: 'VariableDeclaration',
-        declaration: [
+        declarations: [
           {
             type: 'VariableDeclarator',
             id: {

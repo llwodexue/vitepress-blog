@@ -34,19 +34,19 @@
 
 ### 跨平台发展史
 
-- 2009 年以前，当时最要是使用最原始的 HTML + CSS + JS 进行移动端 App 开发
-- 2009-2014年间，出现了 PhoneGap、Cordova 等跨平台框架，以及 lonic 轻量级的手机端 UI 库
+- 2009 年以前，当时主要是使用最原始的 HTML + CSS + JS 进行移动端 App 开发
+- 2009-2014年间，出现了 PhoneGap、Cordova 等跨平台框架，以及 Ionic 轻量级的手机端 UI 库
 - 2015年，ReactNative（跨平台框架）掀起了国内跨平台开发热潮，一些互联网大厂纷纷投入 ReactNative 开发阵营
-- 2016年，阿里开源了 Weex，它是一个可以使用现代化 Web 技术开发高性能原生应用的框
-- 2017年 Google l/0大会上，Google 正式向外界公布了 Flutter，一款跨平台开发工具包，用于为 Android、ios、WebWindows、Mac 等平台开发应用
-- 2017年至今，微信小程序、uni-app、Taro 等一列跨平台小程序框架流行起来了
+- 2016年，阿里开源了 Weex，它是一个可以使用现代化 Web 技术开发高性能原生应用的框架
+- 2017年 Google I/O大会上，Google 正式向外界公布了 Flutter，一款跨平台开发工具包，用于为 Android、ios、WebWindows、Mac 等平台开发应用
+- 2017年至今，微信小程序、uni-app、Taro 等一系列跨平台小程序框架流行起来了
 
 如何选择？
 
 - 需要做高性能、复杂用户体验、定制高的 APP、需硬件支持的选 原生开发
 - 需要性能较好、体验好、跨 Android、iOS 平台、 H5 平台、也
 - 需要硬件支持的选 Flutter（采用Dart开发）
-- 需要跨小程序、H5 平台、Android、iOS 平台、不太复杂的先选 uni-app，其次选 Taro 不需要扩平台的，选择对应技术框架即可
+- 需要跨小程序、H5 平台、Android、iOS 平台、不太复杂的先选 uni-app，其次选 Taro 不需要跨平台的，选择对应技术框架即可
 
 ![image-20231018163215028](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231018163215028.png)
 

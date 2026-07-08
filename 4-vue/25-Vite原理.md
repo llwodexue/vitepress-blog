@@ -62,10 +62,12 @@ Webpack HMR
 
 **浏览器对 ES Module 的支持**
 
-- TypeScript - 内置支持
-- less/sass/stylus/postcss - 内置支持（需要单独安装）
-- JSX
-- Web Assembly
+浏览器原生并不支持以下特性，需要额外处理：
+
+- TypeScript - 浏览器不支持，需要编译为 JavaScript
+- less/sass/stylus/postcss - 浏览器不支持，需要编译为 CSS
+- JSX - 浏览器不支持，需要编译为 JavaScript
+- Web Assembly - 浏览器不支持，需要编译为 Wasm 模块
 
 ![image-20221101164208357](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221101164208357.png)
 
@@ -261,7 +263,7 @@ console.log('Server running: http://localhost:3003')
 
 ### 编译单文件组件
 
-vue 内部通过 `@vue/compiler-sfc` 来解析单文件组件，把组件分成 tmeplate、style、script 三个部分
+vue 内部通过 `@vue/compiler-sfc` 来解析单文件组件，把组件分成 template、style、script 三个部分
 
 - 我们需要做的就是在 node 环境，把 template 内容解析成 render 函数
 - 和 script 的内容组成对象，再返回
@@ -286,7 +288,7 @@ $ npm i @vue/compiler-sfc
 
 - 通过 `descriptor.script` 获取 JavaScript 代码
 - 并且发起一个 `type=template` 的方法获取 render 函数
-- 在 `query.type === 'template'` 的时候，调用 `compilerDom.compil` 解析 template 内容，直接返回 render 函数
+- 在 `query.type === 'template'` 的时候，调用 `compilerSFC.compileTemplate` 解析 template 内容，直接返回 render 函数
 
 ```js
 #!/usr/bin/env node

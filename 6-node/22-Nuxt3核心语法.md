@@ -50,7 +50,7 @@ Nuxt 提供了一个可定制的路由中间件，用来监听路由的导航，
 
 - 全局路由中间件（优先级比前面的高，支持两端）
 
-  - 在 middleware 目录中，需带 .gloabl 后缀的文件，每次路由更改都会自动运行
+  - 在 middleware 目录中，需带 .global 后缀的文件，每次路由更改都会自动运行
 
 ![image-20231102163638020](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231102163638020.png)
 
@@ -134,6 +134,6 @@ definePageMeta({
 - 服务器端渲染模式（SSR）：只需将 ssr 设置为 true
 - 混合渲染模式（SSR | CSR | SSG | SWR）：需在 routeRules 根据每个路由动态配置渲染模式（beta 版本）
 
-> [routerules](https://nitro.unjs.io/config#routerules)
+> [routeRules](https://nitro.unjs.io/config#routerules)
 
 ![image-20231114094806267](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231114094806267.png)

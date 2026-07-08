@@ -452,7 +452,7 @@ module.exports = {
 
 `rules`：配置每个校验规则的开启或关闭
 
-- 有是哪个属性：`off` 关闭、`on` 发出警告、`error` 警告
+- 有三个属性：`off` 关闭、`warn` 发出警告、`error` 报错
 
 `globals`：额外声明在代码中可以使用的全局成员
 

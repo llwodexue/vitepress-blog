@@ -99,7 +99,7 @@ console.log('index.js内容执行了')
 console.log(obj.default, '---->', obj.age)
 
 /* login.js */
-// 01 采用 cms 导出模块内容
+// 01 采用 cjs 导出模块内容
 // module.exports = 'zcegg'
 // 02 采用 esModule 导出模块内容
 export default 'zcegg'
@@ -114,7 +114,7 @@ export const age = 18
   },
   './src/login.js': function (module, __webpack_exports__, __webpack_require__) {
     'use strict'
-    // 01 采用 cms 导出模块内容
+    // 01 采用 cjs 导出模块内容
     // module.exports = 'zcegg'
     // 02 采用 esModule 导出模块内容
     __webpack_require__.r(__webpack_exports__)
@@ -136,7 +136,7 @@ console.log('index.js内容加载了')
 console.log(name, '---->', age)
 
 /* login.js */
-// 01 采用 cms 导出模块内容
+// 01 采用 cjs 导出模块内容
 // module.exports = 'zce'
 // 02 采用 esModule 导出模块内容
 export default 'zce'
@@ -160,7 +160,7 @@ export const age = 100
   },
   './src/login.js': function (module, __webpack_exports__, __webpack_require__) {
     'use strict'
-    // 01 采用 cms 导出模块内容
+    // 01 采用 cjs 导出模块内容
     // module.exports = 'zce'
     // 02 采用 esModule 导出模块内容
     __webpack_require__.r(__webpack_exports__)
@@ -210,7 +210,7 @@ export const age = 100
 
   // 05 定义 o 方法用于判断对象的身上是否存在指定的属性
   __webpack_require__.o = function (object, property) {
-    return Object.prototype.hasOwnProperty(object, property)
+    return Object.prototype.hasOwnProperty.call(object, property)
   }
 
   // 06 定义 d 方法用于在对象身上添加指定的属性，同时给该属性提供一个 getter
@@ -361,7 +361,7 @@ __webpack_require__.t = function (value, mode) {
 
 `installedChunks` 
 
-- 如果是 `0` 代表以及加载过
+- 如果是 `0` 代表已经加载过
 - 如果是 `promise` 代表当前 chunk 正在加载
 - 如果是 `undefined` 代表当前 chunk 没有被加载
 - 如果是 `null` 代表当前 chunk 预加载（preloaded/prefetched）
@@ -518,21 +518,21 @@ Hook 本质是 tapable 实例对象，Hook 执行机制可分为同步和异步
 
 tapable 库同步钩子
 
-- SynckHook
+- SyncHook
 - SyncBailHook
-- SyncWaterfalHook
+- SyncWaterfallHook
 - SyncLoopHook
 
 tapable 库异步串行钩子
 
 - AsyncSeriesHook
 - AsyncSeriesBailHook
-- AsyncSeriesWaterfalHook
+- AsyncSeriesWaterfallHook
 
-tapable　库异步并行钩子
+tapable 库异步并行钩子
 
-- AsyncParalleHook
-- AsyncParalleBailHook
+- AsyncParallelHook
+- AsyncParallelBailHook
 
 ### 同步钩子
 
@@ -811,7 +811,7 @@ hook.call('zce', 100)
 
 ### 手写 SyncHook
 
-1. 实例化 hook，需要定义 `_x = [f1,  f2, ...]`（用来保存多个监听器函数）、`taps = [{}, {}]`
+1. 实例化 hook，需要定义 `_x = [f1, f2, ...]`（用来保存多个监听器函数）、`taps = [{}, {}]`
 2. 实例调用 `tap` 方法，`taps = [{}, {}]`
 3. 调用 `call` 方法，`HookCodeFactory` 里面有 `setup` 和 `create` 两个方法
 4. 我们需要手写 `Hook`、`SyncHook`、`HookCodeFactory` 这几个类
@@ -1182,7 +1182,7 @@ const webpack = function (options) {
 
   // 03 挂载所有 plugins 至 compiler 对象身上
   if (options.plugins && Array.isArray(options.plugins)) {
-    for (const plugin of options.plugin) {
+    for (const plugin of options.plugins) {
       plugin.apply(compiler)
     }
   }
@@ -1511,7 +1511,7 @@ class Compiler extends Tapable {
   }
   compile(callback) {
     const params = this.newCompilationParams()
-    this.hooks.beforeRun.callAsync(params, err => {
+    this.hooks.beforeCompile.callAsync(params, err => {
       this.hooks.compile.call(params)
       const compilation = this.newCompilation(params)
       this.hooks.make.callAsync(compilation, err => {
@@ -1662,7 +1662,7 @@ class Compiler extends Tapable {
   compile(callback) {
     const params = this.newCompilationParams()
 
-    this.hooks.beforeRun.callAsync(params, err => {
+    this.hooks.beforeCompile.callAsync(params, err => {
       this.hooks.compile.call(params)
       const compilation = this.newCompilation(params)
 
@@ -2364,7 +2364,7 @@ class Compiler extends Tapable {
   compile(callback) {
     const params = this.newCompilationParams()
 
-    this.hooks.beforeRun.callAsync(params, err => {
+    this.hooks.beforeCompile.callAsync(params, err => {
       this.hooks.compile.call(params)
       const compilation = this.newCompilation(params)
 

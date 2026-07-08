@@ -213,7 +213,7 @@ const foo: [string, number] = ['foo', 100] // 元组
 // @flow
 const obj1: { foo: string, bar: number } = { foo: 'string', bar: 100 }
 const obj2: { foo?: string, bar: number } = { bar: 100 } // 可选
-const obj3 = { [string]: string } = {}
+const obj3: { [string]: string } = {}
 obj3.key1 = 'value1'
 ```
 

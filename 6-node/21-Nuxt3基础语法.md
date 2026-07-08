@@ -29,7 +29,7 @@ Nuxt.js
   - 开始使用 Webpack 4 及其技术栈，其它的并没有做出重大更改
 - 2021 年 8 月 12 日至今，Nuxt.js 最新的版本为: Nuxt.js2.15.8
 
-Nyxt3 版本
+Nuxt3 版本
 
 - 经过 16 个月的工作，Nuxt 3 beta 于 2021 年 10 月 12 日发布，引入了基于 Vue 3、Vite 和 Nitro（服务引擎）
 - 六个月后，2022 年 4 月 20 日，Pooya Parsa 宣布 Nuxt 3 的第一个候选版本，代号为 "Mount Hope"
@@ -46,11 +46,11 @@ Nyxt3 版本
   - Nuxt 路由基于 vue-router，在 pages/ 目录中创建的每个页面，都会根据目录结构和文件名来自动生成路由
 - 渲染模式：Nuxt 支持多种渲染模式（SSR、CSR、SSG 等）
   - 通用渲染（服务器端渲染和水合）、仅客户端渲染、全静态站点生成、混合渲染（每条路由缓存策略）
-- 利于搜索引擎优化: 服务器端染模式，不但可以提高首屏渲染速度，还利于 SEO
+- 利于搜索引擎优化: 服务器端渲染模式，不但可以提高首屏渲染速度，还利于 SEO
 - 服务器引擎
   - 在开发环境中，它使用 Rollup 和 Node.js
   - 在生产环境中，使用 Nitro 将您的应用程序和服务器构建到一个通用 .output 目录中
-  - Nitro 服务引擎提供了扩平台部署的支持，包括 Node、Deno、Serverless、Workers 等平台上部署
+  - Nitro 服务引擎提供了跨平台部署的支持，包括 Node、Deno、Serverless、Workers 等平台上部署
 
 ![image-20231027172850387](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231027172850387.png)
 
@@ -160,7 +160,7 @@ app.config.ts 配置文件的选项不能使用 env 环境变量来覆盖，与 
 
 runtimeConfig 与 app.config 对比
 
-rutimeConfig 和 app.config 都用于向应用程序公开变量。要确定是否应用使用其中一种，以下是一些指导原则：
+runtimeConfig 和 app.config 都用于向应用程序公开变量。要确定是否应用使用其中一种，以下是一些指导原则：
 
 - runtimeConfig：定义环境变量，比如：运行时需要指定的私有或公共 token
 - app.config：定义公共变量，比如：在构建时确定的公共 token、网站配置
@@ -175,7 +175,7 @@ Nuxt3 框架也提供一些内置组件，常用的如下：
 - NuxtWelcome：欢迎页面组件，该组件是 @nuxt/ui 的一部分
 - NuxtLayout：是 Nuxt 自带的页面布局组件
 - NuxtPage：是 Nuxt 自带的页面占位组件
-  - 需要显示位于目录中的顶级货嵌套页面 pages/
+  - 需要显示位于目录中的顶级或嵌套页面 pages/
   - 是对 router-view 的封装
 - ClientOnly：该组件中的默认插槽的内容只在客户端渲染
   - 而 fallback 插槽的内容只在服务器端渲染
@@ -223,7 +223,7 @@ export default defineNuxtConfig({
 @use '~/assets/styles/variables.scss' as vb;
 ```
 
-### 静态资源入
+### 静态资源引入
 
 public 目录
 

@@ -123,7 +123,7 @@ const baseConfig = require('./webpack.base.config')
 const devConfig = require('./webpack.dev.config')
 const proConfig = require('./webpack.pro.config')
 
-let config = process.NODE_ENV === 'development' ? devConfig : proConfig
+let config = process.env.NODE_ENV === 'development' ? devConfig : proConfig
 
 module.exports = merge(baseConfig, config)
 ```
@@ -475,7 +475,7 @@ interface add4 {
 
 TS 函数重载要求我们先定义一系列名称相同的函数声明（与JAVA不同），TS 编译时会去查询重载的列表，匹配的话使用这个定义不匹配的话继续查询
 
-注意：可选参数必须在必选参数前面
+注意：可选参数必须在必选参数后面
 
 ```typescript
 function add5(x: number, y?: number) {
@@ -697,7 +697,7 @@ class Bus extends Auto implements AutoInterface {}
 
 函数重载：使用相同名称或不同参数数量或类型创建多个方法
 
-联合类型：取值可以为多钟类型中的一个
+联合类型：取值可以为多种类型中的一个
 
 泛型：不预先确定的数据类型，具体的类型在使用的时候才能确定
 
@@ -784,7 +784,7 @@ log({ length: 1 })
 ### 泛型好处
 
 1. 函数和类可以轻松地支持多种类型，增强程序的扩展性
-2. 不比写多余函数重载，冗长的联合声明，增强代码可读性
+2. 不必写多余函数重载，冗长的联合声明，增强代码可读性
 3. 灵活控制类型之间的约束
 
 ## 类型检查机制
@@ -988,7 +988,7 @@ X 兼容 Y: X(目标类型) = Y(源类型)
 
 ### 类型保护
 
-TypeScript 能够在特定的区块中保证变量属于某种确定的类型。可以在这个区块中放心地引用次类型的属性，或者调用此类型的方法
+TypeScript 能够在特定的区块中保证变量属于某种确定的类型。可以在这个区块中放心地引用此类型的属性，或者调用此类型的方法
 
 1. instanceof 判断实例是否属于某个类
 2. in 判断一个属性是否属于某个对象
