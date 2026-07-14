@@ -1,5 +1,3 @@
-# 小程序API调用
-
 ## 网络请求API和封装
 
 > [https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html)
@@ -139,7 +137,7 @@ onShareAppMessage() {
 
  在开发中，我们需要经常获取当前设备的信息，用于搜集信息或者进行一些适配工作
 
-- 小程序提供了相关的API：wx.getSystemInfo(Object object)
+- 小程序提供了相关个API：wx.getSystemInfo(Object object)
 
 ```js
 wx.getSystemInfo({
@@ -175,7 +173,7 @@ wx.getLocation({
 
 ## 小程序Storage存储
 
-在开发中，某些情况下我们需要将一部分数据存储在本地：比如 token、用户信息等。
+在开发中，某些时候我们需要将一部分数据存储在本地：比如 token、用户信息等。
 
 - 小程序提供了专门的 Storage 用于进行本地存储
 
@@ -263,7 +261,7 @@ onBackTap() {
 - 详情页 -> 首页：在详情页内部拿到首页的页面对象，直接修改数据
 
 ```js
-// 子页面
+// 子组件
 wx.navigateBack()
 const pages = getCurrentPages()
 const prePage = pages[pages.length - 2]
@@ -280,7 +278,7 @@ wx.navigateTo({
 早期数据的传递方式只能通过上述的方式来进行，在小程序基础库 2.7.3 开始支持 events 参数，也可以用于数据的传递
 
 ```js
-// 子页面
+// 子组件
 wx.navigateBack()
 const eventChannel = this.getOpenerEventChannel()
 eventChannel.emit('backEvent', { name: 'back', age: 11 })

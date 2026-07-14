@@ -13,7 +13,8 @@ export default function sidebarOther(): DefaultTheme.SidebarItem[] {
         { text: '事件处理', link: '05-事件处理.md' },
         { text: '小程序组件化开发', link: '06-小程序组件化开发.md' },
         { text: '小程序API调用', link: '07-小程序API调用.md' },
-        { text: '小程序项目', link: '08-小程序项目.md' }
+        { text: '小程序项目', link: '08-小程序项目.md' },
+        { text: '小程序打包', link: '09-小程序打包.md' },
       ]
     },
     {
