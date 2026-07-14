@@ -29,12 +29,12 @@
 2. 判断的依据来自于新节点的 value 和原来节点的 value 值的比较
    - 如果新节点的 newValue 小于原节点的 oldValue，那么就向左边插入
    - 如果新节点的 newValue 大于原节点的 oldValue，那么就向右插入
-3. 代码1位置，就是准备向左子树插入数据，但是它本身又分成两种情况
+3. 代码1位置，就是准备向左子树插入数据，但是它本身有分成两种情况
    - 情况一：左子树上原来没有内容，那么直接插入即可
-   - 情况二：左子树上已经有了内容，那么就一直向下继续查找新的走向，所以使用递归调用即可
+   - 情况二：左子树上已经有了内容，那么就依次向下继续查找新的走向，所以使用递归调用即可
 4. 代码2位置，和代码1位置几乎逻辑是相同的，只是去向右查找
    - 情况一：右子树上原来没有内容，那么直接插入即可
-   - 情况二：右子树上已经有了内容，那么就一直向下继续查找新的走向，所以使用递归调用即可
+   - 情况二：右子树上已经有了内容，那么就依次向下继续查找新的走向，所以使用递归调用即可
 
 ```typescript
 class BSTree<T> {
@@ -201,16 +201,17 @@ class TreeNode<T> extends Node<T> {
   postOrderTraversalNoRecursion() {
     let stack: TreeNode<T>[] = []
     let current: TreeNode<T> | null = this.root
-    let lastVisited: TreeNode<T> | null = null
+    let prev: TreeNode<T> | null = null
     while (current !== null || stack.length !== 0) {
       while (current !== null) {
         stack.push(current)
         current = current.left
       }
       current = stack[stack.length - 1]
-      if (current.right === null || current.right === lastVisited) {
+      if (current.right === null || current.right === prev) {
         console.log(current.value)
-        lastVisited = stack.pop()!
+        prev = current
+        stack.pop()
         current = null
       } else {
         current = current.right
@@ -441,7 +442,7 @@ class TreeNode<T> extends Node<T> {
 }
 ```
 
-### 情况三：两个节点
+### 情况三：两个子节点
 
 ![image-20230904100428216](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230904100428216.png)
 
@@ -560,7 +561,7 @@ class TreeNode<T> extends Node<T> {
 - 要删除一个节点时，就将此字段设置为 true
 - 其他操作，比如 find() 在查找之前先判断这个节点是不是标记为删除
 - 这样相对比较简单，每次删除节点不会改变原有的树结构
-- 但是在二叉树的存储中，还保留着那些已经被删除掉的节点
+- 但是在二叉树的存储中，还保留这那些本已经被删除掉的节点
 
 ## 二叉搜索树完整代码
 
@@ -787,7 +788,7 @@ class BSTree<T> {
 
 1. 两个不同长度的字符串进行比较时，不是长的字符串就一定大。比如：`abcd` 与 `acd` 比较，第一个字符相同，继续比较第二个字符，由于 `c > b` ，所以不再继续比较，结果就是 `acd` 大
 2. 当字符串有空格时，空格也参加比较。比如：`c at` 与 `cat` 比较，空格的 ASCII 码是 32，a 的 ASCII 码是 97，所以 `cat > c at`
-3. 大小写字母的 ASCII 码值是有区别的。比如：A 的 ASCII 码是 64，a 的 ASCII 码是 97，所以 `angle > Angle`
+3. 大小写字母的 ASCII 码值是有区别的。比如：A 的 ASCII 码是 65，a 的 ASCII 码是 97，所以 `angle > Angle`
 
 ```html
 <body>

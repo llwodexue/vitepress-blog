@@ -93,7 +93,7 @@ Vuex 和单纯的全局对象有什么区别呢？
 - 第一：Vuex 的状态存储是响应式的
   - 当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会被更新
 - 第二：你不能直接改变 store 中的状态
-  - 改变store中的状态的唯一途径就显示提交 (commit) mutation
+  - 改变store中的状态的唯一途径就显式提交 (commit) mutation
   - 这样使得我们可以方便的跟踪每一个状态的变化，从而让我们能够通过一些工具帮助我们更好的管理应用的状态
 
 使用步骤：
@@ -789,7 +789,7 @@ export function useMapper(mapper, mapFn) {
 
      ```js
      // vuex index.js
-     import appModule from './modules/app
+     import appModule from './modules/app'
      const store = createStore({
        modules: {
          appModule
@@ -834,7 +834,7 @@ export function useMapper(mapper, mapFn) {
     },
     actions: {
       increment (num) {
-        this.state.count += num
+        this.count += num
       }
     }
   })
