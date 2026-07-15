@@ -1,49 +1,35 @@
 import { type DefaultTheme } from 'vitepress'
 import sidebarJavaScript from './sidebarJavaScript'
-import sidebarBase from './sidebarBase'
 import sidebarEngine from './sidebarEngine'
+import sidebarBase from './sidebarBase'
 import sidebarVue from './sidebarVue'
 import sidebarReact from './sidebarReact'
 import sidebarNode from './sidebarNode'
 import sidebarOps from './sidebarOps'
 import sidebarOther from './sidebarOther'
 
-const SIDEBAR: Record<string, string> = {
-  js: '/1-js/',
-  engine: '/2-engine/',
-  base: '/3-base/',
-  vue: '/4-vue/',
-  react: '/5-react/',
-  node: '/6-node/',
-  ops: '/7-ops/',
-  other: '/10-other/'
-}
-const sidebar = {
-  [SIDEBAR.js]: { base: SIDEBAR.js, items: sidebarJavaScript() },
-  [SIDEBAR.engine]: { base: SIDEBAR.engine, items: sidebarEngine() },
-  [SIDEBAR.base]: { base: SIDEBAR.base, items: sidebarBase() },
-  [SIDEBAR.vue]: { base: SIDEBAR.vue, items: sidebarVue() },
-  [SIDEBAR.react]: { base: SIDEBAR.react, items: sidebarReact() },
-  [SIDEBAR.node]: { base: SIDEBAR.node, items: sidebarNode() },
-  [SIDEBAR.ops]: { base: SIDEBAR.ops, items: sidebarOps() },
-  [SIDEBAR.other]: { base: SIDEBAR.other, items: sidebarOther() }
-}
-const transNav = (base: string, arrFn: () => DefaultTheme.SidebarItem[]) => {
-  const nav = arrFn().map(i => {
-    const link = i.items![0].link
-    return { text: i!.text || '', link: `${base}${link}` }
-  })
-  return nav
-}
-const nav: DefaultTheme.NavItem[] = [
-  { text: 'JavaScript', items: transNav(SIDEBAR.js, sidebarJavaScript) },
-  { text: '工程化', items: transNav(SIDEBAR.engine, sidebarEngine) },
-  { text: '计算机基础', items: transNav(SIDEBAR.base, sidebarBase) },
-  { text: 'Vue', items: transNav(SIDEBAR.vue, sidebarVue) },
-  { text: 'React', items: transNav(SIDEBAR.react, sidebarReact) },
-  { text: 'Node', items: transNav(SIDEBAR.node, sidebarNode) },
-  { text: '运维部署', items: transNav(SIDEBAR.ops, sidebarOps) },
-  { text: '其他', items: transNav(SIDEBAR.other, sidebarOther) }
+const sections = [
+  { key: 'JavaScript', path: '/1-js/', sidebar: sidebarJavaScript },
+  { key: '工程化', path: '/2-engine/', sidebar: sidebarEngine },
+  { key: '计算机基础', path: '/3-base/', sidebar: sidebarBase },
+  { key: 'Vue', path: '/4-vue/', sidebar: sidebarVue },
+  { key: 'React', path: '/5-react/', sidebar: sidebarReact },
+  { key: 'Node', path: '/6-node/', sidebar: sidebarNode },
+  { key: '运维部署', path: '/7-ops/', sidebar: sidebarOps },
+  { key: '其他', path: '/10-other/', sidebar: sidebarOther }
 ]
+
+const sidebar: Record<string, { base: string; items: DefaultTheme.SidebarItem[] }> = {}
+for (const s of sections) {
+  sidebar[s.path] = { base: s.path, items: s.sidebar }
+}
+
+const nav: DefaultTheme.NavItem[] = sections.map(s => ({
+  text: s.key,
+  items: s.sidebar.map(i => ({
+    text: i.text || '',
+    link: `${s.path}${i.items![0].link}`
+  }))
+}))
 
 export { sidebar, nav }
