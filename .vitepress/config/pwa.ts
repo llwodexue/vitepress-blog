@@ -11,6 +11,9 @@ import { name, keywords } from './meta'
 export const pwa: Partial<VitePWAOptions> = {
   // outDir: '../dist',
   registerType: 'prompt',
+  workbox: {
+    maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
+  },
   includeAssets: fg.sync('**/*.{png,svg,gif,ico,txt}', {
     cwd: resolve(__dirname, '../../public')
   }),
