@@ -231,7 +231,7 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 - vue(.runtime).esm-browser(.prod).js：
   - 用于通过原生 ES 模块导入使用（在浏览器中通过 `<script type="module">` 来使用）
 - vue(.runtime).esm-bundler.js：
-  - 用于 webpack、rollup 和 parcel　等构件工具
+  - 用于 webpack、rollup 和 parcel 等构建工具
   - 构建工具中默认是 vue.runtime.esm-bundler.js
   - 如果我们需要解析模块 template，那么需要手动指定 vue.esm-bundler.js
 - vue.cjs(.prod).js：

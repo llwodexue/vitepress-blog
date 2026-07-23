@@ -6,7 +6,7 @@
 
 2. **Vue2 和 Vue3 都能支持**
 
-   options api 和 compostions api 都支持，维护成本低
+   options api 和 compositions api 都支持，维护成本低
 
 3. **抛弃传统的 Mutation，只有 state, getter 和 action ，简化状态管理库**
 
@@ -47,7 +47,7 @@ Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
 
    ```js
    // vuex index.js
-   import appModule from './modules/app
+   import appModule from './modules/app'
    const store = createStore({
      modules: {
        appModule
@@ -136,7 +136,7 @@ const useAppStore = defineStore('app', { /* ... */ })
 ```
 - 注意：Pinia 每一个文件都需要有一个**唯一的命名**，类似于 Vuex 的命名空间（`namespaced： true`）
  ```js
-  import appModule from './modules/app
+  import appModule from './modules/app'
   const store = createStore({
     modules: {
       appModule

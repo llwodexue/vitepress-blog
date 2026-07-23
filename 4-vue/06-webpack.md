@@ -6,7 +6,7 @@
 
 - 比如开发过程中我们需要通过模块化的方式来开发
 - 比如也会使用一些高级的特性来加快我们的开发效率或者安全性，比如通过 ES6+、TypeScript 开发脚本逻辑，通过 sass、less 等方式来编写 css 样式代码
-- 比如开发过程中，我们还希望实时的监听文件的变化来并且反映到浏览器上，提高开发的效率
+- 比如开发过程中，我们还希望实时地监听文件的变化并反映到浏览器上，提高开发的效率
 - 比如开发完成后我们还需要将代码进行压缩、合并以及其他相关的优化；
 
 但是对于很多的前端开发者来说，并不需要思考这些问题，日常的开发中根本就没有面临这些问题：
@@ -51,9 +51,9 @@ HTML资源的处理：
 
 ### webpack 安装
 
-webapck 的安装目前分为两个：webpack、webpack-cli
+webpack 的安装目前分为两个：webpack、webpack-cli
 
-- 执行 webapck 命令，会执行 node_modules 下的 .bin 目录下的 webpack
+- 执行 webpack 命令，会执行 node_modules 下的 .bin 目录下的 webpack
 - webpack 在执行时是依赖 webpack-cli 的，如果没有安装就会报错
 - 而 webpack-cli 中代码执行时，才是真正利用 webpack 进行编译和打包的过程
 - 所以在安装 webpack 时，我们需要同时安装 webpack-cli（第三方的脚手架事实上是没有使用 webpack-cli 的，而是类似于自己的 vue-service-cli 的东西）
@@ -119,7 +119,7 @@ module.exports = {
 
 - loader 可以用于对 **模块的源代码** 进行转换
 - 我们可以 **将 css 文件也看成是一个模块**，我们是 **通过 import 来加载这个模块** 的
-- 在加载这个模块时，**webpack 其实并不知道如何对其进行加载**，我们必须制定对应的loader来完成这个功能
+- 在加载这个模块时，**webpack 其实并不知道如何对其进行加载**，我们必须指定对应的loader来完成这个功能
 
 对于加载 css 文件来说，我们需要一个可以读取 css 文件的 loader。这个 loader 最常用的是 css-loader
 
@@ -292,7 +292,7 @@ module.exports = {
 我们需要在项目中使用图片，比较常见的使用图片的方式：
 
 - img 元素，设置 src 属性
-- 其他元素（比如 div），设置 background-image 的 css　属性
+- 其他元素（比如 div），设置 background-image 的 css 属性
 
 | ![image-20220629160826331](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220629160826331.png) | ![image-20220629161750347](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220629161750347.png) |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -395,7 +395,7 @@ module.exports = {
 
 ![image-20220630110940903](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220630110940903.png)
 
-这个时候打包会报错，因为无法正确的 处理 eot、ttf、woff 等文件
+这个时候打包会报错，因为无法正确地处理 eot、ttf、woff 等文件
 
 - 我们可以选择使用 file-loader 来处理，也可以选择直接使用 webpack5 的资源模块类型来处理
 
@@ -521,7 +521,7 @@ module.exports = {
 - from：设置从哪一个源中开始复制
 - to：复制到的位置，可以省略，会默认复制到打包的目录下
 - globOptions：设置一些额外的选项，其中可以编写需要忽略的文件
-  - `.DS_Store`：mac 目录下回自动生成的一个文件
+  - `.DS_Store`：mac 目录下会自动生成的一个文件
   - index.html：也不需要复制，因为我们已经通过 HtmlWebpackPlugin 完成了 index.html 的生成
 
 ```bash
@@ -550,7 +550,7 @@ module.exports = {
 
 ## Mode
 
-Mode 配置选项，可以告知 webpack 使用响应模式的内置优化
+Mode 配置选项，可以告知 webpack 使用相应模式的内置优化
 
 - 默认值是 production（什么都不设置的情况下）
 - 可选值有：`'none' | 'development' | 'production'`

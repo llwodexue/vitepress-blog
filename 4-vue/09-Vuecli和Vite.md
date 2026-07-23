@@ -50,7 +50,7 @@ vue create 项目的名称
 
 - `vue-cli-service` 指向 `@vue/cli-service/bin/vue-cli-service.js`
 
-  加载 `package.json'`
+  加载 `package.json`
 
   ![image-20220706101631091](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706101631091.png)
 
@@ -134,7 +134,7 @@ npm install -g pnpm
 
 ## Vite
 
-Webpack 是目前整个前端使用最多的构建工具，但是除了 webpack 之后也有其他的一些构建工具：
+Webpack 是目前整个前端使用最多的构建工具，但是除了 webpack 之外也有其他的一些构建工具：
 
 - 比如 rollup、parcel、gulp、vite 等等
 
@@ -151,7 +151,7 @@ Webpack 是目前整个前端使用最多的构建工具，但是除了 webpack 
 Vite (法语意为 "快速的"，发音 /vit/) 是一种新型前端构建工具，能够显著提升前端开发体验。主要由两部分组成：
 
 - 一个开发服务器，它基于原生 ES 模块提供了丰富的内建功能，HMR 的速度非常快速
-- 一套构建指令，它使用 rollup 打开我们的代码，并且它是预配置的，可以输出生成环境的优化过的静态资源
+- 一套构建指令，它使用 rollup 打包我们的代码，并且它是预配置的，可以输出生产环境的优化过的静态资源
 
 ```html
 <!DOCTYPE html>
@@ -282,7 +282,7 @@ JavaScript -> AST语法树 -> 字节码 -> 机器代码
 
 所以 Vite 实际上是有两个工具的：
 
-- vite：相当于是一个构件工具，类似于 webpack、rollup
+- vite：相当于是一个构建工具，类似于 webpack、rollup
 - @vitejs/create-app：类似 vue-cli、create-react-app
 
 ```bash

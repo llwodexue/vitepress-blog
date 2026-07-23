@@ -29,12 +29,12 @@
 
 **源码使用 TypeScript 来进行重写**
 
-- 在 Vue2.x 的时候，Vue 使用 Flow 来进行类型检测，但是 Flow 有很多的复杂场景是类型的支持并不是非常友好
+- 在 Vue2.x 的时候，Vue 使用 Flow 来进行类型检测，但是 Flow 在很多复杂场景的类型支持并不是非常友好
 - 在 Vue3.x 的时候，Vue 的源码全部使用 TypeScript 来进行重构，并且 Vue 本身对 TypeScript 支持也更好了
 
 **使用 Proxy 进行数据劫持**
 
-- 在 Vue2.x 的时候，使用 `Object.defineProperty` 来劫持数据的 `getter` 和 `setter` 方法的
+- 在 Vue2.x 的时候，使用 `Object.defineProperty` 来劫持数据的 `getter` 和 `setter` 方法，
 
   这种方式一直存在一个缺陷就是当给对象添加或者删除属性时，是无法劫持和监听的
 
@@ -53,7 +53,7 @@
 
 **由 Options API 到 Composition API**
 
-- 在 Vue2.x 时，我们会用过 Options API 来描述组件对象
+- 在 Vue2.x 时，我们会通过 Options API 来描述组件对象
 
 - Options API 包括 `data`、`props`、`methods`、`computed`、生命周期等选项
 
@@ -73,7 +73,7 @@
 
 ## 为什么学习 TypeScript
 
-其实上由于各种历史因素，JavaScript 语言本身存在很多的缺点
+实际上由于各种历史因素，JavaScript 语言本身存在很多的缺点
 
 - 比如 ES5 以及之前的使用的 var 关键字关于作用域的问题
 - 比如最初 JavaScript 设计的数组类型并不是连续的内存空间

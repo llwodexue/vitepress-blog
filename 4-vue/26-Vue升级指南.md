@@ -266,7 +266,7 @@ parserOptions: {
 
 7. css 全局变量
 
-   需要把 `pretendData` 改为 `additionalData `
+   需要把 `prependData` 改为 `additionalData `
 
    ```js
    {

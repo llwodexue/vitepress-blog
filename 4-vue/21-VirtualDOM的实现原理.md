@@ -251,7 +251,7 @@ git checkout v2.1.0
 
 - Vue 中的 h 函数
 
-  Vue 中的 h 函数实现了组件机制，snabdom 中没有
+  Vue 中的 h 函数实现了组件机制，Snabbdom 中没有
 
   ```js
   new Vue({

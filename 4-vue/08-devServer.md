@@ -122,7 +122,7 @@ vue-loader 特性：
 **HMR 原理**
 
 - webpack-dev-server 会创建两个服务： **提供静态资源的服务（express）和 Socket 服务（net.Socket）**
-- express server 负责提供 **静态资源的服务**（打包后的资源直接被浏览器请和解析）
+- express server 负责提供 **静态资源的服务**（打包后的资源直接被浏览器请求和解析）
 
 HMR Socket Server 是一个 socket 的长连接：
 
@@ -156,7 +156,7 @@ host 设置主机地址：
 **open**：是否打开浏览器
 
 - 默认值是 false，设置为 true 会打开浏览器
-- 也可以设置为类似 Google Chorme　等值
+- 也可以设置为类似 Google Chrome 等值
 
 **compress**：是否为静态文件开启 gzip compression
 
@@ -174,7 +174,7 @@ proxy：设置代理来解决跨域访问的问题
 一些配置项：
 
 - target：代理到的目标地址，比如：`/api-hy/moment` 会被代理到 `http://localhost:8888/api-hy/moment`
-- pathRewrite：默认情况下，我们的 `/api-hy` 也会被写入到 URL 中，如果希望删除，可以使用 pathRewirite
+- pathRewrite：默认情况下，我们的 `/api-hy` 也会被写入到 URL 中，如果希望删除，可以使用 pathRewrite
 - secure：默认情况下不接收转发到 https 的服务器上，如果希望支持，可以设置为 false
 - changeOrigin：它表示是否更新代理后请求的 headers 中 host 地址
 
@@ -198,7 +198,7 @@ module.exports = {
 changeOrigin 其实是修改代理请求中的 headers 中的 host 属性：
 
 - 真实的请求，其实是需要通过 `http://localhost:8888` 来请求的
-- 因为使用了代码，默认情况下它的值是 `http://localhost:8000`
+- 因为使用了代理，默认情况下它的值是 `http://localhost:8000`
 - 如果我们需要修改，那么可以将 changeOrigin 设置为 true 即可
 
 ![image-20220704144605853](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220704144605853.png)

@@ -177,7 +177,7 @@ module.exports = {
 在 TypeScript 中定义变量需要指定 **标识符** 的类型
 
 - 声明了类型后 TypeScript 就会进行 **类型检测**，声明的类型可以称之为 **类型注解**
-- 这个语法类似　Swift 语法
+- 这个语法类似 Swift 语法
 
 ```tsx
 var/let/const 标识符: 数据类型 = 赋值
