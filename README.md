@@ -1,7 +1,7 @@
 # LynDocs
 
 <p align="center">
-<img  alt="chodocs" src="https://llmysnow.top/images/rem.png"/>
+<img alt="chodocs" src="https://llmysnow.top/images/rem.png"/>
 </p>
 
 <h1 align="center">

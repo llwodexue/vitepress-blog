@@ -10,15 +10,15 @@ Web Worker 的作用，就是为 JavaScript 创造多线程环境，允许主线
 
 Worker 线程一旦新建成功，就会始终运行，不会被主线程上的活动（比如用户点击按钮、提交表单）打断。这样有利于随时响应主线程的通信。但是，这也造成了 Worker 比较耗费资源，不应该过度使用，而且一旦使用完毕，就应该关闭
 
-Web Worker 有一下几个使用注意点：
+Web Worker 有以下几个使用注意点：
 
 1. 同源限制
 
-   分配给 Worker 线程运行的脚本问及那，必须与主线程的脚本文件同源
+   分配给 Worker 线程运行的脚本文件，必须与主线程的脚本文件同源
 
 2. DOM 限制
 
-   Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法私用 `document`、`window`、`parent `这些对象。但是，Worker 线程可以使用 `navigator`、`location` 对象
+   Worker 线程所在的全局对象，与主线程不一样，无法读取主线程所在网页的 DOM 对象，也无法使用 `document`、`window`、`parent` 这些对象。但是，Worker 线程可以使用 `navigator`、`location` 对象
 
 3. 通信联系
 
@@ -167,7 +167,7 @@ worker.postMessage(uInt8Array)
 
 - 比如：主线程向 Worker 发送一个 500MB 文件，默认情况下浏览器会生成一个原文件的拷贝
 - 为了解决这个问题，JavaScript 允许主线程把二进制数据直接转移给子线程，但是一旦转移，主线程就无法再使用这些二进制数据了，这是为了防止出现多个线程同时修改数据的麻烦局面
-- 这种转移数据的方法，叫做[Transferable Objects](http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects)。这使得主线程可以快速把数据交给 Worker，对于影像处理、声音处理、3D 运算等就非常方便了，不会产生性能负担
+- 这种转移数据的方法，叫做[Transferable Objects](http://www.w3.org/html/wg/drafts/html/master/infrastructure.html#transferable-objects)。这使得主线程可以快速把数据交给 Worker，对于图像处理、声音处理、3D 运算等就非常方便了，不会产生性能负担
 
 如果要直接转移数据的控制权
 

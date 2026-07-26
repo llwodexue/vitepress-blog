@@ -2,7 +2,7 @@
 
 ## 脚手架生成文件
 
-在封装脚手架时，需要考虑模块中用到的依赖包装一层，让模板依赖所包装的模板（让模板依赖不变的东西）
+在封装脚手架时，需要考虑将模块中用到的依赖包装一层，让模板依赖被包装的依赖（让模板依赖不变的东西）
 
 > [https://cli.vuejs.org/zh/guide/webpack.html](https://cli.vuejs.org/zh/guide/webpack.html)
 
@@ -105,7 +105,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
    - `concatenateModules`：尽可能将所有模块合并输出到一个函数中
 
-     即提升了运行效率，又减少了代码的体积，又称为 `Scope Hoisting` 作用域提升（webapck 3 开始支持）
+     既提升了运行效率，又减少了代码的体积，又称为 `Scope Hoisting` 作用域提升（webpack 3 开始支持）
 
    开启 `sideEffects` 后，webpack 在打包时就会先检查 `package.json` 中有没有 `sideEffects` 标识，以此判断这个模块是否有副作用，如果这个模块没有副作用，没有用到的模块就不会打包
 
@@ -259,7 +259,7 @@ module.exports = {
         use: 'vue-loader'
       },
       {
-        test: /\.png|jpe?g|gif$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: {
           loader: 'url-loader', // 能转 base64 就转，不能转就使用 file-loader
           options: {

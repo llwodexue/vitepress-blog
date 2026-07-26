@@ -37,7 +37,7 @@ __webpack_require__(0);
 > 如果可以请尽可能详尽的描述 Webpack 打包的整个过程
 
 - webpack 是运行在 nodejs 环境下，配置文件遵循 commonjs 规范，其配置文件 `webpack.config.js` 导出一个 `object/function/promise/array`
-- webpack 在启动后，会从 entry 开始，递归解析 enrtry 依赖的所有 module，每找到一个 module，就会根据 `module.rules` 里配置的 loader 进行相应的处理，对 module 进行转换后，再解析出当前 module 依赖的 module，这些 module 会以 entry 为单位进行分组，即为一个 chunk
+- webpack 在启动后，会从 entry 开始，递归解析 entry 依赖的所有 module，每找到一个 module，就会根据 `module.rules` 里配置的 loader 进行相应的处理，对 module 进行转换后，再解析出当前 module 依赖的 module，这些 module 会以 entry 为单位进行分组，即为一个 chunk
 - 因此一个 chunk 就是一个 entry 及其所有依赖 module 合并的结果，最后 webpack 会将所有的 chunk 输出转换成 output
 
 构建流程中，webpack 会在恰当时机执行 plugin 里定义的逻辑，从而完成 plugin 插件的优化任务。流程如下：
@@ -50,7 +50,7 @@ __webpack_require__(0);
 
    compiler 继承 `tapable`，具备钩子操作能力（监听事件、触发事件）
 
-   webpack 会实例化了 compiler 对象，并设置 `NodeEnvironmentPlugin` 让 compiler 对具备读写能力
+   webpack 会实例化了 compiler 对象，并设置 `NodeEnvironmentPlugin` 让 compiler 具备读写能力
 
    循环挂载 plugins 到 compiler 对象身上，并处理 webpack 内部默认的插件
 
@@ -78,7 +78,7 @@ __webpack_require__(0);
 
 8. 文件生成
 
-   创建不同的 template 渲染 chunk 资源
+   将构建好的资源写入文件系统
 
 ## Webpack DevServer
 

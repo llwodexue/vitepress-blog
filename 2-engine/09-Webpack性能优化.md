@@ -41,7 +41,7 @@ module.exports = {
 
 `resolve.modules` 用于配置 webpack 去哪些目录下寻找第三方模块，默认是 `['node_modules']`
 
-- 寻找第三方模块，默认是在当前项目目录下的 `node-modules` 里面去找，如果找不到，就会去上一级目录 `../node_modules` 找，并以此类推，和 Node.js 的模块寻找机制很类似
+- 寻找第三方模块，默认是在当前项目目录下的 `node_modules` 里面去找，如果找不到，就会去上一级目录 `../node_modules` 找，并以此类推，和 Node.js 的模块寻找机制很类似
 
 ```js
 module.exports = {
@@ -160,7 +160,7 @@ npm i optimize-css-assets-webpack-plugin -D
 
   `cssnano` 是 postcss 的依赖，所以不用单独安装
 
-  vuecli3 中没有使用 `optimize-css-assets-webpack-plugin` 而是使用 `optimize-cssnano-plugin`，这个作用跟前面的是一样的，但是它在代码映射上更准确
+  Vue CLI 3 中没有使用 `optimize-css-assets-webpack-plugin` 而是使用 `optimize-cssnano-plugin`，这个作用跟前面的是一样的，但是它在代码映射上更准确
 
 ```js
 const path = require('path')
@@ -272,7 +272,7 @@ module.exports = {
 
 - `terser-webpack-plugin`：支持压缩 ES6 (Webpack4)
 
-  terser 无论从销量还是效果上都比 uglifyjs 好，所以 terser 后面座位生产模式下默认的压缩插件
+  terser 无论从效率还是效果上都比 uglifyjs 好，所以 terser 后来作为生产模式下默认的压缩插件
 
 ```js
 const TerserPlugin = require('terser-webpack-plugin')
@@ -497,21 +497,21 @@ module.exports = {
 {
   splitChunks: {
     chunks: 'async', // 对同步 initial，异步 async，所有的模块有效 all
-    minSize: 30000, // 最⼩尺⼨，当模块⼤于30kb
-    maxSize: 0, // 对模块进⾏⼆次分割时使⽤，不推荐使⽤
-    minChunks: 1, // 打包⽣成的chunk⽂件最少有⼏个chunk引⽤了这个模块
-    maxAsyncRequests: 5, // 最⼤异步请求数，默认5
-    maxInitialRequests: 3, // 最⼤初始化请求书，⼊⼝⽂件同步请求，默认3
+    minSize: 30000, // 最小尺寸，当模块大于30kb
+    maxSize: 0, // 对模块进行二次分割时使用，不推荐使用
+    minChunks: 1, // 打包生成的chunk文件最少有几个chunk引用了这个模块
+    maxAsyncRequests: 5, // 最大异步请求数，默认5
+    maxInitialRequests: 3, // 最大初始化请求数，入口文件同步请求，默认3
     automaticNameDelimiter: '-', // 打包分割符号
-    name: true, // 打包后的名称，除了布尔值，还可以接收⼀个函数function
+    name: true, // 打包后的名称，除了布尔值，还可以接收一个函数function
     cacheGroups: { // 缓存组
       vendors: {
         test: /[\\/]node_modules[\\/]/,
         name: 'vendor', // 要缓存的 分隔出来的 chunk 名称
-        priority: -10 // 缓存组优先级 数字越⼤，优先级越⾼
+        priority: -10 // 缓存组优先级 数字越大，优先级越高
       },
       other: {
-        chunks: 'initial', // 必须三选⼀： "initial" | "all" | "async"(默认就是async)
+        chunks: 'initial', // 必须三选一： "initial" | "all" | "async"(默认就是async)
         test: /react|lodash/, // 正则规则验证，如果符合就提取 chunk,
         name: 'other',
         minSize: 30000,
@@ -520,7 +520,7 @@ module.exports = {
       default: {
         minChunks: 2,
         priority: -20,
-        reuseExistingChunk: true // 可设置是否重⽤该chunk
+        reuseExistingChunk: true // 可设置是否重用该chunk
       }
     }
   },
@@ -570,7 +570,7 @@ module.exports = {
 
 Dll 动态链接库，其实就是做缓存，只会提升 webpack 打包的速度，并不能减少最后生成的代码体积
 
-项目中引入了很多第三方库，这些库在很长的一段时间内，基本不会更新，打包的时候分开打包来提升速度，而 DllPlugin 动态链接库插件
+项目中引入了很多第三方库，这些库在很长的一段时间内，基本不会更新，打包的时候分开打包来提升速度，而 DllPlugin 动态链接库插件正是为此而生
 
 - 原理：**把网页依赖的基础模块抽离出来打包到 dll 文件中，当需要导入的模块存在某个 dll 中时，这个模块不再被打包，而是去 dll 中获取**
 - 动态链接库只需要被编译一次，项目中用到的第三方模块，很稳定，例如：`react`、`react-dom`，只要没有升级需求

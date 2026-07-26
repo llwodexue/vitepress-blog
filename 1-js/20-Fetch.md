@@ -6,15 +6,15 @@
 
 ## 基本用法
 
-`fetch()` 的功能与 XMLHttpRequest 基本相同，但由三个主要差异
+`fetch()` 的功能与 XMLHttpRequest 基本相同，但有三个主要差异
 
 1. `fetch()` 使用 Promise，不使用回调函数，因此大大简化了写法，写起来更简洁
 
-2. `fetch()` 采用模块化设计，API 分散在多个对象上（Response 对象、Request 对象、Headers 对象），更合理一些；相比之下，XMLHttpRequest 的 API 设计并不是很好，输入、输出、装填都在同一个接口管理，容易写出非常混乱的代码
+2. `fetch()` 采用模块化设计，API 分散在多个对象上（Response 对象、Request 对象、Headers 对象），更合理一些；相比之下，XMLHttpRequest 的 API 设计并不是很好，输入、输出、状态都在同一个接口管理，容易写出非常混乱的代码
 
-3. `fetch()` 通过数据流（Stream 对象）处理数据，可以分块读取，有利于提高网站性能表现，减少内容占用，对于请求大文件或者网速慢的场景相当有用
+3. `fetch()` 通过数据流（Stream 对象）处理数据，可以分块读取，有利于提高网站性能表现，减少内存占用，对于请求大文件或者网速慢的场景相当有用
 
-   XMLHTTPRequest 对象不支持数据流，所有的数据必须放在缓存里，不支持分块读取，必须等待全部拿到后，再一次性吐出来
+   XMLHttpRequest 对象不支持数据流，所有的数据必须放在缓存里，不支持分块读取，必须等待全部拿到后，再一次性吐出来
 
 ## Response
 
@@ -32,7 +32,7 @@ async function fetchText() {
 }
 ```
 
-`response.status` 和 `response.statusText`就是 Response 的同步属性，可以立即读取
+`response.status` 和 `response.statusText` 就是 Response 的同步属性，可以立即读取
 
 ![image-20230920090438080](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230920090438080.png)
 
@@ -133,7 +133,7 @@ image1.src = URL.createObjectURL(myBlob1)
 image2.src = URL.createObjectURL(myBlob2)
 ```
 
-上面示例中，`response.clone() `复制了一份 Response 对象，然后将同一张图片读取了两次
+上面示例中，`response.clone()` 复制了一份 Response 对象，然后将同一张图片读取了两次
 
 ### Response.body 属性
 
@@ -180,7 +180,7 @@ const response = fetch(url, {
 })
 ```
 
-**cach**
+**cache**
 
 `cache` 属性指定如何处理缓存
 
@@ -201,7 +201,7 @@ const response = fetch(url, {
 
 **credentials**
 
-`credentials `属性指定是否发送 Cookie
+`credentials` 属性指定是否发送 Cookie
 
 - `same-origin`：默认值，同源请求时发送 Cookie，跨域请求时不发送
 - `include`：不管同源请求，还是跨域请求，一律发送 Cookie
@@ -264,7 +264,7 @@ onbeforeunload 事件在即将离开当前页面（刷新或关闭）时触发
 
 ### sendBeacon
 
-上面的 keep-alive 容易在页面卸载过程中发生阻塞，导致数据丢失
+上面的 keepalive 容易在页面卸载过程中发生阻塞，导致数据丢失
 
 `navigator.sendBeacon` 可以在页面卸载时，可靠地发送数据
 
@@ -277,14 +277,14 @@ onbeforeunload 事件在即将离开当前页面（刷新或关闭）时触发
 缺点：
 
 1. fetch 和 ajax 都可以发送任意请求，而 sendBeacon 只能发送 POST
-2. fetch 和 ajax 可以传输任意字节数据，而 sendBeacon 只能传送少了数据（64kb 以内）
+2. fetch 和 ajax 可以传输任意字节数据，而 sendBeacon 只能传送少量数据（64kb 以内）
 3. fetch 和 ajax 可以任意请求头，而 sendBeacon 无法自定义请求头
 4. sendBeacon 只能传输 ArrayBuffer、ArrayBufferView、Blob、DOMString、FormData 或 URLSearchParams 类型的数据
-5. 如果处于危险的网络环境，或者开启了广告屏蔽插件，次请求将无效
+5. 如果处于危险的网络环境，或者开启了广告屏蔽插件，此请求将无效
 
 ![image-20230920113355962](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230920113355962.png)
 
-ping 请求是 html5 新增的，并且是 sendBeacon 特有的 ping 请求，只能携带少了数据，并且不需要等待服务端响应，因此非常适合做埋点统计，以及日志统计相关功能
+ping 请求是 html5 新增的，并且是 sendBeacon 特有的 ping 请求，只能携带少量数据，并且不需要等待服务端响应，因此非常适合做埋点统计，以及日志统计相关功能
 
 ## 取消fetch请求
 

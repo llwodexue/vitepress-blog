@@ -6,10 +6,10 @@
 
 引用 MDN 中对 sessionStorage 和 localStorage 的解释：
 
-- `sessionStorage` 属性允许你访问一个，对应当前源的 session [`Storage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Storage) 对象。它与 [`localStorage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage) 相似，不同之处在于 `localStorage` 里面存储的数据没有过期时间设置，而存储在 `sessionStorage` 里面的数据在页面会话结束时会被清除。
+- `sessionStorage` 属性允许你访问一个对应当前源的 session [`Storage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Storage) 对象。它与 [`localStorage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/localStorage) 相似，不同之处在于 `localStorage` 里面存储的数据没有过期时间设置，而存储在 `sessionStorage` 里面的数据在页面会话结束时会被清除。
   - 页面会话在浏览器打开期间一直保持，并且重新加载或恢复页面仍会保持原来的会话
   - 在新标签或窗口打开一个页面时会**复制**顶级浏览会话的上下文作为新会话的上下文，这点和 session cookies 的运行方式不同
-  - 打开多个相同的 URL 的 Tabs 页面，会创建各自的 sessionStorage
+  - 打开多个相同 URL 的 Tabs 页面，会创建各自的 sessionStorage
   - 关闭对应浏览器或窗口，会清除对应的 sessionStorage
 - 只读的`localStorage` 属性允许你访问一个[`Document`](https://developer.mozilla.org/zh-CN/docs/Web/API/Document) 源（origin）的对象 [`Storage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Storage)；存储的数据将保存在浏览器会话中。`localStorage` 类似 [`sessionStorage`](https://developer.mozilla.org/zh-CN/docs/Web/API/Window/sessionStorage)，但其区别在于：存储在 `localStorage` 的数据可以长期保留；而当页面会话结束——也就是说，当页面被关闭时，存储在 `sessionStorage` 的数据会被清除
 
@@ -83,7 +83,7 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
 ![image-20240305154610026](https://gitee.com/lilyn/pic/raw/master/md-img/image-20240305154610026.png)
 
-- 可以看到，多窗口之间 `sessionStorage` 不可以共享状态 ，是**复制**顶级浏览会话的上下文作为新会话的上下文
+- 可以看到，多窗口之间 `sessionStorage` 不可以共享状态，是**复制**顶级浏览会话的上下文作为新会话的上下文
 - `localStorage` 和 `cookie` 是可以共享状态的
 
 之后咱们刷新一下页面，再对 a 标签进行测试
@@ -122,7 +122,7 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
   - sessionStorage 仅在当前浏览器窗口关闭之前有效
 
-    在该标签或窗口打开一个新页面会赋值顶级浏览器会话的上下文作为新会话的上下文
+    在该标签或窗口打开一个新页面会复制顶级浏览器会话的上下文作为新会话的上下文
 
     `window.open("同源页面")` 这种方式新开的页面会复制之前的 sessionStorage
 
@@ -134,7 +134,7 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
 - 作用域不同
 
-  - sessionStorage 不在不同的浏览器窗口中共享，即使是同一个页面
+  - sessionStorage 不能在不同的浏览器窗口中共享，即使是同一个页面
   - localStorage 在所有同源窗口中都是共享的，也就是只要浏览器不关闭，数据仍然存在
   - cookie 也是在所有同源窗口中都是共享的，也就是说只要浏览器不关闭，数据仍然存在
 

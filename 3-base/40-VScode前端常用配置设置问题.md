@@ -4,7 +4,7 @@
 
 ### Snazzy Operator
 
-我最常用使用的主题就是这个
+我最常使用的主题就是这个
 
 ```json
 "editor.tokenColorCustomizations": {
@@ -14,7 +14,7 @@
 
 ![](https://img-blog.csdnimg.cn/img_convert/44b0beb30e83fe54f1f1948ecb00d613.png)
 
-但是这个主题的注释颜色不是很项目，推荐修改 `settings.json` 修改注释颜色
+但是这个主题的注释颜色不是很醒目，推荐修改 `settings.json` 修改注释颜色
 
 ![image-20231109150742174](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231109150742174.png)
 
@@ -43,7 +43,7 @@
 
 ### Material Icon Theme
 
-我最长使用的图标就是这个
+我最常使用的图标就是这个
 
 ![](https://img-blog.csdnimg.cn/img_convert/59234ecb0e2943a88377ea26165825c7.png)
 
@@ -144,7 +144,7 @@ Java 和 python 运行的时候最好设置一下
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/8523c757447f0bb63150699bbdb9a120.png)
 
-键入 `ctrl + shift + p`，输入 language，点击 `Confifure Display Language` 进行语言切换
+键入 `ctrl + shift + p`，输入 language，点击 `Configure Display Language` 进行语言切换
 
 ![image-20231109153654161](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231109153654161.png)
 
@@ -249,7 +249,7 @@ env 可能大致分为如下几种情况
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/128f90e8aa946c031c3f6e752e0d208f.png)
 
-常用配置可以参考下面分配置文件 `.prettierrc.js`
+常用配置可以参考下面的配置文件 `.prettierrc.js`
 
 ### Path Intellisense
 
@@ -289,7 +289,7 @@ Element 代码片段
 
 ### × Vetur
 
-- 支持多种功能，比如语法高亮、错误检测、Emmet 和 Snippet 等等（现在我已经不用了，只用）
+- 支持多种功能，比如语法高亮、错误检测、Emmet 和 Snippet 等等（现在我已经不用了，只用 Volar）
 
 ![](https://img-blog.csdnimg.cn/img_convert/79d6d89a327cb3f407004a26dc155dc6.png)
 
@@ -510,7 +510,7 @@ module.exports = {
 
 最近使用 Vscode 总是特别卡顿，网上大部分的解决方案如下（但是没有什么效果）
 
-- search.followSymlinksd: false （控制是否在搜索中跟踪符号链接）
+- search.followSymlinks: false （控制是否在搜索中跟踪符号链接）
 - git.enabled: false （是否启用Git）
 - git.autorefresh: false （是否启用自动刷新）
 
@@ -547,11 +547,11 @@ module.exports = {
 
 你可以在命令面板（Ctrl + Shift + P）输入 `Developer: Startup Performance` 查看各个插件启动时间
 
-可以参考 [那些你应该考虑卸载的 VSCode 扩展](
+可以参考文章"那些你应该考虑卸载的 VSCode 扩展"
 
 ## 其他篇工具篇
 
-### Jypyter
+### Jupyter
 
 > [工具篇-vscode 效率提升插件](https://zhuanlan.zhihu.com/p/73452541)
 >

@@ -34,12 +34,12 @@
 
 文件来划分不同的状态，以确定这个文件是否已经归于 Git 仓库的管理：
 
-- 未跟踪：默认情况下，Git 仓库下的文件也没有添加到 Git 仓库管理中，我们需要通过 add 命令来操作
+- 未跟踪：默认情况下，Git 仓库下的文件还没有添加到 Git 仓库管理中，我们需要通过 add 命令来操作
 - 已跟踪：添加到 Git 仓库管理的文件处于已跟踪状态，Git 可以对其进行各种跟踪管理
 
 已跟踪的文件又可以进行细分状态划分：
 
-- staged：暂缓区中的文件状态
+- staged：暂存区中的文件状态
 - Unmodified：commit 命令，可以将 staged 中文件提交到 Git 仓库
 - Modified：修改了某个文件后，会处于 Modified 状态
 
@@ -103,7 +103,7 @@ $ git log --pretty=oneline --graph
 
 - 上一个版本就是 `HEAD^`，上上一个版本就是`HEAD^^`
 - 如果是上 1000 个版本，我们可以使用 `HEAD~1000`
-- 我们可以可以指定某一个 commit id
+- 我们也可以指定某一个 commit id
 
 ```bash
 $ git reset --hard HEAD^
@@ -127,7 +127,7 @@ $ git reset --hard 2d44982
 
 ### 凭证
 
-下面有一些 Git Crediential 的选项：
+下面有一些 Git Credential 的选项：
 
 - 选项一：默认所有都不缓存。 每一次连接都会询问你的用户名和密码
 
@@ -260,7 +260,7 @@ $ git fetch + git merge(rebase)
 
   ```bash
   $ git merge
-  fotal: refusing to merge unrelated histories
+  fatal: refusing to merge unrelated histories
   ```
 
   原因：我们将两个不相干的分支进行了合并
@@ -431,7 +431,7 @@ $ git branch --no-merged # 查看所有没有合并到当前分支的分支
 
 ### 远程分支
 
-远程分支是也是一种分支结构：
+远程分支也是一种分支结构：
 
 - 以 `<remote>/<branch>` 的形式命名的
 
@@ -441,7 +441,9 @@ $ git branch --no-merged # 查看所有没有合并到当前分支的分支
 
 如果其他人修改了代码，那么远程分支结构如下：
 
-![image-20221129100609481](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221129100609481.png)你需要通过 fetch 来获取最新的远程分支提交信息
+![image-20221129100609481](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221129100609481.png)
+
+你需要通过 fetch 来获取最新的远程分支提交信息
 
 ![image-20221129100627096](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221129100627096.png)
 
@@ -500,7 +502,7 @@ $ git log --pretty=oneline --graph
 
 ![image-20221129112859191](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221129112859191.png)
 
-使用 reabse 进行合并
+使用 rebase 进行合并
 
 ```bash
 $ git checkout feature
