@@ -184,7 +184,7 @@ router-link 有很多属性可以配置：
 
 Vue Router 默认就支持动态来导入组件
 
-- 这是因为 component 可以传入一个组件，也可以接收一个函数，该函数 需要放回一个 Promise
+- 这是因为 component 可以传入一个组件，也可以接收一个函数，该函数需要返回一个 Promise
 - 而 import 函数就是返回一个 Promise
 
 分包是没有一个明确的名称的，从 webpack3.x 开始支持对分包进行命名（chunk name）
@@ -453,7 +453,7 @@ router-view 也提供给我们一个插槽，可用于 `<transition>` 和 `<keep
 </style>
 ```
 
-VueRouter3 里直接直接写 `<router-view>`
+VueRouter3 里直接写 `<router-view>`
 
 ![image-20220819140949835](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220819140949835.png)
 

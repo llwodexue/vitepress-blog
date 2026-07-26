@@ -219,7 +219,6 @@ const useBookStore = createStore({
   getters: {
     totalPriceGreaterN(state, getters) {
       return n => {
-        let totalPrice = 0
         const totalPrice = state.books.reduce((acc, cur) => {
           if (cur.count > n) {
             return (acc += cur.count * cur.price)

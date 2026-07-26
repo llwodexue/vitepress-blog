@@ -24,7 +24,7 @@
 - 打包 bundler：webpack 可以将帮助我们进行打包，所以它是一个打包工具
 - 静态的 static：这样表述的原因是我们最终可以将代码打包成最终的静态资源（部署到静态服务器）
 - 模块化 module：webpack 默认支持各种模块化开发，ES Module、CommonJS、AMD 等
-- 现代的 modern：我们前端说过，正是因为现代前端开发面临各种各样的问题，才催生了 webpack 的出现和发展
+- 现代的 modern：我们前面说过，正是因为现代前端开发面临各种各样的问题，才催生了 webpack 的出现和发展
 
 ![image-20220628172118298](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220628172118298.png)
 
@@ -357,7 +357,7 @@ url-loader 有一个 options 属性 limit，可以用于设置转换的限制
 
 - asset/resource：发送一个单独的文件并导出 URL，之前通过使用 file-loader 实现
 - asset/inline：导出一个资源的 data URI，之前通过使用 url-loader 实现
-- asset/source：导出资源的源代码，之前通过 raw-loader实现
+- asset/source：导出资源的源代码，之前通过 raw-loader 实现
 - asset：在导出一个 data URI 和发送一个单独的文件之间自动选择，之前通过使用 url-loader，并且配置资源体积限制实现
 
 **设置文件的存放路径**

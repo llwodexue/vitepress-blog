@@ -317,7 +317,7 @@ message = true
 
 unknown 是 TypeScript 中比较特殊的一种类型，它用于描述类型不确定的变量
 
-- unkown 类型只能赋值给 any 和 unkown 类型
+- unknown 类型只能赋值给 any 和 unknown 类型
 - any 类型可以赋值给任意类型
 
 ```tsx
@@ -1823,7 +1823,7 @@ declare namespace $ {
    withDefaults(props, { count: 0, name: 'Guest' })
    ```
 
-2. 功能实现细节方
+2. 功能实现细节方面
 
    使用 defineProps：
 

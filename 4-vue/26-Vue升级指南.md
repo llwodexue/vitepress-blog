@@ -474,5 +474,276 @@ parserOptions: {
     <el-input v-model="listQuery.jobName" @keyup.enter.native="handleQuery"/>
     ```
 
-4. 在 Vue2 中，`emit` 和 `defineEmits` 是无效的
+4. 在 Vue2 中，`defineEmits` 是无效的
 
+### 升级依赖
+
+升级核心依赖至 Vue3 生态：
+
+```bash
+$ npm i vue@3 vue-router@4 pinia
+$ npm un vuex vue-template-compiler
+
+- "vue": "^2.7.14"
+- "vue-router": "^3.6.5"
+- "vuex": "^3.6.2"
+- "vue-template-compiler": "^2.7.14"
++ "vue": "^3.4.0"
++ "vue-router": "^4.3.0"
++ "pinia": "^2.1.0"
+```
+
+### 入口文件变更
+
+Vue3 使用 `createApp` 替代 `new Vue()`，全局 API 挂载方式改变：
+
+```js
+// vue2 main.js
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
+Vue.use(ElementUI)
+Vue.prototype.$name = '$name'
+
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount('#app')
+
+// vue3 main.js
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import { createPinia } from 'pinia'
+import ElementPlus from 'element-plus'
+import 'element-plus/dist/index.css'
+
+const app = createApp(App)
+app.use(ElementPlus)
+app.use(router)
+app.use(createPinia())
+app.config.globalProperties.$name = '$name'
+app.mount('#app')
+```
+
+### v-model 变更
+
+Vue3 中 v-model 的 prop 和 event 名称发生了变化，且支持多个 v-model：
+
+```html
+<!-- vue2: prop 为 value, event 为 input -->
+<ChildComponent v-model="visible" />
+
+<!-- vue3: prop 为 modelValue, event 为 update:modelValue -->
+<ChildComponent v-model="visible" />
+
+<!-- vue3 多个 v-model -->
+<ChildComponent
+  v-model:title="title"
+  v-model:content="content"
+/>
+```
+
+在子组件中：
+
+```js
+// vue2
+export default {
+  props: { value: Boolean },
+  methods: {
+    close() { this.$emit('input', false) }
+  }
+}
+
+// vue3
+export default {
+  props: { modelValue: Boolean },
+  emits: ['update:modelValue'],
+  methods: {
+    close() { this.$emit('update:modelValue', false) }
+  }
+}
+```
+
+### 插槽变更
+
+`slot` 属性被移除，统一使用 `v-slot`；`$scopedSlots` 合并入 `$slots`：
+
+```html
+<!-- vue2 -->
+<div slot="header">标题</div>
+<template slot-scope="{ row }">
+  <span>{{ row.name }}</span>
+</template>
+
+<!-- vue3 -->
+<template #header>标题</template>
+<template #default="{ row }">
+  <span>{{ row.name }}</span>
+</template>
+```
+
+### 移除的 API
+
+以下 API 在 Vue3 中已被移除，需要替换方案：
+
+| 移除项 | vue2 写法 | vue3 替代方案 |
+|--------|----------|-------------|
+| `$listeners` | `this.$listeners` | 合并到 `$attrs` 中 |
+| `$children` | `this.$children` | 使用 ref |
+| `$on/$off/$once` | 事件总线 | 使用 mitt 或 provide/inject |
+| `filters` | `{{ val \| filter }}` | 计算属性或方法 |
+| `Vue.set` | `Vue.set(obj, key, val)` | 直接赋值即可 |
+| `Vue.delete` | `Vue.delete(obj, key)` | `delete obj.key` |
+| `Vue.nextTick` | `Vue.nextTick(fn)` | `import { nextTick } from 'vue'` |
+
+事件总线替换为 mitt：
+
+```bash
+$ npm i mitt
+```
+
+```js
+// vue2 bus.js
+import Vue from 'vue'
+export default new Vue()
+
+// 使用
+bus.$on('event', handler)
+bus.$emit('event', data)
+bus.$off('event', handler)
+
+// vue3 bus.js
+import mitt from 'mitt'
+export default mitt()
+
+// 使用
+bus.on('event', handler)
+bus.emit('event', data)
+bus.off('event', handler)
+```
+
+### 生命周期钩子更名
+
+| vue2 | vue3 |
+|------|------|
+| `beforeCreate` | setup 替代 |
+| `created` | setup 替代 |
+| `beforeMount` | `onBeforeMount` |
+| `mounted` | `onMounted` |
+| `beforeUpdate` | `onBeforeUpdate` |
+| `updated` | `onUpdated` |
+| `beforeDestroy` | `onBeforeUnmount` |
+| `destroyed` | `onUnmounted` |
+
+### .sync 修饰符
+
+`.sync` 被移除，用 v-model 替代：
+
+```html
+<!-- vue2 -->
+<ChildComponent :title.sync="title" />
+
+<!-- vue3 -->
+<ChildComponent v-model:title="title" />
+```
+
+### 过渡动画 class 名称
+
+```css
+/* vue2 */
+.v-enter {}
+.v-leave {}
+
+/* vue3 */
+.v-enter-from {}
+.v-enter-active {}
+.v-enter-to {}
+.v-leave-from {}
+.v-leave-active {}
+.v-leave-to {}
+```
+
+### v-if/v-for 优先级
+
+- vue2：`v-for` 优先级高于 `v-if`
+- vue3：`v-if` 优先级高于 `v-for`
+
+两者同时使用时的行为不同，建议始终不要在同一个元素上同时使用 `v-if` 和 `v-for`。
+
+### key 属性
+
+Vue3 中 `key` 必须写在 `<template v-for>` 上，而非子元素：
+
+```html
+<!-- vue2: key 写在子元素 -->
+<template v-for="item in list">
+  <div :key="item.id">{{ item.name }}</div>
+</template>
+
+<!-- vue3: key 写在 template 上 -->
+<template v-for="item in list" :key="item.id">
+  <div>{{ item.name }}</div>
+</template>
+```
+
+### 响应式变更
+
+Vue3 使用 `Proxy` 实现响应式，`data` 中直接赋值的属性默认也是响应式的，不再需要 `Vue.set`：
+
+```js
+// vue2: 动态新增属性需要 Vue.set
+this.$set(this.obj, 'newKey', value)
+
+// vue3: 直接赋值即可
+this.obj.newKey = value
+```
+
+### Vue Router 变更
+
+```js
+// vue2 router/index.js
+import Vue from 'vue'
+import Router from 'vue-router'
+Vue.use(Router)
+
+const router = new Router({
+  mode: 'history',
+  routes: [{ path: '/', component: Home }]
+})
+export default router
+
+// vue3 router/index.js
+import { createRouter, createWebHistory } from 'vue-router'
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [{ path: '/', component: Home }]
+})
+export default router
+```
+
+路由匹配语法变更：
+
+```js
+// vue2
+{ path: '*' }              // 404 通配
+{ path: '/user/:id' }      // 动态参数
+
+// vue3
+{ path: '/:pathMatch(.*)*' } // 404 通配
+{ path: '/user/:id' }        // 动态参数（不变）
+```
+
+### 其他注意事项
+
+- **渲染函数**：`h` 不再作为 `render()` 的参数传入，需从 vue 中导入 `import { h } from 'vue'`
+- **组件根节点**：Vue3 支持多个根节点（Fragment），不再要求单一根元素
+- **emits 选项**：Vue3 推荐显式声明 `emits`，未声明的事件会以原生事件形式绑定到根元素
+- **异步组件**：`Vue.component` 不再支持工厂函数方式，需使用 `defineAsyncComponent`
+- **自定义指令钩子**：钩子名称与组件生命周期对齐，如 `bind` → `beforeMount`，`inserted` → `mounted`

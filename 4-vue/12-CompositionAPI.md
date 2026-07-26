@@ -147,7 +147,7 @@ context：可以称之为是一个 SetupContext，它里面包含三个属性：
 
 由上可知，组件的 instance 肯定是在执行 setup 函数之前就创建出来的
 
-### Ractive API
+### Reactive API
 
 - 当我们 **使用 reactive 函数处理我们的数据之后**，数据 **再次被使用** 时就会 **进行依赖收集**
 - 当 **数据发生改变** 时，所有 **收集到的依赖** 都是 **进行对应的响应式操作**（比如更新页面）
@@ -292,7 +292,7 @@ export default {
     const readonlyInfo3 = readonly(info3)
     const updateState = () => {
       readonlyInfo1.name = 'cat'
-      readonlyInfo2.value = "dog"
+      readonlyInfo2.name = "dog"
       readonlyInfo3.value = 'bird'
       info3.value = 'lion'
     }
