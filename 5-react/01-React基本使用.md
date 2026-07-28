@@ -1,10 +1,10 @@
-# React基本使用
+# React 基本使用
 
 ## React 简介
 
 React：用于构建用户界面的 JavaScript 库
 
-- React的官网文档：[https://zh-hans.reactjs.org/](https://zh-hans.reactjs.org/)
+- React 的官网文档：[https://zh-hans.reactjs.org/](https://zh-hans.reactjs.org/)
 
 **React 特点**
 
@@ -29,31 +29,31 @@ React：用于构建用户界面的 JavaScript 库
 **多平台适配**
 
 - 2013年，React 发布之初主要是开发 Web 页面
-- 2015年，Facebook 推出了 ReactNative，用于开发移动端跨平台；（虽然目前 Flutter 非常火爆，但是还是有很多公司在使用 ReactNative）
+- 2015年，Facebook 推出了 React Native，用于开发移动端跨平台；（虽然目前 Flutter 非常火爆，但是还是有很多公司在使用 React Native）
 - 2017年，Facebook 推出 ReactVR，用于开发虚拟现实 Web 应用程序；（VR 也会是一个火爆的应用场景）
 
 ![image-20221031122802006](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221031122802006.png)
 
 ## React 基本使用
 
-开发React必须依赖三个库：
+开发 React 必须依赖三个库：
 
 - react：包含 react 所必须的核心代码
-- react-dom：react 渲染在不同平台所需要的核心代码
+- react-dom：React 渲染在不同平台所需要的核心代码
 - babel：将 jsx 转换成 React 代码的工具
 
-对于 Vue 来说，我们只是依赖一个 vue.js 文件即可，但是 react 需要依赖三个包
+对于 Vue 来说，我们只是依赖一个 Vue.js 文件即可，但是 React 需要依赖三个包
 
 react-dom 针对 web 和 native 所完成的事情不同：
 
-- web端：react-dom 会将 jsx 最终渲染成真实的 DOM，显示在浏览器中
-- native端：react-dom 会将 jsx 最终渲染成原生的控件（比如 Android 中的 Button，iOS 中的 UIButton）
+- Web 端：react-dom 会将 jsx 最终渲染成真实的 DOM，显示在浏览器中
+- Native 端：react-dom 会将 jsx 最终渲染成原生的控件（比如 Android 中的 Button，iOS 中的 UIButton）
 
 React 和 Babel 的关系：
 
 - 默认情况下开发 React 其实可以不使用 babel
 - 但是前提是我们自己使用 React.createElement 来编写源代码，它编写的代码非常的繁琐和可读性差
-- 那么我们就可以直接编写 jsx（JavaScript XML）的语法，并且让 babel 帮助我们转换成 React.createElement
+- 那么我们就可以直接编写 JSX（JavaScript XML）的语法，并且让 babel 帮助我们转换成 React.createElement
 
 **React 依赖引入**
 

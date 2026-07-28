@@ -1,4 +1,4 @@
-# hooks
+# Hooks
 
 ## 为什么需要 Hook
 
@@ -89,7 +89,7 @@ useEffect 的解析：
 - 比如事件总线或 Redux 中手动调用 subscribe
 - 都需要在 componentWillUnmount 有对应的取消订阅
 
-useEffect 传入的回调函数A本身可以有一个返回值，这个返回值是另一个回调函数B
+useEffect 传入的回调函数 A 本身可以有一个返回值，这个返回值是另一个回调函数 B
 
 为什么要在 effect 中返回一个函数？
 
@@ -149,7 +149,7 @@ const App = memo(() => {
     console.log('修改title:', count)
   }, [count])
   useEffect(() => {
-    console.log('监听redux中的数据')
+    console.log('监听 Redux 中的数据')
     return () => {}
   }, [])
   useEffect(() => {
@@ -193,7 +193,7 @@ const App = memo(() => {
 
 ## useReducer
 
-很多人看到 useReducer 的第一反应应该是 redux 的某个替代品，其实并不是
+很多人看到 useReducer 的第一反应应该是 Redux 的某个替代品，其实并不是
 
 useReducer 仅仅是 useState 的一种替代方案：
 
@@ -240,7 +240,7 @@ const App = memo(() => {
 
 useCallback 目的是为了进行性能优化，如何进行性能的优化呢？
 
-- **useCallback 会返回一个memoized（记忆的）的函数**
+- **useCallback 会返回一个 memoized（记忆化）的函数**
 - **在依赖不变的情况下，多次定义的时候，返回的值是相同的**
 
 通常使用 useCallback 的目的是不希望子组件进行多次渲染，并不是为了函数进行缓存
@@ -556,9 +556,9 @@ function useLocalStorage(key) {
 }
 ```
 
-## redux hook
+## Redux Hooks
 
-在之前的 redux 开发中，为了让组件和 redux 结合起来，我们使用了 react-redux 中的 connect
+在之前的 Redux 开发中，为了让组件和 Redux 结合起来，我们使用了 react-redux 中的 connect
 
 - 但是这种方式必须使用高阶组件返回的高阶组件
 - 并且必须编写：mapStateToProps 和 mapDispatchToProps 映射的函数
@@ -603,7 +603,7 @@ const Home = memo(props => {
 })
 
 const App = memo(props => {
-  // 1.使用 useSelector 将 redux 中 store 的数据映射到组件内
+  // 1.使用 useSelector 将 Redux 中 store 的数据映射到组件内
   const { count } = useSelector(
     state => ({
       count: state.counter.count
@@ -633,9 +633,9 @@ const App = memo(props => {
 
 ## useId
 
-useId 是一个用于生成横跨服务端和客户端的稳定的唯一 ID 的同时避免 hydration 不匹配的 hook
+useId 是一个用于生成横跨服务端和客户端的稳定唯一 ID 的同时避免 hydration 不匹配的 hook
 
-- SSR（Server Side Rendering，服务端渲染），指的是页面在服务器端已经生成了完成的 HTML 页面结构，不需要浏览器通过执行 JS 代码，创建页面结构
+- SSR（Server Side Rendering，服务端渲染），指的是页面在服务器端已经生成了完整的 HTML 页面结构，不需要浏览器通过执行 JS 代码，创建页面结构
 - CSR（Client Side Rendering，客户端渲染），我们开发的 SPA 页面通常依赖的就是客户端渲染
   - 不利于 SEO 优化和首屏的渲染速度
 
@@ -662,7 +662,7 @@ SSR 同构应用
 - 但仅 HTML 不足以使页面具有交互性。例如，浏览器端 JavaScript 为零的页面不能是交互式的（没有 JavaScript 事件处理程序来响应用户操作，例如单击按钮）
 - 为了使我们的页面具有交互性，除了在 Node.js 中将页面呈现为 HTML 之外，我们的 UI 框架（Vue/React/...）还在浏览器中加载和呈现页面。（它创建页面的内部表示，然后将内部表示映射到我们在 Node.js 中呈现的 HTML 的 DOM 元素）
 
-useId 是一个用于生成横跨服务端和客户端的稳定的唯一 ID 的同时避免 hydration 不匹配的 hook
+useId 是一个用于生成横跨服务端和客户端的稳定唯一 ID 的同时避免 hydration 不匹配的 hook
 
 - useId 是用于 react 的同构应用开发的，前端的 SPA 页面并不需要使用它
 - useId 可以保证应用程序在客户端和服务器端生成唯一的 ID，这样可以有效的避免通过一些手段生成的 id 不一致，造成 hydration mismatch

@@ -1,4 +1,4 @@
-# Node与浏览器事件循环
+# Node 与浏览器事件循环
 
 ## JS单线程
 
@@ -33,7 +33,7 @@ JS 是单线程的，同一时刻只能做一件事情
 
   特征：没有明确的异步任务需要执行，只有回调，不需要其他异步线程支持
 
-浏览器 setTimeout 延时设置为 0 的话，默认为 4ms，在 NodeJS 默认为 1ms
+浏览器 setTimeout 延时设置为 0 的话，默认为 4ms，在 Node.js 默认为 1ms
 
 ```js
 console.log('同步代码1')
@@ -73,9 +73,9 @@ NodeJS 的事件循环是基于 `libuv` 实现的，`libuv` 使用异步、事�
 ![image-20240410154141633](https://gitee.com/lilyn/pic/raw/master/md-img/image-20240410154141633.png)
 
 1. timers 阶段：执行那些由 `setTimeout()` 和 `setInterval()` 调度的回调函数
-2. pending callbacks 阶段：处理一些上一轮循环中的少数未执行的 I/O 回调，比如TCP连接错误，除了 timers、close、setImmediate 其他很多回调也是在这里执行
+2. pending callbacks 阶段：处理一些上一轮循环中的少数未执行的 I/O 回调，比如 TCP 连接错误，除了 timers、close、setImmediate 其他很多回调也是在这里执行
 3. idle, prepare 阶段：仅 node 内部使用
-4. poll 阶段：轮询等待新的链接和请求等事件，执行 I/O 回调等。V8 引擎将 JS 代码解析并传入 Libuv 引擎后，首先会进入这个阶段，如果这个阶段任务执行完毕，进入 check 阶段
+4. poll 阶段：轮询等待新的连接和请求等事件，执行 I/O 回调等。V8 引擎将 JS 代码解析并传入 Libuv 引擎后，首先会进入这个阶段，如果这个阶段任务执行完毕，进入 check 阶段
 5. check 阶段：如果有 setImmediate 执行其回调，如果没有可能会等新的任务进来(阻塞)，等待新的任务时同时也会去检测 timers 阶段定时器有没有到期，如果到期会直接进入 timers 阶段去执行
 6. close callbacks 阶段：关闭回调执行，比如：`http.server.on('close', [fn])`、`socket.on('close', [fn])`
 
@@ -145,7 +145,7 @@ setImmediate(() => {
 ![image-20240410160544782](https://gitee.com/lilyn/pic/raw/master/md-img/image-20240410160544782.png)
 
 1. 第一轮循环没有需要执行的异步任务队列
-2. 第二轮循环 timers 等阶段都没有任务，只有 poll 阶段有 I/O 回调任务，优先输入 readFile，poll 阶段会检测如果有 setImmediate 的任务队列则进入 check 阶段，否则再进行判断，如果有定时器任务回调，则回到 timers 阶段。这时候有 setImmediate，输出 setImmediate
+2. 第二轮循环 timers 等阶段都没有任务，只有 poll 阶段有 I/O 回调任务，优先输出 readFile。poll 阶段会检测如果有 setImmediate 的任务队列则进入 check 阶段，否则再进行判断，如果有定时器任务回调，则回到 timers 阶段。这时候有 setImmediate，输出 setImmediate
 3. 第三轮循环，进入 timers 阶段输出 timeout
 
 ```js

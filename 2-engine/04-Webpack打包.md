@@ -639,7 +639,7 @@ fetch('/api/users') // http://localhost:8080/api/users
 - cheap-Source Map：是否包含行信息
 - module：是否能够得到 Loader 处理之前的源代码
 
-调式和报错都是基于运行代码，但是运行代码与源代码又不同
+调试和报错都是基于运行代码，但是运行代码与源代码又不同
 
 ```js
 module.exports = {
@@ -728,7 +728,7 @@ module.exports = allModes.map(item => {
 
   Source Map 会暴露源代码
 
-  调式是开发阶段的事情
+  调试是开发阶段的事情
 
 ### 自动刷新
 
@@ -833,7 +833,7 @@ if (module.hot) {
 
 ## webpack 生产环境
 
-生产环境注重运行效率，以更少量更
+生产环境注重运行效率，以更少量的代码获得更高的运行效率
 
 ### 不同环境下的配置
 

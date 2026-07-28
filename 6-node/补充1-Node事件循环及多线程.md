@@ -26,7 +26,7 @@
 
 **事件队列分为同步任务（synchronous）和异步任务（asynchronous）**
 
-1. 所有同步任务都在主线程上执行，形成了一个执行栈（execution content stack）
+1. 所有同步任务都在主线程上执行，形成了一个执行栈（execution context stack）
 2. 主线程之外，还存在一个 "任务队列" （task queue），只要异步任务有了运行结果，就在 "任务队列" 之中放置一个事件
 3. 一旦 "执行栈" 中的所有同步任务执行完毕，系统就会读取 "任务队列"，看看里面有哪些事件，哪些对应的异步任务，于是等任务结束状态，进入执行栈，开始执行
 4. 主线程不断重复上面的第三步
@@ -117,7 +117,7 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 
 5. check（检查）：`setImmediate()` 设置的回调会在这个阶段被调用
 
-6. close callbacks（关闭事件的回调）：诸如：`http.server.on('close', [fn])`、`socket,on('close', [fn])`，此类的回调会在此阶段被调用
+6. close callbacks（关闭事件的回调）：诸如：`http.server.on('close', [fn])`、`socket.on('close', [fn])`，此类的回调会在此阶段被调用
 
 **poll 阶段**
 
@@ -142,7 +142,7 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 
 1. 执行 `setTimeout(fn, 10)`，会立即执行 Node 六个阶段，当前时间为 0ms， **timers** 阶段没有任何 `callback` 加入，跳过
 2. 执行 **pending callbacks** 阶段，执行定时器或 `setImmediate` 以外的回调，没有跳过
-3. 执行 **poll** 阶段，`poll` 队列为空且没有 `setImmediate()` ，会阻塞等待 2ms，等待 `fs.readfile` 读取文件完毕执行其回调，会阻塞代码 20ms
+3. 执行 **poll** 阶段，`poll` 队列为空且没有 `setImmediate()`，会阻塞等待 2ms，等待 `fs.readFile` 读取文件完毕执行其回调，会阻塞代码 20ms
 4. 此时时间为 22ms，`poll` 队列为空且有设定的 `timer`，因为 `setTimeout` 的回调执行 10ms，此时时间已经达到，事件循环会进入 **timers** 阶段，执行 `setTimeout(fn, 10)`
 
 ```js
@@ -558,12 +558,12 @@ ab 是 apache 自带的压力测试工具，Mac 原生自带，无需安装
 1. **process.cwd()** ：返回 node.js 进程当前工作目录
 2. process.chdir() ：变更 node.js 进程的工作目录
 3. **process.nextTick(fn)** ：将任务放到当前事件循环的尾部，添加到 "next tick" 队列，一旦当前事件轮询队列的任务全部完成，在 "next tick" 队列中的所有 callback 会被依次调用
-4. **process.exit(）** ：退出当前进程，很多时候是不需要的
+4. **process.exit()** ：退出当前进程，很多时候是不需要的
 5. process.kill(pid, [signal]) ：给指定进程发送信号，包括但不限于结束进程
 
 **事件**
 
-1. beforeExit 事件，在 Node 情况了 Event Loop 之后，再没有任何处理任务时触发，可以在这里部署一些任务，使得 Node 进程不退出，显示的终止程序时（`process.exit()`），不会触发
+1. beforeExit 事件，在 Node 情况了 Event Loop 之后，再没有任何处理任务时触发，可以在这里部署一些任务，使得 Node 进程不退出，显式地终止程序时（`process.exit()`），不会触发
 
 2. exit 事件，当前进程退出时触发，回调函数中只允许同步操作，因为执行完回调后，进程会退出
 
@@ -684,7 +684,7 @@ child_process 是 node.js 中用于创建子进程的模块，node 中大名鼎�
 
 5. settings 属性，用于配置
 
-   exex: worker 文件路径
+   exec: worker 文件路径
 
    args: 传递给 worker 的参数
 

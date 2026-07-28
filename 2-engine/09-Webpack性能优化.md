@@ -447,7 +447,7 @@ module.exports = {
 }
 ```
 
-## code spitting 代码分离
+## code splitting 代码分离
 
 > [webpack官方文档 代码分离](https://www.webpackjs.com/guides/code-splitting/)
 

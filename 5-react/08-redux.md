@@ -1,8 +1,8 @@
-# redux
+# Redux
 
 ## 纯函数和副作用
 
-**react 中组件就被要求像是一个纯函数**（为什么是像，因为还有 class 组件），**redux 中有一个 reducer 的概念**，也是要求必须是一个纯函数
+**React 中组件就被要求像是一个纯函数**（为什么是像，因为还有 Class 组件），**Redux 中有一个 reducer 的概念**，也是要求必须是一个纯函数
 
 **纯函数的维基百科定义：**
 
@@ -26,7 +26,7 @@
 - 无论是组件定义自己的 state，还是组件之间的通信通过 props 进行传递；也包括通过 Context 进行数据之间的共享
 - React 主要负责帮助我们管理视图，state 如何维护最终还是我们自己来决定
 
-**Redux 就是一个帮助我们管理 State 的容器：Redux 是JavaScript的状态容器，提供了可预测的状态管理** 
+**Redux 就是一个帮助我们管理 State 的容器：Redux 是 JavaScript 的状态容器，提供了可预测的状态管理** 
 
 ## 核心概念
 
@@ -38,7 +38,7 @@
 
 **Redux 要求我们通过 action 来更新数据：**
 
-- 所有数据的变化，必须通过派发（dispatch）action来更新
+- 所有数据的变化，必须通过派发（dispatch）action 来更新
 - action 是一个普通的 JavaScript 对象，用来描述这次更新的 type 和 content
 
 ![image-20221213221205960](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221213221205960.png)
@@ -58,7 +58,7 @@
 - Redux 并没有强制让我们不能创建多个 Store，但是那样做并不利于数据的维护
 - 单一的数据源可以让整个应用程序的 state 变得方便维护、追踪、修改
 
-**State是只读的**
+**State 是只读的**
 
 - 唯一修改 State 的方法一定是触发 action，不要试图在其他地方通过任何的方式来修改 State
 - 这样就确保了 View 或网络请求都不能直接修改 state，它们只能通过 action 来描述自己想要如何修改 state
@@ -70,7 +70,7 @@
 - 随着应用程序的复杂度增加，我们可以将 reducer 拆分成多个小的 reducers，分别操作不同 state tree 的一部分
 - 但是所有的 reducer 都应该是纯函数，不能产生任何的副作用
 
-## Redux结构划分
+## Redux 结构划分
 
 - 创建store/index.js文件
 - 创建store/reducer.js文件
@@ -91,7 +91,7 @@
 
 # react-redux
 
-**redux 和 react 没有直接的关系，你完全可以在 React, Angular, Ember, jQuery, or vanilla JavaScript 中使用 Redux**
+**Redux 和 React 没有直接的关系，你完全可以在 React, Angular, Ember, jQuery, or vanilla JavaScript 中使用 Redux**
 
 
 
@@ -101,21 +101,21 @@
 
 ## 异步操作 redux-thunk
 
-**redux 中如何进行异步操作？**
+**Redux 中如何进行异步操作？**
 
 - 中间件（Middleware）
 
-**redux 也引入了中间件（Middleware）的概念：**
+**Redux 也引入了中间件（Middleware）的概念：**
 
 - 这个中间件的目的是在 dispatch 的 action 和最终达到的 reducer 之间，扩展一些自己的代码
 - 比如日志记录、调用异步接口、添加代码调试功能等等
 
 ![image-20221216090852993](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221216090852993.png)
 
-**redux-thunk 是如何做到让我们可以发送异步的请求呢？**
+**Redux Thunk 是如何做到让我们可以发送异步的请求呢？**
 
 - 我们知道，默认情况下的 dispatch(action)，action 需要是一个 JavaScript 的对象
-- redux-thunk 可以让 dispatch(action函数)，action 可以是一个函数
+- Redux Thunk 可以让 dispatch(action函数)，action 可以是一个函数
 - 该函数会被调用，并且会传给这个函数一个 dispatch 函数和 getState 函数
   - dispatch 函数用于我们之后再次派发 action
   - getState 函数考虑到我们之后的一些操作需要依赖原来的状态，用于让我们可以获取之前的一些状态
@@ -124,7 +124,7 @@
 
 ![image-20221214153919052](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214153919052.png)
 
-**增加 Redux-devtools** 
+**增加 Redux DevTools** 
 
 ```js
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -135,7 +135,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({ trace: tr
 const store = createStore(reducer, composeEnhancers(applyMiddleware(reduxThunk)))
 ```
 
-**redux-saga**
+**Redux Saga**
 
 saga 中间件使用了 ES6 的 generator 语法
 
@@ -157,7 +157,7 @@ iterator.next(); // {value: undefined, done: true}
 // 打印333333
 ```
 
-集成 redux-saga
+集成 Redux Saga
 
 ```js
 import { createStore, applyMiddleware, compose } from 'redux'
@@ -209,17 +209,17 @@ function* mySaga() {
 export default mySaga
 ```
 
-## Reducer文件拆分
+## Reducer 文件拆分
 
 ![image-20221214161058921](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214161058921.png)
 
 **combineReducers 函数**
 
-- **redux 给我们提供了一个 combineReducers函数 可以方便的让我们对多个reducer进行合并**
+- **Redux 给我们提供了一个 combineReducers 函数可以方便的让我们对多个 reducer 进行合并**
 
 ![image-20221214161407961](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214161407961.png)
 
-**combineReducers是如何实现的呢？**
+**combineReducers 是如何实现的呢？**
 
 - 事实上，它也是将我们传入的 reducers 合并到一个对象中，最终返回一个 combination 的函数（相当于我们之前的reducer函数了）
 - 在执行 combination 函数的过程中，它会通过判断前后返回的数据是否相同来决定返回之前的 state 还是新的 state
@@ -239,26 +239,26 @@ function reducer(state = {}, action) {
 
 **Redux Toolkit 是官方推荐的编写 Redux 逻辑的方法**
 
-- 此时应该已经发现，redux 的编写逻辑过于的繁琐和麻烦
+- 此时应该已经发现，Redux 的编写逻辑过于的繁琐和麻烦
 - 并且代码通常分拆在多个文件中（虽然也可以放到一个文件管理，但是代码量过多，不利于管理）
 
 ## configureStore
 
-**Redux Toolkit的核心API主要是如下几个：**
+**Redux Toolkit 的核心 API 主要是如下几个：**
 
-- configureStore：包装 createStore 以提供简化的配置选项和良好的默认值。它可以自动组合你的 slice reducer，添加你提供的任何 Redux 中间件，redux-thunk 默认包含，并启用 Redux DevTools Extension
+- configureStore：包装 createStore 以提供简化的配置选项和良好的默认值。它可以自动组合你的 slice reducer，添加你提供的任何 Redux 中间件，Redux Thunk 默认包含，并启用 Redux DevTools Extension
 - createSlice：接受 reducer 函数的对象、切片名称和初始状态值，并自动生成切片. reducer，并带有相应的 actions
-- createAsyncThunk: 接受一个动作类型字符串和一个返回承诺的函数，并生成一个 pending/fulfilled/rejected 基于该承诺分派动作类型的 thunk
+- createAsyncThunk: 接受一个动作类型字符串和一个返回 Promise 的函数，并生成一个 pending/fulfilled/rejected 基于该 Promise 分派动作类型的 thunk
 
 ![image-20221214164322621](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214164322621.png)
 
 ## createSlice
 
-**createSlice主要包含如下几个参数：**
+**createSlice 主要包含如下几个参数：**
 
 name：用户标记 slice 的名称
 
-- 在之后的 redux-devtool 中会显示对应的名词
+- 在之后的 Redux DevTools 中会显示对应的名词
 
 initialState：初始化值
 
@@ -278,13 +278,13 @@ reducers：相当于之前的 reducer 函数
 
 ## 异步操作
 
-**我们通过 redux-thunk 中间件让 dispatch 中可以进行异步操作**
+**我们通过 Redux Thunk 中间件让 dispatch 中可以进行异步操作**
 
 - **Redux Toolkit 默认已经给我们集成了 Thunk 相关的功能：createAsyncThunk**
 
 **当 createAsyncThunk 创建出来的 action 被 dispatch 时，会存在三种状态：**
 
-- pending：action被发出，但是还没有最终的结果
+- pending：action 被发出，但是还没有最终的结果
 - fulfilled：获取到最终的结果（有返回值的结果）
 - rejected：执行过程中有错误或者抛出了异常
 
@@ -320,7 +320,7 @@ reducers：相当于之前的 reducer 函数
 
 # 实现原理
 
-## connect函数实现
+## connect 函数实现
 
 connect 函数本身接受两个参数：
 
@@ -403,7 +403,7 @@ function log(store) {
 
 **thunk 需求**
 
-redux 中利用一个中间件 redux-thunk 可以让我们的 dispatch 不再只是处理对象，并且可以处理函数
+Redux 中利用一个中间件 Redux Thunk 可以让我们的 dispatch 不再只是处理对象，并且可以处理函数
 
 ```js
 function thunk(store) {

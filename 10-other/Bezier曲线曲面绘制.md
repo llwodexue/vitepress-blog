@@ -31,10 +31,10 @@ $$
 - 端点性质. 在端点$t=0,t=1$，分别只有一个 Bernstein 基函数取值为 1，其余全部为 0，即
 
 $$
-B_i^n(0)=\{_{0,i\neq 0,}^{1, i=0,} B_i^n(1)=\{^{1, i=n,}_{0, i\neq n.}
+B_i^n(0)=\begin{cases} 1, & i=0, \\ 0, & i\neq 0. \end{cases} \quad B_i^n(1)=\begin{cases} 1, & i=n, \\ 0, & i\neq n. \end{cases}
 $$
 
-- 对称性. $B_i^n(t)=B_{n-i}^n(1-t),i=0,1,...,n。$
+- 对称性. $B_i^n(t)=B_{n-i}^n(1-t),i=0,1,...,n.$
 
 - 递推公式. 每一个 n 次 Bernstein 基函数可以由两个 n-1 次 Bernstein 基函数递推得到，即
 

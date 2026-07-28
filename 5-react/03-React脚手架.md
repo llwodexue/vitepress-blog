@@ -1,11 +1,11 @@
-# React脚手架
+# React 脚手架
 
 ## 工程化
 
 现代的前端项目已经越来越复杂了：
 
-- 不会再是在 HTML 中引入几个 css 文件，引入几个编写的 js 文件或者第三方的 js 文件这么简单
-- 比如 css 可能是使用 less、sass 等预处理器进行编写，我们需要将它们转成普通的 css 才能被浏览器解析
+- 不会再是在 HTML 中引入几个 CSS 文件，引入几个编写的 JS 文件或者第三方的 JS 文件这么简单
+- 比如 CSS 可能是使用 Less、Sass 等预处理器进行编写，我们需要将它们转成普通的 CSS 才能被浏览器解析
 - 比如 JavaScript 代码不再只是编写在几个文件中，而是通过模块化的方式，被组成在成百上千个文件中，我们需要通过模块化的技术来管理它们之间的相互依赖
 - 比如项目需要依赖很多的第三方库，如何更好的管理它们（比如管理它们的依赖、版本升级等）
 
@@ -40,7 +40,7 @@ $ cd 项目名称
 
 > [渐进式 Web 应用（PWA）](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
 
-- PWA 全称 **Progressive Web App**，即 **渐进式 WEB 应用**
+- PWA 全称 **Progressive Web App**，即 **渐进式 Web 应用**
 - 一个 PWA 应用首先是一个网页, 可以通过 Web 技术编写出一个网页应用
 - 随后添加上 **App Manifest** 和 **Service Worker** 来实现 PWA 的**安装和离线**等功能
 - 这种 Web 存在的形式，我们也称之为是 Web App
@@ -54,7 +54,7 @@ PWA 解决哪些问题
 
 ## 脚手架的 webpack
 
-- React脚手架默认是基于 webpack 来开发的
+- React 脚手架默认是基于 webpack 来开发的
 
 - 但是，很奇怪：我们并没有在目录结构中看到任何 webpack 相关的内容？
 

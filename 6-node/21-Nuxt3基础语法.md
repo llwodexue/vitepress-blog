@@ -1,4 +1,4 @@
-# Nuxt3基础语法
+# Nuxt 3 基础语法
 
 ## Nuxt
 
@@ -6,7 +6,7 @@
 
 - 支持数据双向绑定和组件化（Nuxt 选择了 Vue.js）
 - 处理客户端的导航（Nuxt 选择了 vue-router）
-- 支持开发中热模块替换和生成环境代码打包（Nuxt 支持 webpack5 和 vite）
+- 支持开发中热模块替换和生产环境代码打包（Nuxt 支持 webpack5 和 vite）
 - 兼容旧版本浏览器，支持最新的 JavaScript 语法转译（Nuxt 使用 esbuild）
 - 应用程序支持云开发环境服务器，也支持服务器端渲染或 API 接口开发
 - Nuxt 使用 h3 来实现部署可移植性（h3 是一个极小的高性能的 http 框架）
@@ -38,7 +38,7 @@ Nuxt3 版本
 ### 特点
 
 - Vue 技术栈
-  - Nuxt3 是基于 Vue3 + Vue Router + Vite 等技术栈，全程 Vue3 + Vite 开发体验 (Fast)
+  - Nuxt 3 是基于 Vue 3 + Vue Router + Vite 等技术栈，全程 Vue 3 + Vite 开发体验 (Fast)
 - 自动导包
   - Nuxt 会自动导入辅助函数、组合 API 和 Vue API，无需手动导入
   - 基于规范的目录结构，Nuxt 还可以对自己的组件、 插件使用自动导入
@@ -79,7 +79,7 @@ Nuxt3 版本
 3. 配置 host，本地解析域名
 
    - Mac 电脑 host 配置路径：`/etc/hosts`
-   - Windows 电脑 host 配置路由：`C:\Windows\System32\drivers\etc`
+   - Windows 电脑 host 配置路径：`C:\Windows\System32\drivers\etc`
 
 4. 在 host 文件中新增一行
 
@@ -205,7 +205,7 @@ export default defineNuxtConfig({
       preprocessorOptions: {
         scss: {
           // 自动给 scss 模块添加额外的数据
-          additionData: '@use "~/assets/styles/variables.scss" as *'
+          additionalData: '@use "~/assets/styles/variables.scss" as *'
         }
       }
     }
@@ -220,7 +220,7 @@ export default defineNuxtConfig({
 @import '~/assets/styles/variables.scss';
 
 /* 给这个模块起命名空间，as *：可以省略命名空间 */
-@use '~/assets/styles/variables.scss' as vb;
+@use '~/assets/styles/variables.scss' as *;
 ```
 
 ### 静态资源引入
@@ -364,7 +364,7 @@ Nuxt3 和 Vue 一样，也是支持动态路由的，只不过在 Nuxt3 中，�
 
 注意事项：
 
-- 动态路由和 index.vue 不能同时存在，Nest.js 则可以
+- 动态路由和 index.vue 不能同时存在，Next.js 则可以
 
 ![image-20231101142849337](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231101142849337.png)
 

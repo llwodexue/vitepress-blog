@@ -43,7 +43,7 @@ OUI 查询
 
 ### 地址操作与获取
 
-- mac 地址查询：`ipconfig /all`
+- MAC 地址查询：`ipconfig /all`
 
 修改 MAC 地址：更改适配器选项-属性-配置-高级-网络地址
 

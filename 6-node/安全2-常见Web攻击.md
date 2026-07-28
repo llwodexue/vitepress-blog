@@ -1,4 +1,4 @@
-# 常见Web攻击
+# 常见 Web 攻击
 
 ## XSS
 
@@ -162,7 +162,7 @@ function escape(str) {
   str = str.replace(/&/g, '&amp;')
   str = str.replace(/</g, '&lt;')
   str = str.replace(/>/g, '&gt;')
-  str = str.replace(/"/g, '&quto;')
+  str = str.replace(/"/g, '&quot;')
   str = str.replace(/'/g, '&#39;')
   str = str.replace(/`/g, '&#96;')
   str = str.replace(/\//g, '&#x2F;')
@@ -216,12 +216,12 @@ session.cookie_httponly = 1
 
 ```html
 <script> 
-// setTimeout()/setInterval() 中调⽤恶意代码
+// setTimeout()/setInterval() 中调用恶意代码
 setTimeout("UNTRUSTED")
 setInterval("UNTRUSTED")
-// location 调⽤恶意代码
+// location 调用恶意代码
 location.href = 'UNTRUSTED'
-// eval() 中调⽤恶意代码
+// eval() 中调用恶意代码
 eval("UNTRUSTED") 
 </script>
 ```
@@ -291,7 +291,7 @@ cookie 的应用场景：
 
   HTTP 协议头中有一个字段叫 referer，记录了该 HTTP 请求的来源地址
 
-  Https 不发生 referer
+  HTTPS 不发生 referer
 
   ```js
   app.use(async (ctx, next) => {
@@ -324,7 +324,7 @@ cookie 的应用场景：
 - `Samesite=Strict`：严格模式，表明这个 Cookie 在任何情况下都不可能作为第三方 Cookie
 - `Samesite=Lax`：宽松模式，比 Strict 放宽了点限制，假如这个请求是顶级导航请求且为 GET 请求，则这个 Cookie 可以作为第三方 Cookie
 
-注意：这个可以解决 `某些 Cookie 滥用推荐的“SameSite“属性 ` 问题
+注意：这个可以解决某些 Cookie 滥用推荐的 `SameSite` 属性问题
 
 ```js
 Cookies.set('lang', lang, {
@@ -364,7 +364,7 @@ Cookies.set('lang', lang, {
 
 ## SQL 注入
 
-SQL 注入发生于 **应用程序与数据库层** 的安全漏洞
+SQL 注入是发生在应用程序与数据库层之间的一种安全漏洞
 
 ```sql
 # 填入特殊密码
@@ -387,7 +387,7 @@ AND password = 1'or'1'='1
 
 - 严格限制 Web 应用的数据库的操作权限，给此用户提供仅仅能够满足其工作的最低权限，从而最大限度的减少注入攻击对数据库的危害
 - 后端代码检查输入的数据是否符合预期，严格限制变量的类型，例如使用正则表达式进行一些匹配处理
-- 对进入数据库的特殊字符（`'、"、\、<、>、&、*、;` 等），或编码转换。基本上所有的后端语言都有对字符串进行转义处理的 方法，比如 lodash 的 `lodash._escapehtmlchar` 
+- 对进入数据库的特殊字符（`'、"、\、<、>、&、*、;` 等），或编码转换。基本上所有的后端语言都有对字符串进行转义处理的 方法，比如 lodash 的 `_.escape()` 
 
 ```js
 router.post('/login', async (ctx) => {
@@ -410,9 +410,9 @@ router.post('/login', async (ctx) => {
 OS 命令注入和 SQL 注入差不多，只不过 SQL 注入是针对数据库的，而 OS 命令注入是针对操作系统的
 
 ```js
-// 以 Node.js 为例，假如在接⼝中需要从 github 下载⽤户指定的 repo
+// 以 Node.js 为例，假如在接口中需要从 github 下载用户指定的 repo
 const exec = require('mz/child_process').exec;
-let params = {/* ⽤户输⼊的参数 */};
+let params = {/* 用户输入的参数 */};
 exec(`git clone ${params.repo} /some/path`);
 ```
 

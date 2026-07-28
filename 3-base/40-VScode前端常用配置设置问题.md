@@ -130,6 +130,7 @@ Java 和 python 运行的时候最好设置一下
 },
 "code-runner.runInTerminal": true,
 ```
+
 ### Color Highlight
 
 ![](https://img-blog.csdnimg.cn/5b19c5fc4dcc4779a6ec93c2584994a2.png)

@@ -31,7 +31,7 @@ SSL/TLS 也可以用在其他协议上，比如
 - FTP → FTPS
 - SMTP → SMTPS
 
-TLS（**T**rasnport **L**ayer **S**ecurity），译为：传输层安全性协议
+TLS（**T**ransport **L**ayer **S**ecurity），译为：传输层安全性协议
 
 - 前身是 SSL（**S**ecure **S**ockets **L**ayer），译为：安全套接层
 
@@ -199,7 +199,7 @@ TLS1.2 支持降级且一开始握手是明文的
 
 TLS1.2 分组密码：填充 + 异或运算，是可以猜出来的
 
-密钥交换里的预主密钥一共才 48 字节，384bit，如果服务器公钥是 2048bit，因为长度的问题得给预主密钥填充：规律字节+随机值+规律直接+预主密钥
+密钥交换里的预主密钥一共才 48 字节，384bit，如果服务器公钥是 2048bit，因为长度的问题得给预主密钥填充：规律字节+随机值+规律字节+预主密钥
 
 ![image-20230728173501087](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230728173501087.png)
 

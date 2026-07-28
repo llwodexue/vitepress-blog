@@ -44,8 +44,7 @@
 如何选择？
 
 - 需要做高性能、复杂用户体验、定制高的 APP、需硬件支持的选 原生开发
-- 需要性能较好、体验好、跨 Android、iOS 平台、 H5 平台、也
-- 需要硬件支持的选 Flutter（采用Dart开发）
+- 需要性能较好、体验好、跨 Android、iOS、H5 等多平台，也需要硬件支持的选 Flutter（采用 Dart 开发）
 - 需要跨小程序、H5 平台、Android、iOS 平台、不太复杂的先选 uni-app，其次选 Taro 不需要跨平台的，选择对应技术框架即可
 
 ![image-20231018163215028](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231018163215028.png)

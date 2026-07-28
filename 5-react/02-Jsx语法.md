@@ -1,4 +1,4 @@
-# Jsx语法
+# JSX 语法
 
 ## JSX 语法解析
 
@@ -6,9 +6,9 @@
 
 **JSX 是什么**
 
-- JSX 是一种 JavaScript 的语法扩展（eXtension），也在很多地方称之为 JavaScript XML，因为看起来就是一段XML语法
+- JSX 是一种 JavaScript 的语法扩展（eXtension），也在很多地方称之为 JavaScript XML，因为看起来就是一段 XML 语法
 - 它用于描述我们的 UI 界面，并且其完成可以和 JavaScript 融合在一起使用
-- 它不同于 Vue 中的模板语法，你不需要专门学习模板语法中的一些指令（比如v-for、v-if、v-else、v-bind）
+- 它不同于 Vue 中的模板语法，你不需要专门学习模板语法中的一些指令（比如 v-for、v-if、v-else、v-bind）
 
 React 认为**渲染逻辑**本质上与**其他 UI 逻辑**存在内在耦合
 
@@ -21,7 +21,7 @@ React 认为**渲染逻辑**本质上与**其他 UI 逻辑**存在内在耦合
 **JSX 的书写规范**
 
 - JSX 的顶层只能有一个根元素，所以我们很多时候会在外层包裹一个 div 或 Fragment 元素
-- 为了方便阅读，我们通常在 jsx 的外层包裹一个小括号()，这样可以方便阅读，并且 jsx 可以进行换行书写
+- 为了方便阅读，我们通常在 JSX 的外层包裹一个小括号()，这样可以方便阅读，并且 JSX 可以进行换行书写
 - JSX 中的标签可以是单标签，也可以是双标签
 - 注意：如果是单标签，必须以 `/>` 结尾
 
@@ -71,7 +71,7 @@ class App extends React.Component {
     const ageText = age >= 18 ? '成年人' : '未成年人'
     const liEls = this.state.movies.map(movie => <li>{movie}</li>)
 
-    // 3.返回jsx的内容
+    // 3.返回 JSX 的内容
     return (
       <div>
         {/* 1.Number/String/Array直接显示出来 */}
@@ -116,7 +116,7 @@ class App extends React.Component {
 }
 ```
 
-JSX嵌入表达式
+JSX 嵌入表达式
 
 - 运算表达式
 - 三元运算符
@@ -197,12 +197,12 @@ this 四种绑定规则：
 
 1. 默认绑定：独立执行 `foo()`
 2. 隐式绑定：被一个对象执行 `obj.foo() -> obj`
-3. 显示绑定：`call/apply/bind foo.call("aaa") -> String("aaa")`
+3. 显式绑定：`call/apply/bind foo.call("aaa") -> String("aaa")`
 4. new 绑定：`new Foo() -> 创建一个新对象，并且赋值给 this`
 
 如何解决 this 的问题呢？
 
-- 方案一：bind 给 btnClick 显示绑定 this
+- 方案一：bind 给 btnClick 显式绑定 this
 - 方案二：使用 ES6 class fields 语法
 - 方案三：事件监听时传入箭头函数（个人推荐）
 
@@ -295,7 +295,7 @@ class App extends React.Component {
 
 某些情况下，界面的内容会根据不同的情况显示不同的内容，或者决定是否渲染某部分内容：
 
-- 在 vue 中，我们会通过指令来控制：比如 v-if、v-show
+- 在 Vue 中，我们会通过指令来控制：比如 v-if、v-show
 - 在 React 中，所有的条件判断都和普通的 JavaScript 代码一致
 
 常见的条件渲染的方式有哪些呢？
@@ -354,7 +354,7 @@ class App extends React.Component {
 
 ### 列表渲染
 
-在 React 中并没有像 Vue 模板语法中的 v-for 指令，而且需要我们通过 JavaScript 代码的方式组织数据，转成 JSX：
+在 React 中并没有像 Vue 模板语法中的 v-for 指令，而是需要我们通过 JavaScript 代码的方式组织数据，转成 JSX：
 
 - 很多从 Vue 转型到 React 的同学非常不习惯，认为 Vue 的方式更加的简洁明了
 - 但是 React 中的 JSX 正是因为和 JavaScript 无缝的衔接，让它可以更加的灵活
@@ -371,7 +371,7 @@ class App extends React.Component {
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221115104843157.png)
 
-这个警告是告诉我们需要在列表展示的 jsx 中添加一个 key
+这个警告是告诉我们需要在列表展示的 JSX 中添加一个 key
 
 - key 主要的作用是为了提高 diff 算法时的效率
 
@@ -379,18 +379,18 @@ class App extends React.Component {
 
 ### JSX 本质
 
-JSX 仅仅只是 `React.createElement(component, props, ...children)` 函数的语法糖
+JSX 仅仅是 `React.createElement(component, props, ...children)` 函数的语法糖
 
 - 所有 JSX 最终都会被转换成 React.createElement 的函数调用
 
 createElement 需要传递三个参数：
 
 - 参数一：type
-  - 当前 ReactElement的 类型
+  - 当前 ReactElement 的类型
   - 如果是标签元素，那么就使用字符串表示 div
   - 如果是组件元素，那么就直接使用组件的名称
 - 参数二：config
-  - 所有 jsx 中的属性都在 config 中以对象的属性和值的形式存储
+  - 所有 JSX 中的属性都在 config 中以对象的属性和值的形式存储
   - 比如传入 className 作为元素的 class
 - 参数三：children
   - 存放在标签中的内容，以 children 数组的方式进行存储；
@@ -422,7 +422,7 @@ ReactElement 的树结构
 Virtual DOM 是一种编程理念。
 
 - 在这个理念中，UI 以一种理想化或者说虚拟化的方式保存在内存中，并且它是一个相对简单的 JavaScript 对象
-- 我们可以通过 ReactDOM.render 让虚拟 DOM 和真实 DOM 同步起来，这个过程中叫做协调（Reconciliation）
+- 我们可以通过 ReactDOM.render 让虚拟 DOM 和真实 DOM 同步起来，这个过程叫做协调（Reconciliation）
 
 这种编程的方式赋予了 React 声明式的 API：
 
@@ -511,8 +511,8 @@ class App extends React.Component {
               )
             })}
           </tbody>
-          <h2>总价格：{formatPrice(this.getTotalPrice())}</h2>
         </table>
+        <h2>总价格：{formatPrice(this.getTotalPrice())}</h2>
       </div>
     )
   }

@@ -9,7 +9,7 @@ TypeScript 解决 JavaScript 类型系统的问题，大大提高代码的可靠
 
 ### 强类型与弱类型（类型安全）
 
-- 强类型：语言层面显示函数的实参类型必须与形参类型相同（更强的类型约束）
+- 强类型：语言层面限制函数的实参类型必须与形参类型相同（更强的类型约束）
 
   不允许任意的隐式类型转换
 
@@ -166,7 +166,7 @@ yarn add @babel/core @babel/cli @babel/preset-flow
 
 ```js
 {
-  "presets": ["@bebel/preset-flow"]
+  "presets": ["@babel/preset-flow"]
 }
 ```
 
@@ -280,7 +280,7 @@ passAny(100)
 const element: HTMLElement | null = document.getElementById('app')
 ```
 
-## Typescript 语言规范与基本应用
+## TypeScript 语言规范与基本应用
 
 - JavaScript 的超集（superset）
 
@@ -629,7 +629,7 @@ const jack = Student.create('jack', 18)
 
 **implements 和 extends 区别**
 
-- `implements` 将类当做一个接口，这意味着必须去实现定义在类中的所有方法，无论这些方法是否在类中有没有默认实现，同时也不需要使用 `super()`
+- `implements` 将类当做一个接口，这意味着必须去实现定义在类中的所有方法，无论这些方法在类中有没有默认实现，同时也不需要使用 `super()`
 - `extends` 需要使用 `super()`
 
 ```tsx

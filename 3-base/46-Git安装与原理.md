@@ -1,4 +1,4 @@
-# Git安装与原理
+﻿# Git安装与原理
 
 ## 安装配置
 
@@ -156,8 +156,8 @@ manager
 - 如果我们以 SSH 的方式访问Git仓库，那么就需要生产对应的公钥和私钥：
 
 ```bash
-$ ssh-keygen -t ed25519 -C “your email"
-$ ssh-keygen -t rsa -b 2048 -C “your email"
+$ ssh-keygen -t ed25519 -C "your email"
+$ ssh-keygen -t rsa -b 2048 -C "your email"
 ```
 
 ### 管理远程仓库

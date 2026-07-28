@@ -58,7 +58,7 @@ $.get('url1', function (data1) {
 
 ### 基础使用
 
-为了避免回调地狱问题，CommonJS 社区提出了 Promise的规范，为异步编程提供一种更强大的解决方案，后来在 ES2015 中被标准化，成为语言规范
+为了避免回调地狱问题，CommonJS 社区提出了 Promise 的规范，为异步编程提供一种更强大的解决方案，后来在 ES2015 中被标准化，成为语言规范
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/Promise图.png)
 
@@ -187,7 +187,7 @@ ajax('/api/users.json')
   })
 ```
 
-还可以在全局对象上注册一个 `unhandledrejection` 事件，去处理哪些没有被 Promise 捕获的异常
+还可以在全局对象上注册一个 `unhandledrejection` 事件，去处理那些没有被 Promise 捕获的异常
 
 ```js
 // 全局捕获 Promise 异常
@@ -323,7 +323,7 @@ setTimeout
 
 - Promise 的回调会作为微任务执行
 
-（JS 回调队列中等待的任务）假设我现在去银行柜台办理存款业务（宏任务）， 办完存款后突然想办一张信用卡（微任务），这时你直接银行柜员你临时的需求，而银行柜员为了提高我的体验，一般会捎带脚办理了，并不算插队
+（JS 回调队列中等待的任务）假设我现在去银行柜台办理存款业务（宏任务）， 办完存款后突然想办一张信用卡（微任务），这时你直接告诉银行柜员你临时的需求，而银行柜员为了提高我的体验，一般会捎带脚办理了，并不算插队
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/银行柜台排队.png)
 

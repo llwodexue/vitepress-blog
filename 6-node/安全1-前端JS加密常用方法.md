@@ -1,4 +1,4 @@
-# 前端JS加密常用方法
+# 前端 JS 加密常用方法
 
 ## 对称加密
 
@@ -60,7 +60,7 @@ sha256 a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
 */
 ```
 
-#### * 上面版本的加盐和 hmac 算法
+#### 上面版本的加盐和 HMAC 算法
 
 如果密码安全强度过低，是很容易被彩虹表碰撞上的，所以一般还会做一层加盐加字符串的处理，这样碰撞成功的概率就大大减少了
 
@@ -90,7 +90,7 @@ const createHmac = (type, str) => crypto.createHmac(type, salt).update(str).dige
 const psw = '123'
 const md5 = str => createHmac('md5', str)
 
-console.log(md5(salt, psw)) // c9bce0c58ec62881aa5774a7d304b40a
+console.log(md5(psw)) // c9bce0c58ec62881aa5774a7d304b40a
 ```
 
 #### blueimp-md5 进行 MD5 加密
@@ -114,7 +114,7 @@ console.log(passTrans(txt)) // 202cb962ac59075b964b07152d234b70
 
 #### sha 进行 SHA 加密
 
-SHA 家族的五个算法，分别是 SHA-1、SHA-224、SHA-256、SHA-384，和 SHA-512，由美国国家安全局（NSA）所规划，并由美国国家规范与技能研究院（NIST）发布，这里只对 SHA-1 和 SHA-256 进行演示
+SHA 家族的五个算法，分别是 SHA-1、SHA-224、SHA-256、SHA-384，和 SHA-512，由美国国家安全局（NSA）所规划，并由美国国家标准与技术研究院（NIST）发布，这里只对 SHA-1 和 SHA-256 进行演示
 
 - SHA-1
 
@@ -181,7 +181,7 @@ console.log(crypto.getCiphers())
 ]
 ```
 
-cryoto 模块中提供了 `createCipheriv` 和 `createDecipheriv` 来进行加密和解密的功能，这两个方法都接收 3 个参数：
+crypto 模块中提供了 `createCipheriv` 和 `createDecipheriv` 来进行加密和解密的功能，这两个方法都接收 3 个参数：
 
 1. algorithm 用于指定加密算法
 
@@ -405,9 +405,9 @@ console.log('解密：', _src)
 */
 ```
 
-##  非对称加密
+## 非对称加密
 
-非对称加密会产生一对密钥（公钥负责加密、私钥负责解密），私钥无法解开说明公钥无效（抗抵赖性）。常见算法 RSA（大质数 ）、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）
+非对称加密会产生一对密钥（公钥负责加密、私钥负责解密），私钥无法解开说明公钥无效（抗抵赖性）。常见算法 RSA（大质数）、Elgamal、背包算法、Rabin、D-H、ECC（椭圆曲线加密算法）
 
 如下只对 RSA 算法进行说明
 
@@ -476,7 +476,7 @@ const privateKey = key.exportKey('pkcs8-private').toString('base64') // 私钥
 ```js
 const nodeRSA = require('node-rsa')
 
-// 生成一个1024长度的密钥对
+// 生成一个 1024 长度的密钥对
 const key = new nodeRSA({ b: 1024 })
 const publicKey = key.exportKey('pkcs8-public') // 公钥
 const privateKey = key.exportKey('pkcs8-private') // 私钥

@@ -1,4 +1,4 @@
-# Rollup和Eslint
+# Rollup 和 ESLint
 
 ## Rollup
 
@@ -317,7 +317,7 @@ SyntaxError: The requested module 'node:fs/promises' does not provide an export 
 
 
 
-## Eslint
+## ESLint
 
 **为什么要有规范化标准**
 
@@ -341,7 +341,7 @@ SyntaxError: The requested module 'node:fs/promises' does not provide an export 
 
 - ESLint 工具使用
 - 定制 ESLint 校验规则
-- ESLint 对 Typescript 的支持
+- ESLint 对 TypeScript 的支持
 - ESLint 结合自动化工具或者 Webpack
 - 基于 ESLint 的衍生工具
 - Stylelint 工具的使用

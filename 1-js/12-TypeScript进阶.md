@@ -264,9 +264,9 @@ namespace
 
 - 由于 ES6 后来也使用了 module 关键字，为了兼容 ES6，所以 TypeScript 使用 namespace 替代了原来的 module，并更名为命名空间
 
-[Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped?fileGuid=xxQTRXtVcqtHK6j8) 是最流行性的高质量 TypeScript 声明文件类库，正是因为有社区维护的这个声明文件类库，大大简化了 JavaScript 项目迁移 TypeScript 的难度
+[Definitely Typed](https://github.com/DefinitelyTyped/DefinitelyTyped?fileGuid=xxQTRXtVcqtHK6j8) 是最受欢迎的高质量 TypeScript 声明文件类库，正是因为有社区维护的这个声明文件类库，大大简化了 JavaScript 项目迁移 TypeScript 的难度
 
-注意的是后面声明的接口具有更高的优先级
+需要注意的是后面声明的接口具有更高的优先级
 
 ```typescript
 interface Obj {

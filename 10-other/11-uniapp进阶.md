@@ -11,7 +11,7 @@ uni-app 页面是编写在 pages 目录下
 
 注意事项：
 
-- 每次新建页面，需在 pages.jon 中配置 pages 列表（手动才需配置）
+- 每次新建页面，需在 pages.json 中配置 pages 列表（手动才需配置）
 - 未在 pages.json -> pages 中配置的页面，uni-app 会在编译阶段进行忽略
 
 删除页面：

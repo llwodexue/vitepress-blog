@@ -1,4 +1,4 @@
-# 手写Promie源码
+# 手写Promise源码
 
 ## Promise 类基础逻辑
 
@@ -12,7 +12,7 @@
 
 3. resolve 和 reject 函数是用来更改状态的
 
-   **把 resolve 和 reject 定义为箭头函数是为了让函数内部的 this 指向，指向类的实例对象（Promise）**
+   **把 resolve 和 reject 定义为箭头函数是为了让函数内部的 this 指向类的实例对象（Promise）**
 
 4. then 方法内部做的事情就是判断状态，如果状态是成功，就调用成功的回调函数，如果状态是失败，就调用失败的回调函数。then 方法定义在原型对象上的
 
@@ -252,7 +252,7 @@ p1.then(
 )
 ```
 
-**注意：**  举个例子 `var obj = { n: 10, x: obj.n *10 }`，因为 obj 还没有创建完，而在创建属性 x 时是获取不到 obj.n 的。因为全局作用于只声明了 obj，却没有赋值（`obj -> undefiend`），promise 也是有这样的情况的，我们可以使用异步任务，让其赋值完成
+**注意：**  举个例子 `var obj = { n: 10, x: obj.n *10 }`，因为 obj 还没有创建完，而在创建属性 x 时是获取不到 obj.n 的。因为全局作用域只声明了 obj，却没有赋值（`obj -> undefined`），promise 也是有这样的情况的，我们可以使用异步任务，让其赋值完成
 
 ```js
 class MyPromise {

@@ -1,4 +1,4 @@
-# Koa源码
+# Koa 源码
 
 ## Koa 简介
 
@@ -17,7 +17,7 @@
 
     语言级和框架级
 
-Koa 是一个新的 web 框架， 致力于成为 web 应用和 API 开发领域中的一个更小、更富有
+Koa 是一个新的 web 框架，致力于成为 web 应用和 API 开发领域中的一个更小、更富有
 表现力、更健壮的基石
 
 - Koa 是 Express 的下一代基于 Node.js 的 web 框架
@@ -30,7 +30,7 @@ Koa 是一个新的 web 框架， 致力于成为 web 应用和 API 开发领域
 - 优雅的 API 设计
 - 增强的错误处理
 
-Koa 中间件机制：Koa 中间件机制就是函数式 组合概念 Compose 的概念，将一组需要顺序执行的
+Koa 中间件机制：Koa 中间件机制就是函数式组合概念 Compose 的概念，将一组需要顺序执行的
 函数复合为一个函数，外层函数的参数实际是内层函数的返回值。洋葱圈模型可以形象表示这种机
 制，是源码中的精髓和难点
 
@@ -164,7 +164,7 @@ const compose =
   }
 ```
 
-异步中间件：上面的函数都是同步的，挨个遍历执行即可，如果是异步的函数，是一个 promise，我们要支持 async + await 中间件，所以我们要等异步结束后，再执行下一个中间件
+异步中间件：上面的函数都是同步的，挨个遍历执行即可，如果是异步的函数，是一个 Promise，我们要支持 async + await 中间件，所以我们要等异步结束后，再执行下一个中间件
 
 ```js
 function compose(middleWares) {
@@ -296,7 +296,7 @@ class Router {
       for (let i = 0; i < stock.length; i++) {
         let item = stock[i]
         if (currentPath === item.path && item.methods.indexOf(ctx.method) >= 0) {
-          // 判断path和method
+          // 判断 path 和 method
           route = item.middleware
           break
         }

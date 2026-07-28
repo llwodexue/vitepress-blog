@@ -56,7 +56,7 @@ X-Download-Options: noopen
 
 > [X-Frame-Options](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-Frame-Options)
 
-X-Frame-Options：用来给浏览器指示允许一个页面可否在 `<frame>`, `<iframe>`、`embed` 或者 `< object>` 中展现的标记。网站可以使用此功能，来确保自己网站的内容没有被嵌到别人的网站中去，也从而避免了点击劫持（clickjacking）的攻击
+X-Frame-Options：用来给浏览器指示允许一个页面可否在 `<frame>`, `<iframe>`、`embed` 或者 `<object>` 中展现的标记。网站可以使用此功能，来确保自己网站的内容没有被嵌到别人的网站中去，也从而避免了点击劫持（clickjacking）的攻击
 
 ```http
 X-Frame-Options: SAMEORIGIN
@@ -75,7 +75,7 @@ X-Permitted-Cross-Domain-Policies: none
 X-XSS-Protection：当检测到跨站脚本攻击（XSS）时，浏览器将停止加载页面
 
 ```http
-X-Xss-Protection: 0
+X-XSS-Protection: 0
 ```
 
 - 0 禁止 XSS 过滤

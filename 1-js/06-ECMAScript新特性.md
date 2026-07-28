@@ -4,11 +4,11 @@
 
 在浏览器 JavaScript
 
-![NodeJS](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/NodeJS.png)
+![WebJS](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/WebJS.png)
 
 在Node JavaScript
 
-![WebJS](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/WebJS.png)
+![NodeJS](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/NodeJS.png)
 
 ECMAScript 版本
 
@@ -314,7 +314,7 @@ console.log(listProxy) // [ 100 ]
 | preventExtensions        | `Object.preventExtensions()`                                 |
 | getOwnPropertyDescriptor | `Object.getOwnPropertyDescriptor()`                          |
 | defineProperty           | `Object.defineProperty()`                                    |
-| ownKeys                  | `Object.getOwnPropertyName()`、`Object.getOwnPropertySymbols` |
+| ownKeys                  | `Object.getOwnPropertyNames()`、`Object.getOwnPropertySymbols` |
 | apply                    | 调用一个函数                                                 |
 | construct                | 用 new 调用一个函数                                          |
 
@@ -460,7 +460,7 @@ console.log(Symbol.for(true) === Symbol.for('true')) // true
 const obj = {
   [Symbol.toStringTag]: 'XObject'
 }
-// 如果直接从写toString可能会重复（其他地方用了 也会被影响），可以用symbol重写
+// 如果直接重写 toString 可能会重复（其他地方用了 也会被影响），可以用symbol重写
 console.log(obj.toString()) // [object XObject]
 // 只能获取symbol属性名
 console.log(Object.getOwnPropertySymbols(obj)) // [ Symbol(Symbol.toStringTag) ]
@@ -645,7 +645,7 @@ const p1 = {
 console.log(p1.fullName) // Lei Wang
 const p2 = Object.assign({}, p1)
 p2.firstName = 'zce'
-// Object.assign 在复制是只是把 fullName 当做普通属性复制了
+// Object.assign 在复制时只是把 fullName 当做普通属性复制了
 console.log(p2.fullName) // Lei Wang
 
 const descriptors = Object.getOwnPropertyDescriptors(p1)

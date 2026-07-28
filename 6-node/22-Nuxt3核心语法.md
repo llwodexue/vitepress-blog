@@ -1,4 +1,4 @@
-# Nuxt3核心语法
+# Nuxt 3 核心语法
 
 ## 路由嵌套
 
@@ -40,7 +40,7 @@ Nuxt 提供了一个可定制的路由中间件，用来监听路由的导航，
 
 - 命名路由中间件
 
-  - 在 middleware 目录下定义，并会自动加载中间件。命名规范 kabab-case
+  - 在 middleware 目录下定义，并会自动加载中间件。命名规范 kebab-case
 
   ```typescript
   export default defineNuxtRouteMiddleware((to, from) => {

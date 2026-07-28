@@ -79,8 +79,8 @@
 
 webpack 默认使用 CommonJS 规范处理打包结果
 
-- 如果模块时使用 CommonJS 方式导入，webpack 不需要额外处理
-- 如果模块时使用 ES Modules 方式导入，webpack 会进行处理
+- 如果模块是使用 CommonJS 方式导入，webpack 不需要额外处理
+- 如果模块是使用 ES Modules 方式导入，webpack 会进行处理
 
 `__webpack_require__.r` 方法给 `exports` 添加标记
 
@@ -188,7 +188,7 @@ export const age = 100
     if (installedModules[moduleId]) {
       return installedModules[moduleId].exports
     }
-    // 2-2 如果当前缓存不存在则需要我们自己定义 {} 执行被导入的模内容加载
+    // 2-2 如果当前缓存不存在则需要我们自己定义 {} 执行被导入的模块内容加载
     let module = (installedModules[moduleId] = {
       i: moduleId,
       l: false,
@@ -220,7 +220,7 @@ export const age = 100
     }
   }
 
-  // 07 定义 r 方法用于标识当前模块时 es6 类型
+  // 07 定义 r 方法用于标识当前模块是 es6 类型
   __webpack_require__.r = function (exports) {
     if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
       Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' })
@@ -1046,7 +1046,7 @@ module.exports = AsyncParallelHook
 
 ### 定位 webpack 打包入口
 
-执行 `npx webpack` 相当于找 `node_modules/.bin` 下面的 `webapck` 相关命令，这里拿 `webpack.cmd` 举例，这里有个比较常见的 `dp0`，可以理解为 cwd
+执行 `npx webpack` 相当于找 `node_modules/.bin` 下面的 `webpack` 相关命令，这里拿 `webpack.cmd` 举例，这里有个比较常见的 `dp0`，可以理解为 cwd
 
 ```bash
 @ECHO off
@@ -1071,7 +1071,7 @@ EXIT /b
 ![image-20220616163856143](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220616163856143.png)
 
 - cmd 文件核心的作用就是组装了 `node .../node_modules/webpack/bin/webpack.js ` 命令，并执行
-- 之后在 `webpack.js` 中加载 `node_modules/webpack-cli/package.json` 找到对应的 `bin: { webpack-cli:'bin/cli.js' }` 字段执行对应的 `node_modules/webpack-cl/bin/cli.js` 文件
+- 之后在 `webpack.js` 中加载 `node_modules/webpack-cli/package.json` 找到对应的 `bin: { webpack-cli: 'bin/cli.js' }` 字段执行对应的 `node_modules/webpack-cli/bin/cli.js` 文件
 
 `cli.js` 作用：
 
@@ -1549,7 +1549,7 @@ module.exports = Compiler
 1. `compiler` 继承 `tapable` 因此它具备钩子的操作能力（监听事件、触发事件，webpack 是一个事件流）
 2. 在实例化了 `compiler` 对象之后就往它的身上挂载很多属性，其中 `NodeEnvironmentPlugin` 这个操作就让它具备了文件读写的能力（我们模拟时采用的是 node 自带的 fs）
 3. 具备了 fs 操作能力之后有将 `plugins` 中的插件都挂载到了 `compiler` 对象身上
-4. 将内部默认的插件与 `compiler` 建立管理，其中 `EntryOptionPlugin` 处理了入口模块的 id
+4. 将内部默认的插件与 `compiler` 建立关联，其中 `EntryOptionPlugin` 处理了入口模块的 id
 5. 在实例化 `compiler` 的时候只是监听了 `make` 钩子（`SingleEntryPlugin`）
    - 在 `SingleEntryPlugin` 模块的 `apply` 方法中有二个钩子监听
    - 其中 `compilation` 钩子就是让 `compilation` 具备了 `normalModuleFactory` 工厂创建一个普通模块的能力

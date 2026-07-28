@@ -1,4 +1,4 @@
-# Node服务端渲染和SSR
+# Node 服务端渲染和 SSR
 
 ## 服务端渲染
 
@@ -67,7 +67,7 @@ Google 爬虫的工作流程分为 3 个阶段，并非每个网页都会经历�
 
 ### 静态站点生成SSG
 
-静态站点生成（SSG）全称是：Static Site Generate，是预先生成好的静态网站
+静态站点生成（SSG）全称是：Static Site Generation，是预先生成好的静态网站
 
 - SSG应用一般在构建阶段就确定了网站的内容
 - 如果网站的内容需要更新了，那必须得重新再次构建和部署
@@ -86,7 +86,7 @@ SSG 的缺点：
 
 ### 服务器端渲染（SSR）
 
-服务器端渲染全称是：Server Side Render，在服务器端渲染页面，并将渲染好的 HTML 返回给浏览器呈现
+服务器端渲染全称是：Server Side Rendering，在服务器端渲染页面，并将渲染好的 HTML 返回给浏览器呈现
 
 - SSR 应用的页面是在服务端渲染的，用户每请求一个 SSR 页面都会先在服务端进行渲染，然后将渲染好的页面，返回给浏览器呈现
 - 构建 SSR 应用常见的库和框架有：Vue Nuxt、React Next.js 等（SSR 应用也称同构应用）
@@ -117,12 +117,12 @@ SSR 缺点
 2. 从零搭建 SSR 项目（Node + webpack + Vue/React）
 3. 直接使用流行的框架
    - React：Next.js
-   - Vue3：Nuxt3、Vue2：Nuxt.js
+   - Vue 3：Nuxt 3、Vue 2：Nuxt.js
    - Angular：Angular Universal
 
 SSR 应用场景非常广阔，比如：
 
-- SaaS产品，如：电子邮件网站、在线游戏、客户关系管理系统(CRM)、采购系统等
+- SaaS 产品，如：电子邮件网站、在线游戏、客户关系管理系统(CRM)、采购系统等
 - 门户网站、电子商务、零售网站
 - 单个页面、静态网站、文档类网站
 
@@ -135,7 +135,7 @@ Vue 除了支持开发 SPA 应用之外，其实也是支持开发 SSR 应用的
 - createApp：创建应用，直接挂载到页面上
 - createSSRApp：创建应用，是在激活的模式下挂载应用
 
-服务端用 `@vue/server-render` 包中的 renderToString 来进行渲染
+服务端用 `@vue/server-renderer` 包中的 renderToString 来进行渲染
 
 ![image-20231026145849567](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231026145849567.png)
 
@@ -274,7 +274,7 @@ module.exports = {
 }
 ```
 
-生成的页面是没有附带任何 JS 文件的，点击 +1，页面不会有任何变化
+生成的页面没有附带任何 JS 文件，点击 +1，页面不会有任何变化
 
 - 还需要激活一下，Hydration
 
