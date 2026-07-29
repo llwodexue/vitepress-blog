@@ -6,7 +6,7 @@
 
 - 直接通知 webpack 忽略较大的库
 
-  通常是第三方的一些类库，一般是比较大的库，且没用模块化的方式去编写，那么它本身也不会有外部的依赖，所以我们就可以不对它进行解析
+  通常是第三方的一些类库，一般是比较大的库，且没有使用模块化的方式去编写，那么它本身也不会有外部的依赖，所以我们就可以不对它进行解析
 
 - 被忽略的库不能有 import、require、define 的引入方式
 
@@ -68,7 +68,7 @@ module.exports = {
 
   已经打包好的完整代码，没有采用模块化，可以直接执行
 
-默认情况下，webpack 会从入口文件 `./node_modules/bin/react/index` 开始递归解析和处理依赖的文件。我们可以直接指定文件，避免这处耗时
+默认情况下，webpack 会从入口文件 `./node_modules/bin/react/index` 开始递归解析和处理依赖的文件。我们可以直接指定文件，避免此处的耗时
 
 ```js
 module.exports = {
@@ -111,7 +111,7 @@ module.exports = {
 
 我们希望在使用时，仍然可以通过 `import` 方式去引用（`import $ from 'jquery'`），并且希望 webpack 不会对其进行打包，此时就可以配置 `externals`
 
-- 当前也可以不通过 `import` 来引入，此时就需要配合 eslint 的 `global` 选项使用了
+- 当然也可以不通过 `import` 来引入，此时就需要配合 eslint 的 `global` 选项使用了
 
 ```js
 module.exports = {

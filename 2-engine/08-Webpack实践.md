@@ -15,7 +15,7 @@ vue-cli 调整 webpack 的配置
 
 create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配置
 
-- 默认跟 vue-cli 一样把 webpack 配置包装到一个黑盒中，使用 `react-scripts eject` 后就把 webpack 配置拿到了本地
+- 默认跟 Vue CLI 一样把 webpack 配置包装到一个黑盒中，使用 `react-scripts eject` 后就把 webpack 配置拿到了本地
 
 ## 多页面打包
 
@@ -32,7 +32,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
 使用不同的 `.env` 文件控制，一般在项目根目录下会添加 `.env.development`、`.env.test`、`.env.production` 这样的环境变量配置文件
 
-- vue-cli：只有 `NODE_ENV`、`BASE_URL`、`VUE_APP_` 开头的变量才会通过 `webpack.DefinePlugin` 静态地嵌入到客户端的代码中，这是为了避免意外公开机器上可能具有相同名称的私钥
+- Vue CLI：只有 `NODE_ENV`、`BASE_URL`、`VUE_APP_` 开头的变量才会通过 `webpack.DefinePlugin` 静态地嵌入到客户端的代码中，这是为了避免意外公开机器上可能具有相同名称的私钥
 - create-react-app：要求环境变量需要以 `REACT_APP_` 开头
 
 执行 webpack 打包时通过 `NODE_ENV` 控制具体使用哪一个环境，然后 webpack 配置文件使用 `dotenv` 读取对应环境配置，通过 `DefinePlugin` 注入

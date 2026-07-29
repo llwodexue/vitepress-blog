@@ -248,7 +248,7 @@ console.log(result === source1) // true
 
 ## Proxy
 
- 监视某个对象的属性读写，可以使用 `Object.defineProperty`，ES6 增加 `Proxy`
+ 监视某个对象的属性读写，可以使用 `Object.defineProperty`，ES6 增加了 `Proxy`
 
 ```js
 const person = {
@@ -272,7 +272,7 @@ console.log(personProxy.age) // 100
 
 - `defineProperty` 只能监视属性的读写
 
-- `Proxy` 能够监视到更多对象操作（Delete 操作、方法调用等）
+- `Proxy` 能够监视更多对象操作（Delete 操作、方法调用等）
 
   `Proxy` 更好的支持数组对象的监视（重写数组的操作方法）
 
@@ -454,13 +454,13 @@ console.log(Symbol() === Symbol()) // false
 const s1 = Symbol.for('foo')
 const s2 = Symbol.for('foo')
 console.log(s1 === s2) // true
-// 注意 由于内部会转换成字符串，即使传boolean也是true
+// 注意：由于内部会转换成字符串，即使传boolean也是true
 console.log(Symbol.for(true) === Symbol.for('true')) // true
 
 const obj = {
   [Symbol.toStringTag]: 'XObject'
 }
-// 如果直接重写 toString 可能会重复（其他地方用了 也会被影响），可以用symbol重写
+// 如果直接重写 toString 可能会重复（其他地方用了也会被影响），可以用symbol重写
 console.log(obj.toString()) // [object XObject]
 // 只能获取symbol属性名
 console.log(Object.getOwnPropertySymbols(obj)) // [ Symbol(Symbol.toStringTag) ]

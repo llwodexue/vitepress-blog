@@ -36,7 +36,7 @@ __webpack_require__(0);
 
 > 如果可以请尽可能详尽的描述 Webpack 打包的整个过程
 
-- webpack 是运行在 nodejs 环境下，配置文件遵循 commonjs 规范，其配置文件 `webpack.config.js` 导出一个 `object/function/promise/array`
+- webpack 是运行在 Node.js 环境下，配置文件遵循 CommonJS 规范，其配置文件 `webpack.config.js` 导出一个 `object/function/promise/array`
 - webpack 在启动后，会从 entry 开始，递归解析 entry 依赖的所有 module，每找到一个 module，就会根据 `module.rules` 里配置的 loader 进行相应的处理，对 module 进行转换后，再解析出当前 module 依赖的 module，这些 module 会以 entry 为单位进行分组，即为一个 chunk
 - 因此一个 chunk 就是一个 entry 及其所有依赖 module 合并的结果，最后 webpack 会将所有的 chunk 输出转换成 output
 

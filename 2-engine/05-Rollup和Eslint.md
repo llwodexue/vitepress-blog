@@ -240,7 +240,7 @@ export default defineConfig({
 
 在 `package.json` 中增加 `"build": "rollup -c rollup.config.js"`，直接运行会报如下警告
 
-- 由于 commonjs 和 esm 有冲突，需要在 `package.json` 中增加 `"type": "module"`
+- 由于 CommonJS 和 ESM 有冲突，需要在 `package.json` 中增加 `"type": "module"`
 
 ![image-20250417101521678](https://gitee.com/lilyn/pic/raw/master/md-img/image-20250417101521678.png)
 

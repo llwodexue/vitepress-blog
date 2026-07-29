@@ -16,7 +16,7 @@ hero:
       link: /3-base/01-基本概念
     - theme: alt
       text: 运维部署
-      link: /7-ops/云服务器-1.免密登陆
+      link: /7-ops/云服务器-1.免密登录
 
 features:
   - icon: 📕
@@ -46,7 +46,7 @@ features:
   - icon: 💻
     title: 运维部署
     details: 前端环境、后端环境、数据库环境、容器环境、自动部署...
-    link: /7-ops/云服务器-1.免密登陆
+    link: /7-ops/云服务器-1.免密登录
   - icon: 🏳️‍🌈
     title: 其他
     details: 微信小程序、uniapp、性能优化、数学、调研...

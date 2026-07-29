@@ -90,7 +90,7 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
 点击 `a标签 打开同源页面`（a 标签默认行为 `rel="noopener"`）
 
-- 注意：Chrome 89 的版本，`Stop cloning sessionStorage for windows opened with noopener`
+- 注意：Chrome 89 版本，`Stop cloning sessionStorage for windows opened with noopener`
 
   Chrome 89 之后，a 标签默认点击打开将停止考虑 `sessionStorage`，如果测试版本再 Chrome 89 之前，是不会得到如下效果的
 

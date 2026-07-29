@@ -10,7 +10,7 @@ Cross Site Scripting（跨站脚本攻击），因为缩写和 CSS 重叠，所�
 
 - 利用脚本窃取用户的 Cookie 值，被害者在不知情的情况下，帮助攻击者发送恶意请求
 
-  显示伪造的文章或图片
+  - 显示伪造的文章或图片
 
 ### XSS 攻击分类
 
@@ -178,7 +178,7 @@ function escape(str) {
 
 编程语言解决方案：
 
-- nodejs 使用 [js-xss](https://github.com/leizongmin/js-xss)
+- Node.js 使用 [js-xss](https://github.com/leizongmin/js-xss)
 
   ```js
   var xss = require("xss");
@@ -212,7 +212,7 @@ session.cookie_httponly = 1
 
 在使用 `innerHTML`、`outerHTML`、`document.write()` 时要特别小心，不要把不可信的数据作为 HTML 插入页面上，而应尽量使用 `.textContent` 、`setAttribute()` 等
 
-如果使用 Vue 或 React 技术栈，并不适用 `v-html / dangerouslySetInnerHTML` 功能，就在前端 render 阶段避免 `innerHTML` 、`outerHTML` 的 XSS 隐患
+如果使用 Vue 或 React 技术栈，并不使用 `v-html / dangerouslySetInnerHTML` 功能，就在前端 render 阶段避免 `innerHTML` 、`outerHTML` 的 XSS 隐患
 
 ```html
 <script> 
@@ -291,7 +291,7 @@ cookie 的应用场景：
 
   HTTP 协议头中有一个字段叫 referer，记录了该 HTTP 请求的来源地址
 
-  HTTPS 不发生 referer
+  HTTPS 不发送 Referer
 
   ```js
   app.use(async (ctx, next) => {
@@ -346,7 +346,7 @@ Cookies.set('lang', lang, {
 
 ### 防范手段
 
-- 最有效的方法就是全站 HTTPS，即 HTTP 加密，这使得运营商无法获取明文，就无法劫持你的响应内容
+- 最有效的方法就是全站 HTTPS，即 HTTP over SSL/TLS，这使得运营商无法获取明文，就无法劫持你的响应内容
 
 - X-FRAME-OPTIONS
 

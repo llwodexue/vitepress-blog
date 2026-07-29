@@ -7,7 +7,7 @@
 **JSX 是什么**
 
 - JSX 是一种 JavaScript 的语法扩展（eXtension），也在很多地方称之为 JavaScript XML，因为看起来就是一段 XML 语法
-- 它用于描述我们的 UI 界面，并且其完成可以和 JavaScript 融合在一起使用
+- 它用于描述我们的 UI 界面，并且其完全可以和 JavaScript 融合在一起使用
 - 它不同于 Vue 中的模板语法，你不需要专门学习模板语法中的一些指令（比如 v-for、v-if、v-else、v-bind）
 
 React 认为**渲染逻辑**本质上与**其他 UI 逻辑**存在内在耦合
@@ -186,7 +186,7 @@ class App extends React.Component {
 
 在事件执行后，我们可能需要获取当前类的对象中相关的属性，这个时候需要用到 this
 
-- 如果我们这里直接打印 this，也会发现它是一个 undefined
+- 如果我们这里直接打印 this，也会发现它是 undefined
 
 为什么是 undefined 呢？
 

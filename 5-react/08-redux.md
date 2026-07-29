@@ -91,7 +91,7 @@
 
 # react-redux
 
-**Redux 和 React 没有直接的关系，你完全可以在 React, Angular, Ember, jQuery, or vanilla JavaScript 中使用 Redux**
+**Redux 和 React 没有直接的关系，你完全可以在 React、Angular、Ember、jQuery 或 vanilla JavaScript 中使用 Redux**
 
 
 
@@ -115,7 +115,7 @@
 **Redux Thunk 是如何做到让我们可以发送异步的请求呢？**
 
 - 我们知道，默认情况下的 dispatch(action)，action 需要是一个 JavaScript 的对象
-- Redux Thunk 可以让 dispatch(action函数)，action 可以是一个函数
+- Redux Thunk 可以让 dispatch(action 函数)，action 可以是一个函数
 - 该函数会被调用，并且会传给这个函数一个 dispatch 函数和 getState 函数
   - dispatch 函数用于我们之后再次派发 action
   - getState 函数考虑到我们之后的一些操作需要依赖原来的状态，用于让我们可以获取之前的一些状态
@@ -221,7 +221,7 @@ export default mySaga
 
 **combineReducers 是如何实现的呢？**
 
-- 事实上，它也是将我们传入的 reducers 合并到一个对象中，最终返回一个 combination 的函数（相当于我们之前的reducer函数了）
+- 事实上，它也是将我们传入的 reducers 合并到一个对象中，最终返回一个 combination 的函数（相当于我们之前的 reducer 函数了）
 - 在执行 combination 函数的过程中，它会通过判断前后返回的数据是否相同来决定返回之前的 state 还是新的 state
 - 新的 state 会触发订阅者发生对应的刷新，而旧的 state 可以有效的阻止订阅者发生刷新
 
@@ -246,7 +246,7 @@ function reducer(state = {}, action) {
 
 **Redux Toolkit 的核心 API 主要是如下几个：**
 
-- configureStore：包装 createStore 以提供简化的配置选项和良好的默认值。它可以自动组合你的 slice reducer，添加你提供的任何 Redux 中间件，Redux Thunk 默认包含，并启用 Redux DevTools Extension
+- configureStore：包装 createStore 以提供简化的配置选项和良好的默认值。它可以自动组合你的 slice reducer，添加你提供的任何 Redux 中间件，默认包含 Redux Thunk，并启用 Redux DevTools Extension
 - createSlice：接受 reducer 函数的对象、切片名称和初始状态值，并自动生成切片. reducer，并带有相应的 actions
 - createAsyncThunk: 接受一个动作类型字符串和一个返回 Promise 的函数，并生成一个 pending/fulfilled/rejected 基于该 Promise 分派动作类型的 thunk
 
@@ -309,7 +309,7 @@ reducers：相当于之前的 reducer 函数
 
 **事实上 Redux Toolkit 底层使用了 immerjs 的一个库来保证数据的不可变性**
 
-**为了节约内存，又出现了一个新的算法：Persistent Data Structure（持久化数据结构或一致性、数据结构）**
+**为了节约内存，又出现了一个新的算法：Persistent Data Structure（持久化数据结构或一致性数据结构）**
 
 - 用一种数据结构来保存数据
 - 当数据被修改时，会返回一个对象，但是新的对象会尽可能的利用之前的数据结构而不会对内存造成浪费

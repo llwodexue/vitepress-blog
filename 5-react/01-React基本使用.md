@@ -40,7 +40,7 @@ React：用于构建用户界面的 JavaScript 库
 
 - react：包含 react 所必须的核心代码
 - react-dom：React 渲染在不同平台所需要的核心代码
-- babel：将 jsx 转换成 React 代码的工具
+- Babel：将 JSX 转换成 React 代码的工具
 
 对于 Vue 来说，我们只是依赖一个 Vue.js 文件即可，但是 React 需要依赖三个包
 
@@ -51,9 +51,9 @@ react-dom 针对 web 和 native 所完成的事情不同：
 
 React 和 Babel 的关系：
 
-- 默认情况下开发 React 其实可以不使用 babel
+- 默认情况下开发 React 其实可以不使用 Babel
 - 但是前提是我们自己使用 React.createElement 来编写源代码，它编写的代码非常的繁琐和可读性差
-- 那么我们就可以直接编写 JSX（JavaScript XML）的语法，并且让 babel 帮助我们转换成 React.createElement
+- 那么我们就可以直接编写 JSX（JavaScript XML）的语法，并且让 Babel 帮助我们转换成 React.createElement
 
 **React 依赖引入**
 
@@ -101,7 +101,7 @@ React 和 Babel 的关系：
 - **参与界面更新的数据**：当数据变化时，需要更新组件渲染的内容
 - **不参与界面更新的数据**：当数据变化时，不需要更新组件渲染的内容
 
-参与界面更新的数据我们也可以称之为是**参与数据流**，这个数据是**定义在当前对象的 state**中
+参与界面更新的数据我们也可以称之为**参与数据流**，这个数据是**定义在当前对象的 state**中
 
 - 我们可以通过在构造函数中 `this.state = {定义的数据}`
 

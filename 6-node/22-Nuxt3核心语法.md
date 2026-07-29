@@ -123,10 +123,10 @@ definePageMeta({
 
 ### 渲染模式
 
-浏览器和服务器都可以解释 JavaScript 代码，都可以将 Vue.js 组件呈现为 HTML 元素，此过程称为渲染
+浏览器和服务器都可以执行 JavaScript 代码，都可以将 Vue.js 组件呈现为 HTML 元素，此过程称为渲染
 
 - 在客户端将 Vue.js 组件呈现为 HTML 元素，称为：客户端渲染模式
-- 在服务器将 Vue.js 组件呈现为 HTML 元素，称为：服务器渲染模式
+- 在服务端将 Vue.js 组件呈现为 HTML 元素，称为：服务器渲染模式
 
 而 Nuxt3 是支持多种渲染模式，比如：
 

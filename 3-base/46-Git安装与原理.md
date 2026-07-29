@@ -162,7 +162,7 @@ $ ssh-keygen -t rsa -b 2048 -C "your email"
 
 ### 管理远程仓库
 
-`-v` 是 `—verbose` 的缩写(冗长的)
+`-v` 是 `--verbose` 的缩写(冗长的)
 
 ```bash
 $ git remote

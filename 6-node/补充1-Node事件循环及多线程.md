@@ -258,8 +258,8 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
 **process.nextTick() 不在 Event Loop 的任何阶段执行，而是在各个阶段切换的中间执行**，即从一个阶段切换到下个阶段前执行
 
-1. 执行 `fs.readFile`，首先 `setTimeout`、`setImmediate` 放进 I/O 里，此时有 `setImmediate()` 回调需要执行，事件循环立即结束 **poll** 阶段并执行 **check** 阶段，执行 `nextTick()` ，然后执行回调
-2. **check** 阶段之后会到第二个事件循环的 **timer** 阶段，执行 `nextTick()` ，再执行 `setTimeout` 回调
+1. 执行 `fs.readFile`，首先 `setTimeout`、`setImmediate` 放进 I/O 里，此时有 `setImmediate()` 回调需要执行，事件循环立即结束 **poll** 阶段并执行 **check** 阶段，执行 `nextTick()`，然后执行回调
+2. **check** 阶段之后会到第二个事件循环的 **timer** 阶段，执行 `nextTick()`，再执行 `setTimeout` 回调
 
 ```js
 const fs = require('fs')
@@ -385,7 +385,7 @@ fs.readFile(path.resolve(__dirname, '/read.txt'), () => {
 
 **为什么需要多进程**
 
-- Node.js 单线程，在处理 http 请求的时候一个错误都会导致整个进程的退出，这是灾难级的
+- Node.js 单线程，在处理 http 请求的时候某个错误就会导致整个进程退出，这是灾难级的
 
 **线程和进程**
 

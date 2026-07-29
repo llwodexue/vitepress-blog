@@ -20,7 +20,7 @@ HTTPS 的默认端口号是 443（HTTP 是 80）
 
 ![image-20230727171353727](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230727171353727.png)
 
-HTTPS 是在 HTTP 的基础上使用 SSL/TLS来 加密报文，对 **窃听** 和 **中间人攻击** 提供合理的防护
+HTTPS 是在 HTTP 的基础上使用 SSL/TLS 来加密报文，对 **窃听** 和 **中间人攻击** 提供合理的防护
 
 ![image-20230727171655892](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230727171655892.png)
 
@@ -248,7 +248,7 @@ TLS1.3 采用 PSS 进行填充加密
 
 1. 密钥实体（Key entity）：密钥（secret key）又或是私钥和配对公钥（采用非对称加密）
 2. 可信任的证书实体（trusted certificate entiries）：只包含公钥
-3. alias（别名）：每个 keystore 都关联这一个独一无二的 alias
+3. alias（别名）：每个 keystore 都关联着一个独一无二的 alias
 
 环境：Tomcat9.0.34、JDK1.8.0_251
 

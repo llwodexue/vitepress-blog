@@ -101,7 +101,7 @@ promise.then(value => {
 
 **问题2：** 当 then 方法被多次调用时，每一个 then 方法中传递的回调函数都是要执行的
 
-- 同步：如果调用 then 方法时，已经知道 promise 状态为 **成功态或失败态**，就可以直接调用回调即可
+- 同步：如果调用 then 方法时，已经知道 promise 状态为 **成功态或失败态**，就可以直接调用回调
 - 异步：如果调用 then 方法时，promise 状态为 **等待态**，每一个 then 方法的回调函数都应该存储起来，当状态为成功或失败时，再依次调用回调函数
 
 ```js
@@ -252,7 +252,7 @@ p1.then(
 )
 ```
 
-**注意：**  举个例子 `var obj = { n: 10, x: obj.n *10 }`，因为 obj 还没有创建完，而在创建属性 x 时是获取不到 obj.n 的。因为全局作用域只声明了 obj，却没有赋值（`obj -> undefined`），promise 也是有这样的情况的，我们可以使用异步任务，让其赋值完成
+**注意：** 举个例子 `var obj = { n: 10, x: obj.n *10 }`，因为 obj 还没有创建完，而在创建属性 x 时是获取不到 obj.n 的。因为全局作用域只声明了 obj，却没有赋值（`obj -> undefined`），promise 也是这样的情况，我们可以使用异步任务，让其赋值完成
 
 ```js
 class MyPromise {
@@ -297,7 +297,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 3. 当代码为等待态时，如果碰到异步，不能把回调函数直接 push 到数组里，这样没有办法对其进行处理，我们可以 push 一个函数进去，函数里面调用成功或失败回调
 
-   这时就可以对进行异步和错误捕获处理了
+   这时就可以对异步和错误进行捕获处理了
 
 ```js
 const PENDING = 'pending'
@@ -451,7 +451,7 @@ MyPromise.all(['a', 'b', p1(), p2(), 'c']).then(result => console.log(result)) /
 注意：
 
 - 返回结果的顺序跟传入的顺序一致（不能使用 push，因为不能确定谁先到，需要使用索引）
-- for 循环执行就是一瞬间的，但是里面可能存在异步操作，需要等待所有都执行完，再执行 resolve 操作
+- for 循环执行就是一瞬间，但是里面可能存在异步操作，需要等待所有都执行完，再执行 resolve 操作
 
 ```js
 class MyPromise {

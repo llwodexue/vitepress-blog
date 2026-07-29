@@ -4,7 +4,7 @@
 
 > [https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html](https://developers.weixin.qq.com/miniprogram/dev/api/network/request/wx.request.html)
 
-微信提供了专属的 API 接口,用于网络请求: wx.request(Object object)
+微信提供了专属的 API 接口，用于网络请求: wx.request(Object object)
 
 ![image-20231009112432235](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231009112432235.png)
 
@@ -157,7 +157,7 @@ wx.getSystemInfo({
 
 开发中我们需要经常获取用户的位置信息，以方便给用户提供相关的服务
 
-- 我们可以通过API获取：wx.getLocation(Object object)
+- 我们可以通过 API 获取：wx.getLocation(Object object)
 
 ```js
 wx.getLocation({

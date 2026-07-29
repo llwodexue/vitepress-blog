@@ -4,7 +4,7 @@
 
 Hook 是 React 16.8 的新增特性，它可以让我们在不编写 class 的情况下使用 state 以及其他的 React 特性（比如生命周期）
 
-- class 组件可以定义自己的 state，用来保存组件自己内部的状态
+- class 组件可以定义自己的 state，用来保存组件内部的状态
   - 函数式组件不可以，因为函数每次调用都会产生新的临时变量
 - class 组件有自己的生命周期，我们可以在对应的生命周期中完成自己的逻辑
   - 比如在 componentDidMount 中发送网络请求，并且该生命周期函数只会执行一次
@@ -32,7 +32,7 @@ Hook 的使用场景：
 
 useState 来自 react，需要从 react 中导入，它是一个 hook
 
-- **参数：初始化值，如果不设置为 undefined**
+- **参数：初始化值，如果不设置，默认为 undefined**
 - **返回值：数组，包含两个元素**
   - **元素一：当前状态的值（第一次调用为初始化值）**
   - **元素二：设置状态值的函数**
@@ -43,7 +43,7 @@ useState 来自 react，需要从 react 中导入，它是一个 hook
 
 - **只能在 React 的函数组件中调用 Hook。不要在其他 JavaScript 函数中调用**
 
-  **在自定义的 hooks 中，可以使用 react 提供的其他 hooks：但必须使用 use 开头**
+  **在自定义的 hooks 中，可以使用 React 提供的其他 Hooks：但必须使用 use 开头**
 
 useState 会帮助我们定义一个 state 变量，useState 是一种新方法，它与 class 里面的  this.state 提供的功能完全相同
 
@@ -560,7 +560,7 @@ function useLocalStorage(key) {
 
 在之前的 Redux 开发中，为了让组件和 Redux 结合起来，我们使用了 react-redux 中的 connect
 
-- 但是这种方式必须使用高阶组件返回的高阶组件
+- 但是这种方式必须使用高阶函数返回的高阶组件
 - 并且必须编写：mapStateToProps 和 mapDispatchToProps 映射的函数
 
 在 Redux7.1 开始，提供了 Hook 的方式，不需要再编写 connect 以及对应的映射函数了
@@ -664,7 +664,7 @@ SSR 同构应用
 
 useId 是一个用于生成横跨服务端和客户端的稳定唯一 ID 的同时避免 hydration 不匹配的 hook
 
-- useId 是用于 react 的同构应用开发的，前端的 SPA 页面并不需要使用它
+- useId 是用于 React 的同构应用开发的，前端的 SPA 页面并不需要使用它
 - useId 可以保证应用程序在客户端和服务器端生成唯一的 ID，这样可以有效的避免通过一些手段生成的 id 不一致，造成 hydration mismatch
 
 ```jsx

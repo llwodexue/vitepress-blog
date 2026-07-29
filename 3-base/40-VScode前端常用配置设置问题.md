@@ -1,4 +1,4 @@
-# VScode前端常用配置设置问题
+# VS Code 前端常用配置设置问题
 
 ## 主题
 
@@ -444,7 +444,7 @@ Vue3 代码片段
 
 绝对路径、相对路径跳转需要在根目录增加 `jsconfig.json` 文件
 
-```js
+```json
 {
   "compilerOptions": {
     "baseUrl": "./",

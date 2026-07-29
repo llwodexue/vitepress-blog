@@ -17,7 +17,7 @@ TypeScript 解决 JavaScript 类型系统的问题，大大提高代码的可靠
 
   允许任意的隐式类型转换
 
-注意：变量类型允许随时改变的特点，不是强弱类型的差异
+注意：变量类型允许随时改变这一特点，不是强弱类型的差异
 
 ```bash
 # node 环境
@@ -420,7 +420,7 @@ export {}
 ```tsx
 // object 类型是指除了原始类型以外的其它类型
 const foo: object = function () {} // [] // {}
-// 如果需要明确限制对象类型，则应该使用这种类型对象字面量的语法，或者是「接口」
+// 如果需要明确限制对象类型，则应该使用对象字面量的语法，或者是「接口」
 const obj: { foo: number; bar: string } = { foo: 123, bar: 'string' }
 ```
 
@@ -706,7 +706,7 @@ const res = createArray<string>(3, 'foo')
 
 ### 类型声明
 
-- 在 typescript 中引用第三方模块，如果模块中不包括声明文件，皆可以尝试去安装对应的 `@types` 类型声明模块，比如：`yarn add @types/lodash --dev`
+- 在 typescript 中引用第三方模块，如果模块中不包括声明文件，都可以尝试安装对应的 `@types` 类型声明模块，比如：`yarn add @types/lodash --dev`
 
 ```tsx
 import { camelCase } from 'lodash'

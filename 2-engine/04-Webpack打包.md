@@ -191,7 +191,7 @@ module.exports = {
 
 ### ES 2015
 
-由于 webpack 默认就能处理代码中的 `import` 和 `export`，所以有可能会认为 webpack 会自动编译 ES6 代码，实则不然，它并不能转换代码中其它 ES6 语法
+由于 webpack 默认就能处理代码中的 `import` 和 `export`，所以有人可能会认为 webpack 会自动编译 ES6 代码，实则不然，它并不能转换代码中其它 ES6 语法
 
 ```bash
 yarn add babel-loader @babel/core @babel/preset-env --dev
@@ -567,8 +567,6 @@ yarn add webpack-dev-server --dev
 
 - `CopyWebpackPlugin` 一般只有上线才会使用这个插件，开发如果拷贝得多，效率就低了
 
-  需要在
-
 - 注释掉 `CopyWebpackPlugin` 就需要在 `devServer` 配置 `contentBase`
 
 ```js
@@ -628,7 +626,7 @@ fetch('/api/users') // http://localhost:8080/api/users
 
 ### Source Map
 
-- eval：将模块代码放到 `eval` 函数执行，通过 `sourceURL` 标注模块文件的路径，并没有生成 `Source-Map`，无法定位哪一个文件除了错误
+- eval：将模块代码放到 `eval` 函数执行，通过 `sourceURL` 标注模块文件的路径，并没有生成 `Source-Map`，无法定位哪一个文件出了错误
 - eval-source-map：使用 `eval` 函数执行代码，不仅可以定位错误出现的文件还可以定位行和列的信息
 - cheap-eval-source-map：相对于 `eval-source-map` 它只能定位行的信息，不能定位列的信息
 - eval-cheap-module-source-map：`cheap-eval-source-map` 展示的是 ES6 转换后的结果，`eval-cheap-module-source-map` 定位的源代码跟我们编写的代码是一样的
@@ -909,7 +907,7 @@ Tree Shaking 不是 webpack 某个配置选项，是一组功能搭配使用后�
 
 - `concatenateModules`：尽可能将所有模块合并输出到一个函数中
 
-  即提升了运行效率，又减少了代码的体积，又称为 `Scope Hoisting` 作用域提升（webapck 3 开始支持）
+  既提升了运行效率，又减少了代码的体积，又称为 `Scope Hoisting` 作用域提升（webpack 3 开始支持）
 
 ```js
 module.exports = {
@@ -966,7 +964,7 @@ module.exports = {
 
 **sideEffects**
 
-- 副作用：模块执行时除了导出成员之外所作的事情
+- 副作用：模块执行时除了导出成员之外所做的事情
 
   `sideEffects` 一般用于 npm 包标记是否有副作用
 

@@ -8,7 +8,7 @@
 
 `fetch()` 的功能与 XMLHttpRequest 基本相同，但有三个主要差异
 
-1. `fetch()` 使用 Promise，不使用回调函数，因此大大简化了写法，写起来更简洁
+1. `fetch()` 使用 Promise，不使用回调函数，因此大大简化了写法
 
 2. `fetch()` 采用模块化设计，API 分散在多个对象上（Response 对象、Request 对象、Headers 对象），更合理一些；相比之下，XMLHttpRequest 的 API 设计并不是很好，输入、输出、状态都在同一个接口管理，容易写出非常混乱的代码
 
@@ -233,7 +233,7 @@ window.onunload = function () {
 
 - `follow`：默认值，`fetch()`跟随 HTTP 跳转
 - `error`：如果发生跳转，`fetch()`就报错
-- `manual`：`fetch()`不跟随 HTTP 跳转，但是`response.url`属性会指向新的 URL，`response.redirected`属性会变为`true`，由开发者自己决定后续如何处理跳转
+- `manual`：`fetch()`不跟随 HTTP 跳转，但是 `response.url` 属性会指向新的 URL，`response.redirected`属性会变为`true`，由开发者自己决定后续如何处理跳转
 
 **integrity**
 
@@ -259,7 +259,7 @@ fetch('http://site.com/file', {
 
 onbeforeunload 事件在即将离开当前页面（刷新或关闭）时触发
 
-- 调用 onbeforeunload 事件在浏览器关闭之前发送 ajax 请求时，运行完 ajax 相关操作才可以关闭浏览器，对用户体验可能会稍微有一点点不友好
+- 在调用 onbeforeunload 事件、于浏览器关闭之前发送 ajax 请求时，运行完 ajax 相关操作才可以关闭浏览器，对用户体验可能会稍微有一点点不友好
 - 这个通过这种方式，有时候执行关闭标签页的时候不一定会成功发送 ajax 请求
 
 ### sendBeacon

@@ -130,7 +130,7 @@ class NumAdder implements IAdder {
 
 **类型缩减**
 
-TypeScript 如下的场景做了缩减，它把字面量类型、枚举成员类型缩减掉，只保留原始类型、枚举类型等父类型，这是合理的“优化”
+TypeScript 对如下场景做了缩减，它把字面量类型、枚举成员类型缩减掉，只保留原始类型、枚举类型等父类型，这是合理的“优化”
 
 ```typescript
 type URStr = 'string' | string; // 类型是 string
@@ -886,7 +886,7 @@ Element implicitly has an 'any' type because expression of type 'string' can't b
 
 ### 类型缩减
 
-TypeScript 如下的场景做了缩减，它把字面量类型、枚举成员类型缩减掉，只保留原始类型、枚举类型等父类型，这是合理的优化
+TypeScript 对如下场景做了缩减，它把字面量类型、枚举成员类型缩减掉，只保留原始类型、枚举类型等父类型，这是合理的优化
 
 ```typescript
 type URStr = 'string' | string; // 类型是 string

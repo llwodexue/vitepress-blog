@@ -6,7 +6,7 @@
 
 - 支持数据双向绑定和组件化（Nuxt 选择了 Vue.js）
 - 处理客户端的导航（Nuxt 选择了 vue-router）
-- 支持开发中热模块替换和生产环境代码打包（Nuxt 支持 webpack5 和 vite）
+- 支持开发中热模块替换和生产环境代码打包（Nuxt 支持 webpack 5 和 Vite）
 - 兼容旧版本浏览器，支持最新的 JavaScript 语法转译（Nuxt 使用 esbuild）
 - 应用程序支持云开发环境服务器，也支持服务器端渲染或 API 接口开发
 - Nuxt 使用 h3 来实现部署可移植性（h3 是一个极小的高性能的 http 框架）
@@ -27,7 +27,7 @@ Nuxt.js
   - 重要的变化是放弃了对 node < 8 的支持
 - 2018 年 9 月 21 日，Sebastien Chopin 正式宣布，发布 Nuxt.js2.0 版本
   - 开始使用 Webpack 4 及其技术栈，其它的并没有做出重大更改
-- 2021 年 8 月 12 日至今，Nuxt.js 最新的版本为: Nuxt.js2.15.8
+- 2021 年 8 月 12 日至今，Nuxt.js 最新的版本为: Nuxt.js 2.15.8
 
 Nuxt3 版本
 
@@ -42,7 +42,7 @@ Nuxt3 版本
 - 自动导包
   - Nuxt 会自动导入辅助函数、组合 API 和 Vue API，无需手动导入
   - 基于规范的目录结构，Nuxt 还可以对自己的组件、 插件使用自动导入
-- 约定式路由（目录结构即路由
+- 约定式路由（目录结构即路由）
   - Nuxt 路由基于 vue-router，在 pages/ 目录中创建的每个页面，都会根据目录结构和文件名来自动生成路由
 - 渲染模式：Nuxt 支持多种渲染模式（SSR、CSR、SSG 等）
   - 通用渲染（服务器端渲染和水合）、仅客户端渲染、全静态站点生成、混合渲染（每条路由缓存策略）
@@ -104,7 +104,7 @@ $ pnpm install --shamefully-hoist
 
 ![image-20231030160058103](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231030160058103.png)
 
-```json
+```jsonc
 {
   "scripts": {
     // 打包正式版本 -> nitro -> output
@@ -146,7 +146,7 @@ nuxt.config.ts 配置文件位于项目的根目录，可对 Nuxt 进行自定�
 - alias：路由的别名，默认已配置好
 - modules：配置 Nuxt 扩展的模块，比如：`@pinia/nuxt`、`@nuxt/image`
 - routeRules：定义路由规则，可更改路由的渲染模式或分配基于路由缓存策略
-- builder：可指定用 vite 还是 webpack 来构建应用，默认是 vite，如切换为 webpack 还需要安装额外的依赖
+- builder：可指定用 Vite 还是 webpack 来构建应用，默认是 Vite，如切换为 webpack 还需要安装额外的依赖
 
 ### 应用配置
 

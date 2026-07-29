@@ -41,7 +41,7 @@ $ cd 项目名称
 > [渐进式 Web 应用（PWA）](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps)
 
 - PWA 全称 **Progressive Web App**，即 **渐进式 Web 应用**
-- 一个 PWA 应用首先是一个网页, 可以通过 Web 技术编写出一个网页应用
+- 一个 PWA 应用首先是一个网页，可以通过 Web 技术编写出一个网页应用
 - 随后添加上 **App Manifest** 和 **Service Worker** 来实现 PWA 的**安装和离线**等功能
 - 这种 Web 存在的形式，我们也称之为是 Web App
 
