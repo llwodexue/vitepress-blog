@@ -2,8 +2,7 @@
 
 ## Virtual DOM
 
-- Virtual DOM（虚拟 DOM），是由普通的 JS 对象来描述 DOM 对象
-- 真实 DOM 成员
+- Virtual DOM（虚拟 DOM），是由普通的 JS 对象来描述 DOM 对象，因为不是真实 DOM，所以叫 Virtual DOM
 
 **真实 DOM 成员**
 
@@ -31,11 +30,11 @@ console.log(s)
 
 **为什么要使用 Virtual DOM**
 
-- 前端开发刀耕火种的时代
-- MVVM 框架解决视图和状态同步问题
-- 模板引擎可以简化视图操作，没办法跟踪状态
-- 虚拟 DOM 跟踪状态变化
-- 参考 github 上 [virtual-dom](https://github.com/Matt-Esch/virtual-dom) 的动机描述
+- 前端开发刀耕火种的时代，直接操作 DOM 既繁琐又容易出错
+- MVVM 框架解决了视图和状态同步的问题，但底层依然是直接操作 DOM
+- 模板引擎可以简化视图操作，但没办法跟踪状态变化
+- 虚拟 DOM 通过 diff 算法跟踪状态变化，只更新变化的部分
+- 参考 GitHub 上 [virtual-dom](https://github.com/Matt-Esch/virtual-dom) 的动机描述
   - 虚拟 DOM 可以维护程序的状态，跟踪上一次的状态
   - 通过比较前后两次状态差异更新真实 DOM
 
@@ -147,7 +146,7 @@ setTimeout(() => {
 
 - Snabbdom 的核心库并不能处理 DOM 元素的属性、样式、事件等
 
-  可以通过注册 Snabbdom 默认提供的模块来实现
+  - 可以通过注册 Snabbdom 默认提供的模块来实现
 
 - Snabbdom 中的模块可以用来扩展 Snabbdom 的功能
 
@@ -227,9 +226,9 @@ patch(app, vnode)
 
 - `F12` 定位变量定义位置，或按住 `Ctrl`
 
-  `Alt + ←` 返回刚刚的位置
+  - `Alt + ←` 返回刚刚的位置
 
-  `Alt + →` 跳转回定义位置
+  - `Alt + →` 跳转回定义位置
 
 - 按住 `Ctrl` 点击弹出框头部地址栏跳转到对应代码定义
 
@@ -450,6 +449,28 @@ const cbs: ModuleHooks = {
 
 ![image-20220526173205521](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220526173205521.png)
 
-判断 vnode 的 key 和 sel 是否相同
+判断新旧 vnode 的 key 和 sel 是否相同，这是 diff 算法的第一步：
 
 ![image-20220621165235773](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220621165235773.png)
+
+### patch 整体流程
+
+```text
+patch(oldVnode, newVnode)
+  ├── 相同节点？（key 和 sel 相同）
+  │   ├── 是 → 精细化比较（patchVnode）
+  │   │   ├── newVnode 有 text 且与 oldVnode 不同 → 更新 DOM 文本
+  │   │   ├── newVnode 有 children → diff 子节点（updateChildren）
+  │   │   └── oldVnode 有 children → 清空 DOM
+  │   └── 否 → 删除旧 DOM，创建新 DOM 并插入
+  └── 返回 newVnode 作为下次的 oldVnode
+```
+
+### 总结
+
+Virtual DOM 的核心思想：
+
+1. 用 JS 对象（VNode）描述真实 DOM，轻量且可跨平台
+2. 通过 `h()` 函数创建 VNode，`init()` 注册模块并生成 `patch()` 函数
+3. `patch()` 对比新旧 VNode，仅将差异部分更新到真实 DOM
+4. 模块机制（属性、样式、事件等）通过全局钩子函数实现，在合适的时机被调用

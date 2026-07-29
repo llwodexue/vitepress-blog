@@ -83,7 +83,7 @@ Upgrading @vue/cli-plugin-eslint from 4.4.4 to 5.0.8
    + "@babel/eslint-parser": "^7.12.16"
    ```
 
-   之后修改 `.eslintrc.js` 对应的 parse
+   之后修改 `.eslintrc.js` 对应的 parser
 
    ```js
    module.exports = {
@@ -243,13 +243,13 @@ parserOptions: {
 
    - `copy-webpack-plugin@5` 对应 `webpack@4`
 
-     里面的配置写法稍有变更，照着提示改下即可
+     - 里面的配置写法稍有变更，照着提示改下即可
 
    - `html-webpack-plugin@3` 对应 `webpack@4` 
 
    - `script-ext-html-webpack-plugin@2` 对应 `webpack@4`
 
-     内联 runtime 的代码就直接删掉了
+     - 内联 runtime 的代码就直接删掉了
 
    ```bash
    $ npm i copy-webpack-plugin@11 -D
@@ -266,7 +266,7 @@ parserOptions: {
 
 7. css 全局变量
 
-   需要把 `prependData` 改为 `additionalData `
+   需要把 `prependData` 改为 `additionalData`
 
    ```js
    {
@@ -747,3 +747,191 @@ export default router
 - **emits 选项**：Vue3 推荐显式声明 `emits`，未声明的事件会以原生事件形式绑定到根元素
 - **异步组件**：`Vue.component` 不再支持工厂函数方式，需使用 `defineAsyncComponent`
 - **自定义指令钩子**：钩子名称与组件生命周期对齐，如 `bind` → `beforeMount`，`inserted` → `mounted`
+
+### 更多 vue2 → vue3 注意事项
+
+**$attrs 包含 $listeners**
+
+Vue3 中 `$listeners` 被移除，所有事件监听器合并到 `$attrs` 中：
+
+```js
+// vue2: $attrs 只含非 prop 属性，$listeners 含事件
+this.$attrs   // { class: 'foo' }
+this.$listeners.click
+
+// vue3: $attrs 同时包含属性和事件
+this.$attrs   // { class: 'foo', onClick: fn }
+```
+
+**TransitionGroup 不再默认渲染根元素**
+
+```html
+<!-- vue2: 默认渲染一个 span 包裹 -->
+<transition-group>
+  <div v-for="item in list" :key="item.id">{{ item.name }}</div>
+</transition-group>
+<!-- 渲染为: <span><div>...</div></span> -->
+
+<!-- vue3: 不再渲染包裹元素，需通过 tag 指定 -->
+<transition-group tag="ul">
+  <li v-for="item in list" :key="item.id">{{ item.name }}</li>
+</transition-group>
+```
+
+**按键修饰符变更**
+
+```html
+<!-- vue2: 支持 keyCode -->
+<input @keyup.13="submit" />
+<input @keyup.enter="submit" />
+
+<!-- vue3: 不再支持 keyCode 数字，必须用 kebab-case -->
+<input @keyup.enter="submit" />
+```
+
+**Functional 组件变更**
+
+```js
+// vue2: 通过 functional: true 声明
+export default {
+  functional: true,
+  render(h, { props, children }) {
+    return h('div', props, children)
+  }
+}
+
+// vue3: 直接使用函数定义（无需 .vue 文件）
+function FunctionalComponent(props, { slots, attrs, emit }) {
+  return h('div', attrs, props.text)
+}
+```
+
+**全局配置变更**
+
+```js
+// vue2
+Vue.config.productionTip = false
+Vue.config.ignoredElements = ['my-custom-el']
+Vue.prototype.$http = axios
+
+// vue3
+const app = createApp(App)
+app.config.globalProperties.$http = axios
+app.config.compilerOptions.isCustomElement = tag => tag.startsWith('my-')
+// productionTip 已移除
+```
+
+**事件 API 需用 mitt 替换（推荐写法）**
+
+```js
+// 安装
+npm i mitt
+
+// 创建事件总线
+import mitt from 'mitt'
+const emitter = mitt()
+
+// 使用（与 Vue2 的 $on/$emit 类似但 API 名不同）
+emitter.on('event', callback)     // 监听
+emitter.emit('event', payload)    // 触发
+emitter.off('event', callback)    // 移除
+emitter.all.clear()               // 清除所有
+```
+
+### Vue3.x 版本间升级
+
+**Vue 3.2（2021.08）**
+
+- 正式支持 `<script setup>` 语法糖，告别 `setup()` 函数和 `return`
+- `defineProps`、`defineEmits`、`defineExpose` 编译器宏
+- `v-memo` 指令，缓存模板子树
+- `effectScope` API，更好的副作用管理
+- CSS `v-bind()` 在 `<style>` 中使用组件状态
+
+```html
+<script setup>
+import { ref } from 'vue'
+const count = ref(0)
+const color = ref('red')
+defineProps({ title: String })
+defineEmits(['update'])
+</script>
+
+<template>
+  <h1>{{ title }}</h1>
+  <button @click="count++">{{ count }}</button>
+</template>
+
+<style scoped>
+h1 { color: v-bind(color); }
+</style>
+```
+
+**Vue 3.3（2023.05）**
+
+- `<script setup>` 支持 `defineSlots` 声明插槽类型
+- 支持泛型组件（Generic Components）
+- `defineProps` 支持外部类型导入
+- `defineOptions`，在 `<script setup>` 中声明组件选项
+- `toRef` / `toValue` 工具函数
+
+```html
+<script setup lang="ts" generic="T">
+defineProps<{ items: T[] }>()
+defineSlots<{ default(props: { item: T }): any }>()
+defineOptions({ name: 'MyComponent', inheritAttrs: false })
+</script>
+```
+
+**Vue 3.4（2023.12）**
+
+- **`defineModel` 稳定版**，替代 v-model 的 prop + emit 手动声明
+- `v-bind` 同名缩写：`<div :id :class>` 等价于 `<div :id="id" :class="class">`
+- 响应式系统重构，更快的 `ref` / `computed`
+- `watchEffect` 批处理机制优化
+
+```html
+<script setup>
+// 之前需要手动声明 prop 和 emit
+// const props = defineProps(['modelValue'])
+// const emit = defineEmits(['update:modelValue'])
+
+// 3.4+ 使用 defineModel
+const model = defineModel()
+const title = defineModel('title', { required: true })
+</script>
+
+<template>
+  <input v-model="model" />
+  <input v-model="title" />
+</template>
+```
+
+**Vue 3.5（2024.09）**
+
+- `useTemplateRef` 替代 ref 获取模板引用（类型更安全）
+- `defineCustomElement` 自定义元素 API
+- `onWatcherCleanup` 在 watcher 中注册清理函数
+- Props 解构保持响应式（编译器优化）
+- SSR `useId()` API
+
+```html
+<script setup>
+import { useTemplateRef, onMounted } from 'vue'
+
+// 3.5+ 模板引用新写法
+const inputRef = useTemplateRef('input')
+onMounted(() => inputRef.value?.focus())
+</script>
+
+<template>
+  <input ref="input" />
+</template>
+```
+
+### 升级策略建议
+
+1. **先升 2.7**：在 Vue 2.6 → Vue 3 之间，先升级到 Vue 2.7 作为过渡版本，2.7 内置了 Composition API、`<script setup>`、`defineComponent` 等 Vue 3 特性，降低迁移成本
+2. **逐项替换**：先升级依赖和配置文件，确保工程能跑通，再逐步替换组件语法
+3. **渐进式迁移**：对于大型项目，可以保留 Vue 2 主体，通过微前端方式逐步将新模块用 Vue 3 开发
+4. **关注生态兼容**：升级前检查第三方组件库（如 Element UI → Element Plus）、工具链（Vetur → Volar）的兼容性

@@ -10,7 +10,7 @@ Vue 的脚手架就是 Vue-cli
 
 - cli 是 Command-Line-Interface，翻译为命令行界面
 - 我们可以通过 Cli 选择项目的配置和创建出我们的项目
-- Vue-Cli已经内置了 webpack 相关的配置，我们不需要从零来配置
+- Vue-Cli 已经内置了 webpack 相关的配置，我们不需要从零来配置
 
 先进行全局安装，这样在任何时候都可以通过 vue 的命令来创建项目
 
@@ -50,7 +50,7 @@ vue create 项目的名称
 
 - `vue-cli-service` 指向 `@vue/cli-service/bin/vue-cli-service.js`
 
-  加载 `package.json`
+  - 加载 `package.json`
 
   ![image-20220706101631091](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706101631091.png)
 
@@ -58,21 +58,21 @@ vue create 项目的名称
 
   ![image-20220706103115218](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706103115218.png)
 
-  `this.commands[name] -> command -> {fn: 函数}`
+  - `this.commands[name] -> command -> {fn: 函数}`
 
   ![image-20220706102915702](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706102915702.png)
 
 - 在 Service.js 中进行搜索是没有对 commands 进行赋值的
 
-  `this.plugins = this.resolvePlugins(plugins, useBuiltIn)`
+  - `this.plugins = this.resolvePlugins(plugins, useBuiltIn)`
 
-  builtInPlugins 里对如下对象做了一个映射
+  - builtInPlugins 里对如下对象做了一个映射
 
   ![image-20220706104224424](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706104224424.png)
 
 - run 方法最终调用的就是 `async function serve (args) { ... }`
 
-  如果想扩展其它配置可以通过 `chainWebpack` 或 `configureWebpack` 进行配置
+  - 如果想扩展其它配置可以通过 `chainWebpack` 或 `configureWebpack` 进行配置
 
   ![image-20220706105243528](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706105243528.png)
 
@@ -88,13 +88,13 @@ pnpm：可以理解成是 performant npm 的缩写
 
 - 硬链接（hard link）：
 
-  **电脑文件系统中的多个文件平等地共享同一个文件存储单元**
+  - **电脑文件系统中的多个文件平等地共享同一个文件存储单元**
 
-  删除一个文件名字后，还可以用其它名字继续访问该文件
+  - 删除一个文件名字后，还可以用其它名字继续访问该文件
 
 - 符号链接（软链接soft link、Symbolic link）：
 
-  **包含有一条一绝对路径或相对路径的形式指向其它文件或者目录的引用**
+  **包含有一条绝对路径或相对路径的形式指向其它文件或者目录的引用**
 
 ![image-20220706151946029](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220706151946029.png)
 
@@ -215,7 +215,7 @@ npm install postcss postcss-preset-env -D
 
 - vite 对 TypeScript 是原生支持的，它会直接使用 ESBuild 来完成编译
 
-  只需要直接导入即可
+  - 只需要直接导入即可
 
 - 如果我们查看浏览器中的请求，会发现请求的依然是 TS 的代码
 

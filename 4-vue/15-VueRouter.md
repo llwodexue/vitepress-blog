@@ -14,7 +14,7 @@
 
 早期的网站开发整个 HTML 页面是由服务器来渲染的
 
-- 服务器直接生产渲染好对应的HTML页面, 返回给客户端进行展示
+- 服务器直接生成渲染好对应的 HTML 页面, 返回给客户端进行展示
 
 一个网站, 这么多页面服务器如何处理呢？
 
@@ -54,7 +54,7 @@
 **hash**
 
 - URL 的 hash 也就是锚点（#），本质上是改变 `window.location` 的 href 属性
-- 我们可以通过直接赋值 `location.hash` 来改变 href，但是页面 不发生刷新
+- 我们可以通过直接赋值 `location.hash` 来改变 href，但是页面不发生刷新
 
 hash 的优势就是兼容性更好，在老版 IE 中都可以运行，但是缺陷是有一个 `#`，显得不像一个真实的路径
 
@@ -142,11 +142,11 @@ server {
 
 ## 路由基本使用
 
-使用vue-router的步骤:
+使用 vue-router 的步骤：
 
 1. 创建路由组件的组件
 2. 配置路由映射: 组件和路径映射关系的 routes 数组
-3. 通过 createRouter 创建路由对象，并且传入 routes和history 模式
+3. 通过 createRouter 创建路由对象，并且传入 routes 和 history 模式
 4. 使用路由: 通过 `<router-link>` 和 `<router-view>`
 
 | ![image-20220818160453016](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220818160453016.png) | ![image-20220818155847369](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220818155847369.png) | ![image-20220818160533616](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220818160533616.png) |
@@ -161,19 +161,19 @@ router-link 有很多属性可以配置：
 
 - to 属性
 
-  是一个字符串，或者是一个对象
+  - 是一个字符串，或者是一个对象
 
 - replace 属性
 
-  设置 replace 属性的话，当点击时，会调用 `router.replace()` 而不是 `router.push()`
+  - 设置 replace 属性的话，当点击时，会调用 `router.replace()` 而不是 `router.push()`
 
 - active-class 属性
 
-  设置激活 a 元素后应用的 class，默认是 router-link-active
+  - 设置激活 a 元素后应用的 class，默认是 router-link-active
 
 - exact-active-class 属性
 
-  链接精准激活时，应用于渲染的 a 的 class，默认是 router-link-exact-active
+  - 链接精准激活时，应用于渲染的 a 的 class，默认是 router-link-exact-active
 
 ## 路由懒加载
 
@@ -227,9 +227,9 @@ const routes = [
 
 - 在 template 中，直接通过 `$route.params` 获取值
 
-  在 created 中，通过 `this.$route.params` 获取值
+  - 在 created 中，通过 `this.$route.params` 获取值
 
-  在 setup 中，需要使用 vue-router 提供的一个 Hook useRoute
+  - 在 setup 中，需要使用 vue-router 提供的一个 Hook useRoute
 
   - 该 Hook 会返回一个 Route 对象，对象中保存着当前路由相关的值
 
@@ -308,7 +308,7 @@ const routes = [
 
 目前我们匹配的 Home、About、User 等都属于底层路由，我们在它们之间可以来回进行切换。但是，Home 页面本身，也可能会在多个组件之间来回切换，比如 Home 中包括 Product、Message，它们可以在 Home 内部来回切换
 
-- 这时就需要使用嵌套路由，在 Home 中也是用 `<router-view />` 来占位之后需要渲染的组件
+- 这时就需要使用嵌套路由，在 Home 中也使用 `<router-view />` 来占位之后需要渲染的组件
 
 ```js
 const routes = [
@@ -532,14 +532,14 @@ vue-router 提供的导航守卫主要用来通过跳转或取消的方式守卫
 - 不返回或者 undefined：进行默认导航
 - 返回一个路由地址：
   - 可以是一个 string 类型的路径
-  - 可以使一个对象，对象中包含 path、query、params 等信息
+  - 可以是一个对象，对象中包含 path、query、params 等信息
 
 可选的第三个参数：next
 
 - 在 Vue2 中我们是通过 next 函数来决定如何进行跳转的
-- 在 Vue3 中我们是通过返回值来控制的，不再推荐使用 next 函数，这时因为开发中很容易调用多次 next
+- 在 Vue3 中我们是通过返回值来控制的，不再推荐使用 next 函数，这是因为开发中很容易调用多次 next
 
-Vue 还提供了很多的其他守卫函数，目的都是在某一个时刻给予我们回调，让我们可以更好的控制程序的流程或者功能：
+Vue 还提供了很多的其他守卫函数，目的都是在某一个时刻给予我们回调，让我们可以更好地控制程序的流程或者功能：
 
 - [https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html](https://next.router.vuejs.org/zh/guide/advanced/navigation-guards.html)
 

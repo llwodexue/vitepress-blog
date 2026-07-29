@@ -59,7 +59,7 @@ npx babel src --out-dir dist --presets=@babel/preset-env
 
 ### Babel 底层原理
 
-babel 是如何做到将我们的一段代码（ES6、TypeScript、React）转换另外一段代码（ES5）呢
+babel 是如何做到将我们的一段代码（ES6、TypeScript、React）转换成另外一段代码（ES5）呢
 
 - 从一种 **源代码（原生语言）** 转换成另一种 **源代码（目标语言）**
 - 就是 **编译器**，事实上我们可以将 babel 看成就是一个编译器
@@ -153,7 +153,7 @@ npm install babel-loader @babel/core
 
 ### babel-preset
 
-如果我们一个个去安装使用插件，那么需要手动来管理大量的 babel 插件，我们可以直接给 webpack 提供一个 preset，webpack 会根据我们的预设来加载对应的插件列表，并且将其传递给babel
+如果我们一个个去安装使用插件，那么需要手动来管理大量的 babel 插件，我们可以直接给 webpack 提供一个 preset，webpack 会根据我们的预设来加载对应的插件列表，并且将其传递给 babel
 
 比如常见的预设有三个：
 
@@ -260,7 +260,7 @@ Vue 在让我们选择版本的时候分为 **运行时+编译器 vs 仅运行�
 
 ### SFC 文件
 
-真实开发中多数情况下我们都是使用SFC（single-file components (单文件组件)）
+真实开发中多数情况下我们都是使用 SFC（single-file components，即单文件组件）
 
 VSCode 对 SFC 的支持：
 

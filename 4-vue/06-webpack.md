@@ -137,7 +137,7 @@ npm install css-loader -D
 
 - 在引入的样式前加上使用的 loader，并且使用 ! 分割
 
-  `import "css-loader!../css/style.css"`
+  - `import "css-loader!../css/style.css"`
 
 **CLI 方式**：在 webpack5 的文档中已经没有了 `--module-bind`
 
@@ -459,7 +459,7 @@ module.exports = {
 另外还有一个不太规范的地方：
 
 - 我们的 HTML 文件是编写在根目录下的，而最终打包的dist文件夹中是没有 index.html 文件的
-- 在进行项目部署的时，必然也是需要有对应的入口文件 index.html
+- 在进行项目部署时，必然也是需要有对应的入口文件 index.html
 - 所以我们也需要对 index.html 进行打包处理
 
 ```bash

@@ -40,7 +40,7 @@
 - 并且在语言层面上，不仅仅增加了类型约束，而且包括一些语法的扩展，比如枚举类型（Enum）、元组类型（Tuple）等
 - TypeScript 在实现新特性的同时，总是保持和ES标准的同步甚至是领先
 - 并且 TypeScript 最终会被编译成 JavaScript 代码，所以你并不需要担心它的兼容性问题，在编译时也不需要借助于 Babel 这样的工具
-- 所以，我们可以把 TypeScript 理解成更加强大的 JavaScript，不仅让 JavaScript 更加安全，而且给它带来了诸多好用的好用特性
+- 所以，我们可以把 TypeScript 理解成更加强大的 JavaScript，不仅让 JavaScript 更加安全，而且给它带来了诸多好用的特性
 
 **TypeScript 的特点**
 
@@ -384,7 +384,7 @@ function bar(): never {
 
 tuple 是元组类型，很多语言中也有这种数据类型，比如 Python、Swift 等
 
-那么tuple和数组有什么区别呢？
+那么 tuple 和数组有什么区别呢？
 
 - 数组中通常建议存放相同类型的元素，不同类型的元素是不推荐放在数组中。（可以放在对象或者元组中）
 
@@ -540,7 +540,7 @@ printID('abc')
 printID(true)
 ```
 
-可选类型的时候，它本质上是就是类型和 undefined 的联合类型
+可选类型的时候，它本质上就是类型和 undefined 的联合类型
 
 ```tsx
 function foo(message?: string) {
@@ -713,7 +713,7 @@ align = 'center'
 
 **字面量推理**
 
-- 为我们的对象再进行字面量推理的时候，options 其实是一个 `{url: string, method: string}`，所以我们没办法将一个 string 赋值给一个字面量类型
+- 当我们对对象进行字面量推理时，options 其实是一个 `{url: string, method: string}`，所以我们没办法将一个 string 赋值给一个字面量类型
 
 ```tsx
 type Method = 'GET' | 'POST'

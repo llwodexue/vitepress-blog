@@ -4,19 +4,10 @@
 
 **数据驱动**
 
-- 数据响应式
+数据驱动是 Vue 最独特的特性之一，开发过程中仅需要关注数据本身，不需要关心数据是如何渲染到视图。
 
-  数据模型仅仅是普通的 JavaScript 对象，而当我们修改数据时，视图会进行更新，避免了繁琐的 DOM 操作，提高开发效率
-
-- 双向绑定
-
-  数据改变，视图改变；视图改变，数据也随之改变
-
-  我们可以使用 `v-model` 在表单元素上创建双向数据绑定
-
-- 数据驱动是 Vue 最独特的特性之一
-
-  开发过程中仅需要关注数据本身，不需要关心数据是如何渲染到视图
+- 数据响应式：数据模型仅仅是普通的 JavaScript 对象，而当我们修改数据时，视图会进行更新，避免了繁琐的 DOM 操作，提高开发效率
+- 双向绑定：数据改变则视图改变，视图改变则数据也随之改变，我们可以使用 `v-model` 在表单元素上创建双向数据绑定
 
 ### Vue 2.x
 
@@ -67,11 +58,13 @@ console.log(vm.msg)
 
 ### Vue 3.x
 
+Vue 3.x 放弃了 `Object.defineProperty`，改用 ES6 的 `Proxy` 来实现响应式，解决了 Vue 2.x 中无法检测属性新增/删除的问题。
+
 - [MDN - Proxy](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
 
 - 直接监听对象，而非属性
 
-  因此把多个属性转换成 `getter/setter` 时，不需要循环
+- 因此把多个属性转换成 `getter/setter` 时，不需要循环
 
 - ES6 中新增，IE 不支持，性能由浏览器优化
 
@@ -217,7 +210,7 @@ dep.notify()
 
 - **发布订阅模式** 由统一调度中心调用，因此发布者和订阅者不需要知道对方的存在
 
-  事件中心的作用：隔离发布者和订阅者，去除它们之间的依赖
+- 事件中心的作用：隔离发布者和订阅者，去除它们之间的依赖
 
 ![image-20220519103820292](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220519103820292.png)
 
@@ -229,23 +222,23 @@ Vue 采用数据劫持结合发布订阅的方式，通过`Object.defineProperty
 
 - Vue
 
-  把 data 中的成员注入到 Vue 实例，并且把 data 中的成员转换成 getter/setter
+- 把 data 中的成员注入到 Vue 实例，并且把 data 中的成员转换成 getter/setter
 
 - Observer 数据劫持
 
-  能够对数据的所有属性进行监听，如有变动可拿到最新值并通知 Dep
+- 能够对数据的所有属性进行监听，如有变动可拿到最新值并通知 Dep
 
 - Compiler 解析指令
 
-  解析每个元素中的指令/插值表达式，并替换成相应的数据
+- 解析每个元素中的指令/插值表达式，并替换成相应的数据
 
 - Dep 发布者
 
-  添加观察者（watcher），当数据变化通知所有观察者
+- 添加观察者（watcher），当数据变化通知所有观察者
 
 - Watcher 观察者
 
-  数据变化更新视图
+- 数据变化更新视图
 
 ### Vue
 
@@ -254,7 +247,7 @@ Vue 采用数据劫持结合发布订阅的方式，通过`Object.defineProperty
 - 负责接收初始化的参数（选项）
 - 负责把 data 中的属性注入到 Vue 实例，转换成 getter/setter
 - 负责调用 observer 监听 data 中所有属性的变化
-- 负责调用 compiler 解析指令/差值表达式
+- 负责调用 compiler 解析指令/插值表达式
 
 ![image-20220519103748667](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220519103748667.png)
 
@@ -272,7 +265,7 @@ class Vue {
     // 3.调用observer对象，监听数据的变化
     new Observer(this.$data)
 
-    // 4.调用compiler对象，解析指令和差值表达式
+    // 4.调用compiler对象，解析指令和插值表达式
     new Compiler(this)
   }
   _proxyData(data) {
@@ -365,7 +358,7 @@ class Observer {
 
 **功能**
 
-- 负责编译模板，解析指令/差值表达式
+- 负责编译模板，解析指令/插值表达式
 - 负责页面的首次渲染
 - 当数据变化后重新渲染视图
 
@@ -378,7 +371,7 @@ class Compiler {
     this.vm = vm
     this.compile(this.el)
   }
-  // 编译模板，处理文本节点的差值表达式和元素节点的指令
+  // 编译模板，处理文本节点的插值表达式和元素节点的指令
   compile(el) {
     let childNodes = el.childNodes
     Array.from(childNodes).forEach(node => {
@@ -429,7 +422,7 @@ class Compiler {
       node.value = newValue
     })
   }
-  // 编译文本节点，处理差值表达式
+  // 编译文本节点，处理插值表达式
   compileText(node) {
     // {{  msg }}
     let reg = /\{\{(.+?)\}\}/g
@@ -494,13 +487,13 @@ class Dep {
 
 ![image-20220522154738419](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220522154738419.png)
 
-- data 中的对象在　getter 中通过 Dep 对象收集依赖，在 setter 中触发依赖
+- data 中的对象在 getter 中通过 Dep 对象收集依赖，在 setter 中触发依赖
 - data 中的每一个属性都要创建一个对应的 Dep 对象，在收集依赖时把依赖数据的 watcher 添加到 Dep 对象的 `subs` 数组中，在触发依赖时调用 Dep 对象的 `notify` 发送通知通知所有 watcher 对象更新视图
 
 **功能**
 
 - 当数据变化触发依赖，dep 通知所有的 Watcher 实例更新视图
-- 自身实例化的时候往 dep　对象中添加自己
+- 自身实例化的时候往 dep 对象中添加自己
 
 ![image-20220522155102274](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220522155102274.png)
 
@@ -534,7 +527,7 @@ class Watcher {
 
 ### 双向绑定
 
-至此直接修改 `vm.msg` 的值，使用差值表达式、`v-text` 以及 `v-model` 绑定的值都发生修改，响应式机制就已经实现了，但是直接修改 input 的值 `vm.msg` 的值并没有修改
+至此直接修改 `vm.msg` 的值，使用插值表达式、`v-text` 以及 `v-model` 绑定的值都会发生修改，响应式机制就已经实现了，但直接修改 input 的值时，`vm.msg` 并不会随之改变
 
 ```js
 class Compiler {
@@ -575,7 +568,7 @@ class Compiler {
 
 ![vue响应式调试3](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E8%B0%83%E8%AF%953.jpg)
 
-找到差值表达式对应的节点 h3（这个节点没有属性但是有子节点），并进入 `compileText` 处理这个文本节点，在调用 `this.vm[key]` 时会触发 `vue.js` 中的 `getter` 方法
+找到插值表达式对应的节点 h3（这个节点没有属性但是有子节点），并进入 `compileText` 处理这个文本节点，在调用 `this.vm[key]` 时会触发 `vue.js` 中的 `getter` 方法
 
 ![vue响应式调试4](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E8%B0%83%E8%AF%954.jpg)
 
@@ -583,7 +576,7 @@ class Compiler {
 
 ![vue响应式调试5](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/vue响应式调试5.jpg)
 
-由于 `Dep.target` 没有值，会直接返回 val，至此差值表达式就处理完毕了
+由于 `Dep.target` 没有值，会直接返回 val，至此插值表达式就处理完毕了
 
 ![vue响应式调试6](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E8%B0%83%E8%AF%956.jpg)
 
@@ -633,43 +626,43 @@ class Compiler {
 
 > [检测变化的注意事项](https://cn.vuejs.org/v2/guide/reactivity.html#检测变化的注意事项)
 
+`Object.defineProperty` 的一个局限性是无法检测到对象属性的新增或删除。因为在 `data` 初始化时，Vue 会遍历所有属性并转换为 getter/setter，后续动态添加的属性不会具有响应式特性。
+
+**解决方案：**
+
 ```js
+// 全局方法
 Vue.set(vm.someObject, 'b', 2)
-this.$set(this.someObject,'b',2)
+// 实例方法
+this.$set(this.someObject, 'b', 2)
+// 多个属性用 Object.assign
+this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
 ```
+
+这也是 Vue 3.x 改用 `Proxy` 的原因之一 —— Proxy 可以直接监听对象本身，包括属性的新增和删除。
 
 ## 总结
 
 ![image-20220523215516234](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220523215516234.png)
 
-**Vue**
+| 模块 | 职责 |
+|---|---|
+| **Vue** | 记录传入的选项，注入 data 成员到实例，调用 Observer 和 Compiler |
+| **Observer** | 数据劫持：将 data 转换成 getter/setter，处理嵌套对象，数据变化时通知 Dep |
+| **Compiler** | 编译模板：解析指令/插值表达式，负责首次渲染和视图更新 |
+| **Dep** | 收集依赖（添加 Watcher），数据变化时通知所有 Watcher |
+| **Watcher** | 实例化时将自身添加到 Dep，数据变化时通过回调更新视图 |
 
-- 记录传入的选项，设置 $data/$el
-- 把 data 的成员注入到 Vue 实例
-- 负责调用 Observer 实现数据响应式处理（数据劫持）
-- 负责调用 Compiler 编译指令/插值表达式等
+**整体流程：**
 
-**Observer**
-
-- 数据劫持
-  - 负责把 data 中的成员转换成 getter/setter
-  - 负责把多层属性转换成 getter/setter
-  - 如果给属性赋值为新对象，把新对象的成员设置为 getter/setter
-- 添加 Dep 和 Watcher 的依赖关系
-- 数据变化发送通知
-
-**Compiler**
-
-- 负责编译模板，解析指令/插值表达式
-- 负责页面的首次渲染过程
-- 当数据变化后重新渲染
-
-**Dep**
-
-- 收集依赖，添加订阅者（watcher）
-- 通知所有订阅者
-
-**Watcher**
-
-- 自身实例化的时候往 dep 对象中添加自己
-- 当数据变化 dep 通知所有的 Watcher 实例更新视图
+```text
+new Vue(options)
+  → _proxyData()     把 data 注入 Vue 实例
+  → new Observer()   遍历 data，调用 defineReactive 转为 getter/setter
+      → new Dep()    每个属性创建独立的 Dep 实例
+  → new Compiler()   解析模板中的指令和插值表达式
+      → new Watcher()  为每个绑定创建 Watcher
+        → Dep.target = this → 触发 getter → dep.addSub(watcher) → Dep.target = null
+数据变化时：
+  setter → dep.notify() → watcher.update() → 回调更新 DOM
+```

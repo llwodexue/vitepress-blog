@@ -6,7 +6,7 @@
 
 2. **Vue2 和 Vue3 都能支持**
 
-   options api 和 compositions api 都支持，维护成本低
+   - options api 和 compositions api 都支持，维护成本低
 
 3. **抛弃传统的 Mutation，只有 state, getter 和 action ，简化状态管理库**
 
@@ -37,7 +37,7 @@
 
 其实在使用上区别不大，但是有几点需要改变：
 
--	如下示例为 Vuex4.x 和 Pinia 代码
+- 如下示例为：Vuex4.x 和 Pinia 代码
 
 ### 没有mutations
 

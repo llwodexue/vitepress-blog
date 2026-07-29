@@ -11,7 +11,7 @@
 
 **动态路由传参**
 
-组件中使用 `$route` 会与路由紧密耦合，这限制了组件的灵活性，因为它只能用于特定的 URL，可以通过 `props`　配置来解除这种行为
+组件中使用 `$route` 会与路由紧密耦合，这限制了组件的灵活性，因为它只能用于特定的 URL，可以通过 `props` 配置来解除这种行为
 
 ```js
 const User = {
@@ -182,37 +182,30 @@ new Vue({
 
 ## VueRouter 实现思路
 
-### VueRouter 实现类图
+### VueRouter 类图
 
 VueRouter 有三个属性：
 
 - `options`：记录构造函数中传入的对象
-- `data`：里面有 `current` 属性记录当前路由地址，data对象必须是响应式的，变化后做出相应执行
-- `routeMap`：记录路由地址和组件之间的关系
+- `data`：里面有 `current` 属性记录当前路由地址，data 对象必须是响应式的，变化后做出相应执行
+- `routeMap`：记录路由地址和组件之间的映射关系
 
 VueRouter 有五个方法：
 
-- `_install(Vue)`：实现vue的插件机制
+- `_install(Vue)`：实现 Vue 的插件机制
 - `init()`：会调用如下三个方法
-- `initEvent()`：注册 `popState` 事件，监听浏览器历史变化
-- `createRouteMap()`：初始化 `routemap` 属性，把构造函数中传递的路由规则转换成键值对存到 `routemap` 里
-- `initComponents(Vue)`：创建 `router-view` 和 `router-link` 组件的
+- `initEvent()`：注册 `popstate` 事件，监听浏览器历史变化
+- `createRouteMap()`：初始化 `routeMap` 属性，把构造函数中传递的路由规则转换成键值对存到 `routeMap` 里
+- `initComponents(Vue)`：创建 `router-view` 和 `router-link` 组件
 
+**实现思路**
 
-
-**VueRouter 实现思路**
-
-- 创建 VueRouter 插件，静态方法 install
-
+- 创建 VueRouter 插件，静态方法 `install`
   - 判断插件是否已经被加载，已经加载就无需重复加载
-
   - 把 Vue 构造函数记录到全局变量中去
-
-    当前 install 是一个静态方法，静态方法接收了 Vue 构造函数，将来在 VueRouter 实例方法中还会使用 Vue 构造函数，比如：`router-view` 需要用 `Vue.component` 创建
-
+  - 当前 install 是一个静态方法，静态方法接收了 Vue 构造函数，将来在 VueRouter 实例方法中还会使用 Vue 构造函数，比如：`router-view` 需要用 `Vue.component` 创建
   - 把创建 Vue 实例时传入的 router 对象注入到所有 Vue 实例上
-
-    让所有实例共享一个成员可以将其放到 **构造函数的原型** 上
+  - 让所有实例共享一个成员可以将其放到 **构造函数的原型** 上
 
 - 创建 VueRouter 类
 
@@ -334,11 +327,11 @@ Vue 构建版本：
 
 - 运行时版：不支持 template 模板，需要打包的时候提前编译
 
-  使用 render 函数渲染虚拟 DOM 最后更新视图
+  - 使用 render 函数渲染虚拟 DOM 最后更新视图
 
 - 完整版：包含运行时和编译器，体积比运行时版大 10K 左右
 
-  编译器作用：程序运行的时候把模板转换成 render 函数
+  - 编译器作用：程序运行的时候把模板转换成 render 函数
 
 如果想切换成自带的编译版本需要修改 `vue.config.js` 配置
 
@@ -506,7 +499,28 @@ export default class VueRouter {
 Hash 路由实现相比较于 History 路由的改变：
 
 - 监听事件由 `popstate` 改为 `hashchange`，由于刷新页面也需要返回当前页面，所以会加一个 `load` 监听事件
-- 点击事件由阻止默认事件再执行 `pushstate` 改为直接拼 `#hash` 哈希值
+- 点击事件由阻止默认事件再执行 `pushState` 改为直接拼 `#hash` 哈希值
+
+### Hash vs History 对比
+
+| 特性 | Hash 模式 | History 模式 |
+|---|---|---|
+| URL 格式 | `xxx.com/#/path` | `xxx.com/path` |
+| 原理 | `hashchange` 事件 | `popstate` 事件 + `pushState` |
+| 服务端配置 | 不需要 | 需要配置 fallback 到 index.html |
+| 兼容性 | IE8+ | IE10+ |
+| SEO | 不友好 | 较友好 |
+| 适用场景 | 小型应用、兼容性要求高 | 大型应用、需要美观 URL |
+
+### 总结
+
+VueRouter 的核心实现原理：
+
+1. **install**：通过 `Vue.use()` 触发静态方法，将 `$router` 注入到所有 Vue 实例
+2. **响应式**：`data.current` 使用 `Vue.observable()` 使其成为响应式对象，路径变化自动触发组件更新
+3. **routeMap**：维护 path → component 的映射关系，路由匹配时快速查找
+4. **router-view**：依赖 `data.current`，当路径变化时自动渲染对应组件
+5. **router-link**：拦截点击事件，调用 `pushState` 或修改 `hash`，阻止页面刷新
 
 ```js
 let _Vue = null

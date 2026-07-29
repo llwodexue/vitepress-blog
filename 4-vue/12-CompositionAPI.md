@@ -85,7 +85,7 @@ app.mixin({
 
 ### setup
 
-**setup 函数参数** 主要由两个参数
+**setup 函数参数** 主要有两个参数
 
 - 第一个参数：props
 - 第二个参数：context
@@ -107,7 +107,7 @@ context：可以称之为是一个 SetupContext，它里面包含三个属性：
 - setup 的返回值可以在模板 template 中被使用
 - 也就是说我们可以通过 setup 的返回值来替代 data 选项
 
-我们将 counter 在 increment 或 decrement 进行操作时，是不可以实现页面的响应式的
+我们在 increment 或 decrement 中对 counter 进行操作时，是无法实现页面的响应式的
 
 - 因为对于一个定义的变量来说，默认情况下，Vue 并不会跟踪它的变化，来引起页面的响应式操作
 
@@ -150,7 +150,7 @@ context：可以称之为是一个 SetupContext，它里面包含三个属性：
 ### Reactive API
 
 - 当我们 **使用 reactive 函数处理我们的数据之后**，数据 **再次被使用** 时就会 **进行依赖收集**
-- 当 **数据发生改变** 时，所有 **收集到的依赖** 都是 **进行对应的响应式操作**（比如更新页面）
+- 当 **数据发生改变** 时，所有 **收集到的依赖** 都会 **触发对应的响应式操作**（比如更新页面）
 - 事实上，我们编写 **data 选项**，也是在内部交给了 reactive 函数将其变成响应式对象的
 
 ```html
@@ -253,7 +253,7 @@ export default {
 
 ### readonly
 
-我们通过 reactive 或 ref 可以获取到一个响应式对象，但是某些情况下，我们传入给其他地方（组件）的这个响应式对象希望在另外一个地方（组件）被使用，但是不能被修改，这时就可以使用 readonly 方法
+我们通过 reactive 或 ref 可以获取到一个响应式对象，但是某些情况下，我们希望传递给其他组件使用的响应式对象不被修改，这时就可以使用 readonly 方法
 
 - readonly 会返回原生对象的只读代理（也就是它依然是一个 Proxy，这是一个 proxy 的 set 方法被劫持，并且不能对其进行修改）
 
@@ -371,7 +371,7 @@ let age = toRef(info, 'age')
 
   - **如果参数是一个 ref，则返回内部值，否则返回参数本身**
 
-    这个是 `val = isRef(val) ? val.value : val` 的语法糖函数
+    - 这个是 `val = isRef(val) ? val.value : val` 的语法糖函数
 
 **isRef**
 
@@ -572,7 +572,7 @@ watchEffect(
 
 ### setup 中使用 ref
 
-在 setup 中如何使用 ref 或者元素或组件，需要我们定义一个 ref 对象，绑定到元素或者组件的 ref 属性上即可
+在 setup 中如何使用 ref 获取元素或组件，需要我们定义一个 ref 对象，绑定到元素或者组件的 ref 属性上即可
 
 ```html
 <h2 ref="title">哈哈哈</h2>
@@ -605,14 +605,14 @@ watch 的 API 完全等同于组件 watch 选项的 Property：
 与 watchEffect 的比较，watch 允许我们：
 
 - 懒执行副作用（第一次不会直接执行）
-- 更具体的说明当哪个状态发生改变时，触发侦听器的执行
+- 更具体地说明当哪个状态发生改变时，触发侦听器的执行
 - 访问侦听器变化前后的值
 
 **侦听单个数据源**
 
 watch 侦听函数的数据源有两种类型：
 
-- 一个 getter 函数：但是该 getter 函数必须引用可响应式的对象（比如 reactive 或 ref）
+- 一个 getter 函数：但是该 getter 函数必须引用响应式的对象（比如 reactive 或 ref）
 - 直接写入一个可响应式的对象，reactive 或者 ref（比较常用的是 ref）
 
 ```js
@@ -861,7 +861,7 @@ const emitEvent = () => {
 
 ### h 函数
 
-Vue 推荐在绝大多数情况下使用模板来创建你的 HTML，有一些特殊场景，你需要 JavaScript 完全编程的能力，可以使用渲染函数，它比模板更接近编译器
+Vue 推荐在绝大多数情况下使用模板来创建你的 HTML，有一些特殊场景，你需要 JavaScript 的完全编程能力，可以使用渲染函数，它比模板更接近编译器
 
 - Vue 在生成真实 DOM 之前，会将我们的节点转换成 VNode，而 VNode 组合在一起形成一颗树结构，就是虚拟 DOM（VDOM）
 - 事实上，我们之前编写的 template 中的 HTML 最终也是使用渲染函数生成对应的 VNode
@@ -870,7 +870,7 @@ Vue 推荐在绝大多数情况下使用模板来创建你的 HTML，有一些�
 使用 `h()` 函数
 
 - `h()` 函数是一个用于创建 vnode 的一个函数
-- 其实更准确的命名是 `createVNode()` 函数，但是为了简便在 Vue 将其称为 `h -> hyperscript` 函数
+- 其实更准确的命名是 `createVNode()` 函数，但是为了简便，Vue 将其称为 `h -> hyperscript` 函数
 
 **h() 函数使用**
 
@@ -952,7 +952,7 @@ export default {
 如果我们希望在项目中使用 jsx，我们需要添加对 jsx 的支持：
 
 - jsx 我们通常会通过 Babel 来进行转换
-- React 编写的 jsx 就是通过 Babel 转换的
+- React 编写的 JSX 就是通过 Babel 转换的
 - Vue 我们只需在 Babel 中配置对应的插件即可
 
 ```bash
