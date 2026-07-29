@@ -8,14 +8,14 @@
 
 - 在 Vue 开发中，我们使用组件化的开发方式
 - 而在组件中我们定义 data 或者在 setup 中返回使用的数据，这些数据我们称之为 state
-- 在模块 template 中我们可以使用这些数据，模块最终会被渲染成DOM，我们称之为 View
-- 在模块中我们会产生一些行为事件，处理这些行为事件时，有可能会修改 state，这些行为事件我们称之为 actions
+- 在模板 template 中我们可以使用这些数据，模板最终会被渲染成 DOM，我们称之为 View
+- 在模板中我们会产生一些行为事件，处理这些行为事件时，有可能会修改 state，这些行为事件我们称之为 actions
 
 ![image-20220825142854611](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220825142854611.png)
 
 **复杂的状态管理**
 
-JavaScript开发的应用程序，已经变得越来越复杂了：
+JavaScript 开发的应用程序，已经变得越来越复杂了：
 
 - JavaScript 需要管理的状态越来越多，越来越复杂
 - 这些状态包括服务器返回的数据、缓存数据、用户操作产生的数据等等
@@ -43,9 +43,9 @@ JavaScript开发的应用程序，已经变得越来越复杂了：
 - 在这种模式下，我们的组件树构成了一个巨大的 “视图View”
 - 不管在树的哪个位置，任何组件都能获取状态或者触发行为
 - 通过定义和隔离状态管理中的各个概念，并通过强制性的规则来维护视图和状态间的独立性，我们的代码便会变得更加结构化和易于维护、跟踪
-- 这就是 Vuex 背后的基本思想，它借鉴了 Flux、Redux、Elm（纯函数语言，redux 有借鉴它的思想）：
+- 这就是 Vuex 背后的基本思想，它借鉴了 Flux、Redux、Elm（纯函数语言，redux 有借鉴它的思想）
 
-在软件工程里，Actions 相当于增加一层，解决异步问题，主要是帮我们生成快照
+在软件工程里，Actions 相当于增加一层，解决异步问题，主要是帮我们生成快照：
 
 ![image-20220825143537652](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220825143537652.png)
 
@@ -57,11 +57,11 @@ npm install vuex@next
 
 ## 安装 devtool
 
-vue 其实提供了一个 devtools，方便我们对组件或者 vuex 进行调试：
+Vue 其实提供了一个 devtools，方便我们对组件或者 Vuex 进行调试：
 
 - 我们需要安装 Vue.js devtools，目前是 6.2.1
 - 它有两种常见的安装方式：
-  - 方式一：通过chrome的商店
+  - 方式一：通过 Chrome 的商店
   - 方式二：手动下载代码，编译、安装
 
 方式一：通过 Chrome 商店安装：
@@ -93,7 +93,7 @@ Vuex 和单纯的全局对象有什么区别呢？
 - 第一：Vuex 的状态存储是响应式的
   - 当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会被更新
 - 第二：你不能直接改变 store 中的状态
-  - 改变store中的状态的唯一途径就是显式提交 (commit) mutation
+  - 改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation
   - 这样使得我们可以方便的跟踪每一个状态的变化，从而让我们能够通过一些工具帮助我们更好的管理应用的状态
 
 使用步骤：
@@ -256,7 +256,7 @@ const store = createStore({
       return state.discount
     }
   }
-}
+})
 ```
 
 在模板中直接使用即可
@@ -282,7 +282,7 @@ const store = createStore({
       }
     }
   }
-}
+})
 ```
 
 在模板中直接使用即可
@@ -332,8 +332,8 @@ const store = createStore({
     incrementN(state, payload) {
       state.counter += payload.count
     }
-  },
-}
+  }
+})
 ```
 
 我们在提交 mutation 的时候，会携带一些数据，这个时候我们可以使用参数：
@@ -361,8 +361,9 @@ const store = createStore({
     [INCREMENT_N](state, payload) {
       state.counter += payload.count
     }
-  },
-}
+  }
+})
+```
 ```
 
 直接使用即可
@@ -722,8 +723,11 @@ export default {
 
 ```js
 import { useState, useGetters } from '../hooks'
+
 const { mapMutations, mapActions } = createNamespacedHelpers('home')
+
 export default {
+  setup() {
     const state = useState('home', ['homeCounter'])
     const getters = useGetters('home', ['doubleHomeCounter'])
     const mutations = mapMutations(['increment'])
