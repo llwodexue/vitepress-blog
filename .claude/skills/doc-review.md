@@ -111,6 +111,13 @@ description: 文档审查技能 — 检查 Markdown 文档中的语病、歧义�
 | httppass | **htpasswd** |
 | apache | **Apache** |
 | 下载刷新 | 下拉刷新 |
+| loadash | **lodash** |
+| Manage（RPM Package Manage） | **Manager** |
+| HomeComtent | **HomeContent** |
+| 不像服务器发送 | **不向**服务器发送 |
+| 核 children 互斥 | **和** children 互斥 |
+| single line of code | **Source Lines of Code** |
+| Typescript | **TypeScript** |
 
 ---
 
@@ -189,6 +196,8 @@ description: 文档审查技能 — 检查 Markdown 文档中的语病、歧义�
 |---|---|
 | 残留碎片：`需要在` 单独一行 | 删除或补全句子 |
 | PS 注释块完全重复 | 删除重复块 |
+| 章节位置不当 | 调整到对应功能区块内（如 API 说明散落在不相关的章节） |
+| 变量/组件名在同一作用域重复声明 | 使用不同变量名区分 |
 
 ---
 
@@ -202,6 +211,11 @@ description: 文档审查技能 — 检查 Markdown 文档中的语病、歧义�
 | 缺少函数/方法包装 | `export default { const state = ... }` — 缺少 `setup()` | `export default { setup() { ... } }` |
 | API 名称写错 | `navigatorTo`、`commit('mutation', payload)` | `navigateTo`、`commit('mutation', payload)` 确认 API 存在 |
 | 代码块缺少闭合标签 | `<script>` 无 `</script>` | 补全闭合标签 |
+| 静态属性误用 `:` 绑定 | `<el-dialog :title="弹出框">` — 文本不需要 `:` | `<el-dialog title="弹出框">` |
+| 运算符优先级 | `if (!key in obj)` — `!` 优先级高于 `in` | `if (!(key in obj))` |
+| 正则表达式缺陷 | `class=["']([^"']+)["']` 漏匹配 `className` | 改为 `class(?:Name)?=["']([^"']+)["']` |
+| 废弃 API | `contentBase` 是 webpack-dev-server v3 配置 | 改为 `static: { directory: '...' }` |
+| 变量/组件名重复声明 | `const User =` 在同一作用域声明两次 | 改为不同变量名 `User2` |
 
 > **重要：区分有意为之和无意错误。** 教学文档中，"未注册的组件""未导入的函数""冗余的全局注册"等，往往是作者故意展示的场景（如演示打包体积浪费、对比正确与错误写法）。判断标准：看上下文是否有明确的解释说明——如果文字解释了"为什么这样不好"，则代码是故意示范，不应标记为错误。
 
@@ -214,8 +228,8 @@ description: 文档审查技能 — 检查 Markdown 文档中的语病、歧义�
 3. 检查中英文空格、标点
 4. 检查错别字、术语一致性
 5. 检查概念/术语使用是否准确（技术翻译错误）
-6. 检查内容完整性（残留碎片、重复块）
-7. 检查代码示例是否正确（括号匹配、结构完整）
-8. 检查代码块语言标注
-9. 代码块内部不检查格式问题
+6. 检查内容完整性与结构（残留碎片、重复块、章节位置、变量重名）
+7. 检查代码示例是否正确（括号匹配、结构完整、API 有效性、运算符优先级、正则正确性、废弃 API）
+8. 检查代码块语言标注（`js`/`ts`/`html` 是否匹配内容）
+9. 代码块内部不检查格式问题（空格、标点）
 10. 列表项紧跟的代码块/图片属于正常格式，不检查
