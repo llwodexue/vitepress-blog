@@ -18,14 +18,16 @@ const User = {
   template: '<div>User {{ $route.params.id }}</div>'
 }
 const routes = [{ path: '/user/:id', component: User }]
+```
 
-const User = {
+```js
+const User2 = {
   // 请确保添加一个与路由参数完全相同的 prop 名
   props: ['id'],
   template: '<div>User {{ id }}</div>'
 }
 // 开启 props 会把 URL 中的参数传递给组件，在组件中通过 props 来接收 URL 参数
-const routes = [{ path: '/user/:id', component: User, props: true }]
+const routes2 = [{ path: '/user/:id', component: User2, props: true }]
 ```
 
 **嵌套路由**
@@ -300,7 +302,7 @@ export default class VueRouter {
       },
       methods: {
         clickHandler(e) {
-          // 改变浏览器地址栏且不像服务器发送请求
+          // 改变浏览器地址栏且不向服务器发送请求
           history.pushState({}, 'title', this.to)
           // 加载对应的路径，current是响应式对象
           this.$router.data.current = this.to
@@ -468,7 +470,7 @@ export default class VueRouter {
       },
       methods: {
         clickHandler(e) {
-          // 改变浏览器地址栏且不像服务器发送请求
+          // 改变浏览器地址栏且不向服务器发送请求
           history.pushState({}, 'title', this.to)
           // 加载对应的路径，current是响应式对象
           this.$router.data.current = this.to

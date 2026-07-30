@@ -164,7 +164,7 @@ module.exports = {
 
 ## 定义变量和数据类型
 
-> [Typescript 官网](https://www.typescriptlang.org/)
+> [TypeScript 官网](https://www.typescriptlang.org/)
 >
 > 在线编辑器：
 >
@@ -185,8 +185,8 @@ var/let/const 标识符: 数据类型 = 赋值
 
 **注意：** 这里的 string 是小写的，和 String 是有区别的
 
-- string 是 Typescript 中定义的字符串类型
-- String 是 ECMAScript中定义的一个类
+- string 是 TypeScript 中定义的字符串类型
+- String 是 ECMAScript 中定义的一个类
 
 ```tsx
 var name: string = 'cat'
@@ -289,7 +289,7 @@ const info = {
 }
 ```
 
-### Typescript 数据类型
+### TypeScript 数据类型
 
 - any
 - unknown
@@ -430,7 +430,7 @@ setCounter(100)
 
 ![image-20220902105256968](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220902105256968.png)
 
-## Typescript 数据类型
+## 函数与高级类型
 
 - function
 
@@ -832,7 +832,7 @@ const fish: Fish = {
 walk(fish) // swimming
 ```
 
-## Typescript 函数类型
+## TypeScript 函数类型
 
 ### 函数类型
 
@@ -857,7 +857,7 @@ const add: AddFnType = (a1: number, a2: number) => {
 上面的语法中 `(num1: number, num2: number) => number`，代表的就是一个函数类型
 
 - 接收两个参数的函数：num1 和 num2，并且都是 number 类型，并且函数的返回值是 number 类型
-- 在某些语言中，可能参数名称 num1 和 num2 是可以省略的，但是 Typescript 是不可以的
+- 在某些语言中，可能参数名称 num1 和 num2 是可以省略的，但是 TypeScript 是不可以的
 
 **参数可选类型**
 
@@ -1275,7 +1275,7 @@ Student.attendClass()
 - 在定义很多通用的**调用接口时, 我们通常会让调用者传入父类，通过多态来实现更加灵活的调用方式**
 - 但是，**父类本身可能并不需要对某些方法进行具体的实现，所以父类中定义的方法,，我们可以定义为抽象方法**
 
-抽象方法：在 Typescript 中没有具体实现的方法（没有方法体）
+抽象方法：在 TypeScript 中没有具体实现的方法（没有方法体）
 
 - 抽象方法，必须存在抽象类中
 - 抽象类是使用 abstract 声明的类
@@ -1494,7 +1494,7 @@ interface 和 type 都可以用来定义对象类型，在开发中如何选择�
 
 ![image-20220907155259261](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220907155259261.png)
 
-Typescript 在字面量直接赋值的过程中，为了进行类型推导会进行严格的类型限制
+TypeScript 在字面量直接赋值的过程中，为了进行类型推导会进行严格的类型限制
 
 - 但是之后如果我们是将一个变量标识符赋值给其他的变量时，会进行 freshness 擦除操作（删除多余属性）
 - 当使用第三方库时，如果出现报错可以借用这个擦除操作解决
@@ -1529,7 +1529,7 @@ printInfo(info)
 
 ## 枚举类型
 
-枚举类型是为数不多的 Typescript 特有的特性之一：
+枚举类型是为数不多的 TypeScript 特有的特性之一：
 
 - 枚举其实就是将一组可能出现的值，一个个列举出来，定义在一个类型中，这个类型就是枚举类型
 - 枚举允许开发者定义一组命名变量，常量可以是数字、字符串类型
@@ -1700,7 +1700,7 @@ getLength({ length: 10 })
 
 **非空判断运算符**
 
-```js
+```ts
 null ?? true // true
 undefined ?? true // true
 '' ?? true // ''
@@ -1722,22 +1722,22 @@ TypeScript 支持两种方式来控制我们的作用域：
 
 **命名空间 namespace**
 
-命名空间在 Typescript 早期时，称之为内部模块，主要目的是将一个模块内部再进行作用域的划分，防止一些命名冲突的问题
+命名空间在 TypeScript 早期时，称之为内部模块，主要目的是将一个模块内部再进行作用域的划分，防止一些命名冲突的问题
 
 ![image-20220913172145047](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220913172145047.png)
 
 **类型查找**
 
-HTMLImageElement 类型来自哪里呢？这里涉及到 Typescript 对类型的管理和查找规则
+HTMLImageElement 类型来自哪里呢？这里涉及到 TypeScript 对类型的管理和查找规则
 
 ```js
 const imageEl = document.getElementById('image') as HTMLImageElement
 ```
 
-这里说一下另外一种 Typescript 文件：`.d.ts` 文件
+这里说一下另外一种 TypeScript 文件：`.d.ts` 文件
 
-- 我们之前编写的 Typescript 文件都是 `.ts` 文件，这些文件最终会输出 `.js` 文件，也是我们通常编写代码的地方
-- 还有另外一种文件 `.d.ts` 文件，它是用来做类型的声明(declare)。 它仅仅用来做类型检测，告知 Typescript 我们有哪些类型
+- 我们之前编写的 TypeScript 文件都是 `.ts` 文件，这些文件最终会输出 `.js` 文件，也是我们通常编写代码的地方
+- 还有另外一种文件 `.d.ts` 文件，它是用来做类型的声明(declare)。 它仅仅用来做类型检测，告知 TypeScript 我们有哪些类型
 
 ### 类型声明查找机制
 
@@ -1747,9 +1747,9 @@ const imageEl = document.getElementById('image') as HTMLImageElement
 
 **内置类型声明**
 
-内置类型声明是 Typescript 自带的、帮助我们内置了 JavaScript 运行时的一些标准化 API 的声明文件；包括比如 Math、Date 等内置类型，也包括 DOM API，比如 Window、Document 等
+内置类型声明是 TypeScript 自带的、帮助我们内置了 JavaScript 运行时的一些标准化 API 的声明文件；包括比如 Math、Date 等内置类型，也包括 DOM API，比如 Window、Document 等
 
-内置类型声明通常在我们安装 Typescript 的环境中会带有的
+内置类型声明通常在我们安装 TypeScript 的环境中会带有的
 
 - [https://github.com/microsoft/TypeScript/tree/main/lib](https://github.com/microsoft/TypeScript/tree/main/lib)
 
@@ -1818,9 +1818,8 @@ declare namespace $ {
    - 优点：withDefaults 将默认值与 props 类型定义分离开，使得代码更加清晰。props 定义复杂或者有多个 props 需要设置默认值时，这种分离可以提高代码可读性
    - 缺点：代码位置相对分散，需要查看两个地方才能完整地了解 props 定义和默认值情况
 
-   ```js
-   const props = defineProps({ count: Number, name: String })
-   withDefaults(props, { count: 0, name: 'Guest' })
+   ```ts
+   const props = withDefaults(defineProps<{ count?: number; name?: string }>(), { count: 0, name: 'Guest' })
    ```
 
 2. 功能实现细节方面
@@ -1839,9 +1838,8 @@ declare namespace $ {
 
    - 在处理复杂对象类型的默认值时，与直接在 defineProps 中设置默认值功能类似，但语法上略有不同
 
-   ```js
-   const props = defineProps({ user: Object })
-   withDefaults(props, { user: () => ({ name: 'Guest', age: 18 }) })
+   ```ts
+   const props = withDefaults(defineProps<{ user?: { name: string; age: number } }>(), { user: () => ({ name: 'Guest', age: 18 }) })
    ```
 
    

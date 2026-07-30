@@ -137,7 +137,7 @@ parserOptions: {
    ```js
    {
      devServer: {
-       hotOnly: true
+       hotOnly: true,
        overlay: {
          warnings: false,
          errors: true
@@ -376,7 +376,7 @@ parserOptions: {
 
    主要是因为要兼容浏览器导致，可以在 `.browserslistrc` 里配置 `not dead` 和 `not ie 11`
 
-   ```js
+   ```
    > 1%
    last 2 versions
    not dead
@@ -433,7 +433,7 @@ parserOptions: {
 
     ```html
     <!-- vue3 -->
-    <el-dialog v-model="configOpen" :title="弹出框" width="800px" append-to-body />
+    <el-dialog v-model="configOpen" title="弹出框" width="800px" append-to-body />
     <Pagination
       v-model:page="queryParams.pageNumber"
       v-model:limit="queryParams.pageSize"
@@ -442,7 +442,7 @@ parserOptions: {
     />
     
     <!-- vue2 -->
-    <el-dialog :visible.sync="configOpen" :title="弹出框" width="800px" append-to-body />
+    <el-dialog :visible.sync="configOpen" title="弹出框" width="800px" append-to-body />
     <Pagination
       :page.sync="queryParams.pageNumber"
       :limit.sync="queryParams.pageSize"
@@ -474,7 +474,7 @@ parserOptions: {
     <el-input v-model="listQuery.jobName" @keyup.enter.native="handleQuery"/>
     ```
 
-4. 在 Vue2 中，`defineEmits` 是无效的
+> 注意：在 Vue2 中，`defineEmits` 是无效的
 
 ### 升级依赖
 

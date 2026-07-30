@@ -54,7 +54,7 @@ console.log(s)
 
 - Snabbdom 注重简单性、模块化、强大特性和性能的虚拟 DOM 库
   - Vue.js 2.x 内部使用的虚拟 DOM 就是改造的 Snabbdom
-  - 大约 200 SLOC（single line of code）
+  - 大约 200 SLOC（Source Lines of Code）
   - 通过模块可扩展
   - 源码使用 TypeScript 开发
   - 最快的 Virtual DOM 之一
@@ -82,7 +82,7 @@ npm install parcel-bundler -D
   "scripts": {
     "dev": "parcel index.html --open",
     "build": "parcel build index.html"
-  },
+  }
 }
 ```
 
@@ -94,7 +94,7 @@ npm install parcel-bundler -D
 {
   "exports": {
     "./init": "./build/package/init.js",
-    "./h": "./build/package/h.js",
+    "./h": "./build/package/h.js"
   }
 }
 ```
@@ -361,7 +361,7 @@ export interface VNode {
   children: Array<VNode | string> | undefined
   // 记录 VNode 对应的真实 DOM
   elm: Node | undefined
-  // 节点中的内容，核 children 互斥
+  // 节点中的内容，和 children 互斥
   text: string | undefined
   // 唯一标识
   key: Key | undefined

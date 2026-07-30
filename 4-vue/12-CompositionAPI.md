@@ -282,12 +282,12 @@ export default {
     // 1.普通对象
     const info1 = { name: 'why' }
     const readonlyInfo1 = readonly(info1)
-    // 2.响应式的对象reactive
+    // 2.响应式的对象 reactive
     const info2 = reactive({
       name: 'why'
     })
     const readonlyInfo2 = readonly(info2)
-    // 3.响应式的对象ref
+    // 3.响应式的对象 ref
     const info3 = ref('why')
     const readonlyInfo3 = readonly(info3)
     const updateState = () => {
@@ -321,7 +321,7 @@ export default {
 
 **isReadonly**
 
-- 检查对 **是否由 readonly 创建的只读代理**
+- 检查对象 **是否由 readonly 创建的只读代理**
 
 **toRaw**
 

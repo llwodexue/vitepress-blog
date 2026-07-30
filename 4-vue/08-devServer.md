@@ -332,7 +332,6 @@ module.exports = {
         test: /\.less$/,
         use: ['style-loader', 'css-loader', 'less-loader']
       },
-      // },
       {
         test: /\.(jpe?g|png|gif|svg)$/,
         type: 'asset',
@@ -387,7 +386,7 @@ module.exports = merge(commonConfig, {
   mode: 'development',
   devtool: 'source-map',
   devServer: {
-    contentBase: './public',
+    static: { directory: './public' },
     hot: true,
     // host: "0.0.0.0",
     port: 7777,

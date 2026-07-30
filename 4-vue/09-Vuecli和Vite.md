@@ -9,7 +9,7 @@
 Vue 的脚手架就是 Vue-cli
 
 - cli 是 Command-Line-Interface，翻译为命令行界面
-- 我们可以通过 Cli 选择项目的配置和创建出我们的项目
+- 我们可以通过 CLI 选择项目的配置和创建出我们的项目
 - Vue-Cli 已经内置了 webpack 相关的配置，我们不需要从零来配置
 
 先进行全局安装，这样在任何时候都可以通过 vue 的命令来创建项目
@@ -175,7 +175,7 @@ Vite (法语意为 "快速的"，发音 /vit/) 是一种新型前端构建工具
 
 如果我们不借助于其他工具，直接使用 ES Module 来开发有什么问题呢？
 
-- 首先，我们会发现在使用 loadash 时，加载了上百个模块的 js 代码，对于浏览器发送请求是巨大的消耗
+- 首先，我们会发现在使用 lodash 时，加载了上百个模块的 js 代码，对于浏览器发送请求是巨大的消耗
 - 其次，我们的代码中如果有 TypeScript、less、vue 等代码时，浏览器并不能直接识别
 
 事实上，vite 就帮助我们解决了上面的所有问题
@@ -187,8 +187,8 @@ Vite (法语意为 "快速的"，发音 /vit/) 是一种新型前端构建工具
 - 并且 Vite 要求 Node 版本 >= 12.0.0（现在官网写的要求 \>= 14.18.0）
 
 ```bash
-npm install vite –g # 全局安装
-npm install vite –D # 局部安装
+npm install vite -g # 全局安装
+npm install vite -D # 局部安装
 npx vite
 ```
 

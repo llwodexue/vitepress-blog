@@ -55,7 +55,8 @@ Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
    })
    
    // vuex modules/app.js
-   const useAppStore = createStore({
+   export default {
+     namespaced: true,
      state: {
        count: 0
      },
@@ -70,7 +71,7 @@ Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
          context.commit('increment', num)
        }
      }
-   })
+   }
    ```
 
 2. 不再使用 `dispatch` 调用 `actions`
@@ -135,19 +136,19 @@ Pinia 不再需要一个主要的 `Store`，是一个平面的结构，可创建
 const useAppStore = defineStore('app', { /* ... */ })
 ```
 - 注意：Pinia 每一个文件都需要有一个**唯一的命名**，类似于 Vuex 的命名空间（`namespaced： true`）
- ```js
-  import appModule from './modules/app'
-  const store = createStore({
-    modules: {
-      appModule
-    }
-  })
-  
-  // vuex modules/app.js
-  const useAppStore = createStore({
-    namespaced: true
-  })
- ```
+```js
+import appModule from './modules/app'
+const store = createStore({
+  modules: {
+    appModule
+  }
+})
+
+// vuex modules/app.js
+export default {
+  namespaced: true
+}
+```
 
 
 ### getters用法改变
@@ -179,7 +180,7 @@ const useBookStore = createStore({
       return state.discount
     }
   }
-}
+})
 ```
 
 Pinia 去掉了第二个参数，可以在里面使用 this 取到其他 `getters`
@@ -230,7 +231,7 @@ const useBookStore = createStore({
       }
     }
   }
-}
+})
 ```
 
 在模板中可以这样使用（只是单方面举例）
