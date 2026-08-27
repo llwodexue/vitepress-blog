@@ -13,10 +13,10 @@ Content-Security-Policy: default-src 'self';base-uri 'self';font-src 'self' http
 ```
 
 - `default-src` 用来设置上面各个选项的默认值
-- `base-uri`：限制`<base#href>`
+- `base-uri`：限制 `<base href>` 可指向的地址
 - `font-src`：限制字体文件
 - `form-action`：限制`<form#action>`
-- `frame-ancestors`：嵌入的外部资源（比如 `<frame>`、`<iframe>`、`<embed>` 和 `<applet>`）
+- `frame-ancestors`：限制哪些来源可以用 `<frame>`、`<iframe>`、`<embed>` 或 `<object>` 嵌入当前页面
 - `img-src`：图像
 - `object-src`：插件（比如 Flash）
 - `script-src`：外部脚本
@@ -70,12 +70,4 @@ X-Permitted-Cross-Domain-Policies：为 Web 客户端提供了跨域处理数据
 X-Permitted-Cross-Domain-Policies: none
 ```
 
-> [X-XSS-Protection](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/X-XSS-Protection)
-
-X-XSS-Protection：当检测到跨站脚本攻击（XSS）时，浏览器将停止加载页面
-
-```http
-X-XSS-Protection: 0
-```
-
-- 0 禁止 XSS 过滤
+> `X-XSS-Protection` 已废弃，不应作为 XSS 防护措施。使用上下文相关输出编码、可信 HTML 净化、CSP 与 `HttpOnly` / `Secure` Cookie 等组合防护。

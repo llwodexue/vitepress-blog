@@ -4,8 +4,8 @@ import { resolve } from 'path'
 import { name, keywords } from './meta'
 
 /**
- * Vite Plugin PWA uses Workbox  library to build the service worker
- * can find more information on Workbox section.
+ * Vite Plugin PWA uses the Workbox library to build the service worker.
+ * More information is available in the Workbox documentation.
  * @see https://vite-plugin-pwa.netlify.app/
  */
 export const pwa: Partial<VitePWAOptions> = {

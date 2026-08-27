@@ -1,5 +1,7 @@
 # 手写Promise源码
 
+> 本文用逐步实现的 `MyPromise` 讲解状态、订阅与链式调用，并非完整的 Promise/A+ 实现。原生 Promise 的 `then` 回调通过微任务调度；文中的 `setTimeout` 仅用于避免循环引用示例中的同步访问，不能用来描述原生的调度顺序。完整实现还需要处理任意 thenable、重复调用保护和解析过程中的异常。
+
 ## Promise 类基础逻辑
 
 ### 基础逻辑
@@ -112,7 +114,7 @@ promise.then(value => {
   console.log(value) // 成功
 })
 promise.then(value => {
-  console.log(value) // 没有输出
+  console.log(value) // 成功
 })
 ```
 
@@ -459,6 +461,10 @@ class MyPromise {
     let result = []
     let index = 0
     return new MyPromise((resolve, reject) => {
+      if (array.length === 0) {
+        resolve(result)
+        return
+      }
       function addData(key, value) {
         result[key] = value
         index++
@@ -672,6 +678,10 @@ class MyPromise {
     let result = []
     let index = 0
     return new MyPromise((resolve, reject) => {
+      if (array.length === 0) {
+        resolve(result)
+        return
+      }
       function addData(key, value) {
         result[key] = value
         index++

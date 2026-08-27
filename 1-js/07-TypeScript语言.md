@@ -1,21 +1,17 @@
-# TypeScript语言
+# TypeScript 语言
 
 ## 类型系统
 
-TypeScript 解决 JavaScript 类型系统的问题，大大提高代码的可靠程度
+TypeScript 为 JavaScript 提供静态类型检查与编辑器工具支持。类型在编译后会被擦除，不能替代运行时的输入校验、权限校验或测试；它的价值在于尽早发现接口与重构中的不一致。
 
-- JavaScript 缺失类型系统的可靠性（不靠谱）
-- JavaScript 没有编译环节，静态类型在编译环节进行类型校验
+- JavaScript 是动态类型语言，许多类型错误只能在执行到对应分支时暴露
+- TypeScript 在构建或编辑阶段检查类型，并输出 JavaScript
 
 ### 强类型与弱类型（类型安全）
 
-- 强类型：语言层面限制函数的实参类型必须与形参类型相同（更强的类型约束）
+- 强弱类型描述运行时是否宽松地进行隐式转换；静态/动态类型则描述检查发生的阶段，两组概念不能简单等同
 
-  不允许任意的隐式类型转换
-
-- 弱类型：语言层面不会限制实参的类型（几乎没有约束）
-
-  允许任意的隐式类型转换
+- TypeScript 通过静态检查约束代码，JavaScript 仍可能在运行时发生隐式转换
 
 注意：变量类型允许随时改变这一特点，不是强弱类型的差异
 
@@ -48,11 +44,11 @@ setTimeout(() => {
 function sum(a, b) {
   return a + b
 }
-console.log(100, '100')
+console.log(sum(100, '100')) // 100100
 
 // 对象索引错误用法
 obj[true] = 100
-console.log(foo['true'])
+console.log(obj['true'])
 ```
 
 **强类型的优势**
@@ -101,7 +97,9 @@ foo = true
 console.log(foo)
 ```
 
-## Flow 静态类型检查方案
+## Flow 静态类型检查方案（历史方案）
+
+Flow 仍可用于维护已有项目；新项目通常优先采用 TypeScript，以减少工具链与生态的额外分叉。以下内容仅用于理解或维护 Flow 代码，不作为新项目脚手架。
 
 > [Type Annotations](https://flow.org/en/docs/types/)
 >
@@ -109,9 +107,7 @@ console.log(foo)
 
 ### 快速上手
 
-首先需要把 `JavaScript › Validate: Enable` 取消勾选
-
-- 禁用 JavaScript 验证
+必要时可在编辑器中关闭与 Flow 冲突的 JavaScript 验证；具体设置随编辑器和扩展版本变化。
 
 ![关闭JavaScript验证](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/%E5%85%B3%E9%97%ADJavaScript%E9%AA%8C%E8%AF%81.png)
 
@@ -127,7 +123,7 @@ yarn add flow-bin --dev
 - 在文件顶部添加注释标记：`@flow`
 - 添加类型注解 `function sum (a: number)`
 
-> 注意：执行 `yarn flow` 时可能会报错：`error Command failed with exit code 2.`。是因为路径有中文名，将路径改为英文就可以启动了
+> 注意：`yarn flow` 的退出码 2 只表示检查失败，需查看实际诊断信息；不要仅因路径包含中文就假定是根因。
 
 ```bash
 yarn flow init
@@ -284,7 +280,7 @@ const element: HTMLElement | null = document.getElementById('app')
 
 - JavaScript 的超集（superset）
 
-- TypeScript 最终会编译成 JavaScript 去工作，所以任何一种 JavaScript 运行环境都支持
+- TypeScript 最终输出 JavaScript；目标运行环境是否可运行取决于 `target`、`module`、polyfill 与部署环境，而不是 TypeScript 本身
 
   相比 Flow，功能更为强大，生态更健全、更完善
 
@@ -320,18 +316,21 @@ yarn tsc --init
 
   配置好 `tsconfig.json` 后，就可以直接执行 `yarn tsc` 命令了
 
-```json
+```jsonc
 {
   "compilerOptions": {
-    "target": "es2015", // 新特性都转换为es2015代码
-    "module": "commonjs", // 输出代码使用什么方式进行模块化
-    "outDir": "dist", // 编译结果输出到的文件夹
-    "rootDir": "./", // TypeScript代码所在文件夹
-    "sourceMap": true, // 开启源代码映射
-    "strict": true, // 开启所有类型严格检查
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true
   }
 }
 ```
+
+配置应由实际运行时决定：前端构建工具通常接管模块转换，Node.js 项目则需让 `module`、`moduleResolution` 与 `package.json` 的模块类型保持一致。
 
 - 显示中文错误消息
 
@@ -368,7 +367,7 @@ yarn tsc --locale zh-CN
 const a: string = 'foobar'
 const b: number = 100 // NaN Infinity
 const c: boolean = true // false
-// 在非严格模式（strictNullChecks）下，
+// 关闭 strictNullChecks 时，
 // string, number, boolean 都可以为空
 // const d: string = null
 // const d: number = null
@@ -453,6 +452,8 @@ const [key, value] = entries[0]
 
 - 常量枚举
 - 计算枚举
+
+枚举会产生运行时代码；`const enum` 会内联值，但会受到 `isolatedModules` 等编译约束。跨包 API 通常使用字符串联合类型或显式常量对象更易兼容。
 
 ```tsx
 // 常量枚举，不会侵入编译结果
@@ -664,9 +665,9 @@ class Animal implements Eat, Run {
 
   不同的是，抽象类可以有具体的实现，接口只能是成员的抽象
 
-- **抽象类就是抽象方法不写实现，但子类必须实现**
+- 抽象类可以同时包含已实现成员和抽象成员；只有抽象成员必须由具体子类实现
 
-- **多态就是父类的实例方法不写具体实现，让子类自己去个性化实现**
+- 多态指调用方依赖共同契约，而不同实现提供各自行为；并不要求父类方法都没有实现
 
 ```tsx
 abstract class Animal {
@@ -690,7 +691,7 @@ d.run(100)
 
 函数重载：使用相同名称或不同参数数量或类型创建多个方法
 
-联合类型：取值可以为多钟类型中的一个
+联合类型：取值可以为多种类型中的一个
 
 泛型：不预先确定的数据类型，具体的类型在使用的时候才能确定
 
@@ -706,7 +707,7 @@ const res = createArray<string>(3, 'foo')
 
 ### 类型声明
 
-- 在 typescript 中引用第三方模块，如果模块中不包括声明文件，都可以尝试安装对应的 `@types` 类型声明模块，比如：`yarn add @types/lodash --dev`
+- 在 TypeScript 中引用第三方模块时，先检查包是否已内置声明；没有时再安装对应的 `@types` 包，例如 `yarn add @types/lodash --dev`
 
 ```tsx
 import { camelCase } from 'lodash'

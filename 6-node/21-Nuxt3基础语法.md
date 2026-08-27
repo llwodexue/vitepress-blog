@@ -62,9 +62,10 @@ Nuxt3 版本
 
 命令行工具，新建项目（hello-nuxt）
 
-- 方式一：`npx nuxi init hello-nuxt`
-- 方式二：`pnpm dlx nuxi init hello-nuxt`
-- 方式三：`npm install -g nuxi && nuxi init hello-nuxt`
+- 推荐：`npm create nuxt@latest hello-nuxt`
+- 或：`npx nuxi@latest init hello-nuxt`
+
+不必全局安装 `nuxi`；一次性命令会使用项目所需版本，降低全局版本漂移风险。
 
 执行 `npx nuxi init hell-nuxt` 报错，主要是网络不通导致：
 
@@ -76,18 +77,7 @@ Nuxt3 版本
 
 2. 如果访问不通，代表网络不通
 
-3. 配置 host，本地解析域名
-
-   - Mac 电脑 host 配置路径：`/etc/hosts`
-   - Windows 电脑 host 配置路径：`C:\Windows\System32\drivers\etc`
-
-4. 在 host 文件中新增一行
-
-   `185.199.108.133 raw.githubusercontent.com`
-
-5. 重新 ping 域名，如果通了就可以用了
-
-6. 重新开一个终端创建项目即可
+3. 使用受信任网络、组织镜像或可验证的代理排查；不要把第三方 IP 固定写入 hosts。CDN 地址会变化，错误映射还可能绕过正常的证书与解析策略。
 
 运行项目：
 
@@ -162,8 +152,8 @@ runtimeConfig 与 app.config 对比
 
 runtimeConfig 和 app.config 都用于向应用程序公开变量。要确定是否应用使用其中一种，以下是一些指导原则：
 
-- runtimeConfig：定义环境变量，比如：运行时需要指定的私有或公共 token
-- app.config：定义公共变量，比如：在构建时确定的公共 token、网站配置
+- runtimeConfig：定义运行时配置；未放在 `public` 下的字段仅限服务端使用，`runtimeConfig.public` 中的字段会发送到客户端，不能存放 Token 或密钥。
+- app.config：定义构建时公开配置，例如网站主题和非敏感站点信息。
 
 ![image-20231031103725913](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20231031103725913.png)
 

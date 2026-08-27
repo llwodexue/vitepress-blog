@@ -113,15 +113,7 @@ DOM 型 XSS 和前两种 XSS 区别：
 
 ### 防范手段
 
-#### HEAD
-
-0：禁止 XSS 过滤
-
-1：启用 XSS 过滤（通常浏览器是默认的）。如果检测到跨站脚本攻击，浏览器将清除页面（删除不安全的部分）
-
-```js
-ctx.set('X-XSS-Protection', 1)
-```
+> 不要依赖 `X-XSS-Protection`。该响应头已废弃，部分浏览器忽略它；XSS 防护应以按输出上下文编码、可信 HTML 净化、CSP 和安全 Cookie 属性为主。
 
 #### CSP
 
@@ -138,7 +130,7 @@ ctx.set('Content-Security-Policy', 'img-src https://*')
 ctx.set('Content-Security-Policy', "child-src 'none'")
 ```
 
-#### 转义字符（过滤）
+#### 输出编码与可信 HTML 净化
 
 - 输入处理：用户输入、URL 参数、POST 请求参数、Ajax
 - 输出处理：转为实体名称
@@ -149,9 +141,9 @@ ctx.set('Content-Security-Policy', "child-src 'none'")
 <%- code %> 不会进行转义
 ```
 
-- 黑名单
+- 文本输出
 
-  用户的输入永远不可信任，最普通的做法就是转义输入输出的内容，对于引号、尖括号、斜杠进行转义
+  用户输入不可信。应在输出到 HTML、属性、URL、JavaScript、CSS 等不同上下文时使用对应的编码方式；不要依赖黑名单拦截标签或关键字。
   
   把显示结果转为实体名称
   
@@ -174,7 +166,7 @@ function escape(str) {
 
   对于富文本来说，显然不能通过上面办法转义所有字符，因为这样会把需要的格式也过滤掉。对于这种情况，通常采用白名单过滤的方法
 
-  **对用户的输入进行合理的验证，对特殊字符（如：<、>、"、"等）**以及 `<script>` 、javascript 等进行过滤
+  对允许的标签、属性和 URL 协议使用成熟净化器的白名单策略；服务端也必须执行同等校验，不能只依赖前端。
 
 编程语言解决方案：
 
@@ -193,24 +185,22 @@ function escape(str) {
 
   [Spring Boot 使用 Jsoup 拦截XSS](https://zdran.com/20180511.html)
 
-#### HttpOnly
+#### HttpOnly 与会话 Cookie
 
-这是预防 XSS 攻击窃取用户 cookie 最有效的防御手段。Web 应用程序设置 cookie 时，将其属性设为 HttpOnly，就可以避免该网页的 cookie 被客户端恶意 JavaScript 窃取，保护用户 cookie 信息
+`HttpOnly` 使 Cookie 不能被 JavaScript 读取，可降低 XSS 直接窃取会话标识的风险，但不能阻止恶意脚本以当前用户身份发起请求。它是纵深防御的一环，应同时设置 `Secure`、合适的 `SameSite`、过期与轮换策略。
 
-```bash
-# node
-app.use(session({ httpOnly: true }, app))
-# java
-cookie.setHttpOnly(true)
-# python
-tools.sessions.httponly = True
-# php
-session.cookie_httponly = 1
+```js
+// Express（示意，按实际 session 中间件配置）
+cookie: {
+  httpOnly: true,
+  secure: true,
+  sameSite: 'lax'
+}
 ```
 
 #### DOM 型注意
 
-在使用 `innerHTML`、`outerHTML`、`document.write()` 时要特别小心，不要把不可信的数据作为 HTML 插入页面上，而应尽量使用 `.textContent` 、`setAttribute()` 等
+在使用 `innerHTML`、`outerHTML`、`document.write()` 时要特别小心，不要把不可信的数据作为 HTML 插入页面。文本优先使用 `.textContent`；使用 `setAttribute()` 写入 URL、事件或样式属性前仍必须校验值和协议。
 
 如果使用 Vue 或 React 技术栈，并不使用 `v-html / dangerouslySetInnerHTML` 功能，就在前端 render 阶段避免 `innerHTML` 、`outerHTML` 的 XSS 隐患
 
@@ -287,11 +277,11 @@ cookie 的应用场景：
 
 - 验证码
 
-- **同源检测 验证 Referer**
+- **同源检测：优先校验 Origin，必要时再校验 Referer**
 
   HTTP 协议头中有一个字段叫 referer，记录了该 HTTP 请求的来源地址
 
-  HTTPS 不发送 Referer
+  Referer 是否发送受 Referrer-Policy 控制，并非 HTTPS 一律不发送；它可能缺失或被裁剪，因此不能作为唯一防线。
 
   ```js
   app.use(async (ctx, next) => {
@@ -321,10 +311,11 @@ cookie 的应用场景：
 
 **Samesite Cookie 属性**
 
-- `Samesite=Strict`：严格模式，表明这个 Cookie 在任何情况下都不可能作为第三方 Cookie
-- `Samesite=Lax`：宽松模式，比 Strict 放宽了点限制，假如这个请求是顶级导航请求且为 GET 请求，则这个 Cookie 可以作为第三方 Cookie
+- `SameSite=Strict`：限制最严格，跨站导航等场景可能不携带 Cookie
+- `SameSite=Lax`：常见默认策略，对部分顶级导航 GET 请求仍会携带 Cookie
+- `SameSite=None`：允许跨站发送，但必须同时设置 `Secure`
 
-注意：这个可以解决某些 Cookie 滥用推荐的 `SameSite` 属性问题
+注意：`SameSite` 可降低部分 CSRF 风险，但不能替代敏感操作的 Origin 校验与 CSRF Token。
 
 ```js
 Cookies.set('lang', lang, {

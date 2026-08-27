@@ -1,5 +1,5 @@
 /**
- * Customize default theme styling by overriding CSS variables:
+ * Override CSS variables to customize the default theme styling:
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
@@ -8,7 +8,7 @@
 }
 
 /**
- * Component: Button
+ * Component: button
  * -------------------------------------------------------------------------- */
 :root {
   --vp-button-brand-border: var(--vp-c-brand-light);
@@ -23,7 +23,7 @@
 }
 
 /**
- * Component: Home
+ * Component: home
  * -------------------------------------------------------------------------- */
 :root {
   --vp-home-hero-name-color: transparent;
@@ -49,7 +49,7 @@
     --vp-home-hero-image-filter: blur(120px);
   }
 }
-/* Safari has a very bad performance on gradient and filter */
+/* Safari 和 Firefox 对渐变与滤镜的渲染性能较差。 */
 .browser-safari,
 .browser-firefox {
   --vp-home-hero-image-background-image: transparent;
@@ -57,7 +57,7 @@
 }
 
 /**
- * Component: Custom Block
+ * Component: custom block
  * -------------------------------------------------------------------------- */
 :root {
   --vp-custom-block-tip-border: var(--vp-c-brand);

@@ -2,10 +2,12 @@
 
 ## Rollup
 
+Rollup 侧重模块与产物优化，尤其适合库构建；应用是否适合使用它取决于开发服务器、框架插件、测试和部署链路是否完整，而不是只按“库/应用”二分。
+
 **概述**
 
-- Rollup 更为小巧，仅仅是一款 ESM 打包器
-- Rollup 中并不支持类似 HMR 这种高级特性
+- Rollup 以 ES Module 为核心进行依赖分析与打包
+- HMR 通常由开发服务器和框架插件提供，不应把它视为 Rollup 单独负责的能力
 - Rollup 提供一个充分利用 ESM 各项特性的高效打包器
 
 安装
@@ -47,16 +49,16 @@ export default {
 - 导入 CommonJS 模块
 - 编译 ECMAScript 新特性
 
-安装 `rollup-plugin-json`
+安装官方 JSON 插件：
 
 ```bash
-yarn add rollup-plugin-json --dev
+npm install --save-dev @rollup/plugin-json
 ```
 
 配置 `rollup.config.js`
 
 ```js
-import json from 'rollup-plugin-json'
+import json from '@rollup/plugin-json'
 
 export default {
   input: 'src/index.js',
@@ -73,13 +75,13 @@ export default {
 
 **加载 npm 模块**
 
-Rollup 默认只能按照文件路径方式加载本地文件模块，对于 `node_modules` 中的第三方模块并不能通过模块名称直接导入，可以使用 `rollup-plugin-node-resolve`
+Rollup 默认按文件路径加载本地模块。要解析 `node_modules` 中的包名，可使用官方的 `@rollup/plugin-node-resolve`。
 
 配置 `rollup.config.js`
 
 ```js
-import json from 'rollup-plugin-json'
-import resolve from 'rollup-plugin-node-resolve'
+import json from '@rollup/plugin-json'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 export default {
   input: 'src/index.js',
@@ -89,7 +91,7 @@ export default {
   },
   plugins: [
     json(),
-    resolve()
+    nodeResolve()
   ]
 }
 ```
@@ -99,9 +101,9 @@ export default {
 配置 `rollup.config.js`
 
 ```js
-import json from 'rollup-plugin-json'
-import resolve from 'rollup-plugin-node-resolve'
-import commonjs from 'rollup-plugin-commonjs'
+import json from '@rollup/plugin-json'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
 
 export default {
   input: 'src/index.js',
@@ -111,7 +113,7 @@ export default {
   },
   plugins: [
     json(),
-    resolve(),
+    nodeResolve(),
     commonjs()
   ]
 }
@@ -127,7 +129,7 @@ import('./logger').then(({ log }) => {
 })
 ```
 
-- `format` 需要使用 `amd` 形式
+- `format` 需要使用支持代码拆分的格式，例如 `es`、`system` 或 `amd`
 - 代码拆分不能输出一个文件，需要以 `dir` 方式输出
 
 ```js
@@ -137,14 +139,14 @@ export default {
     // file: 'dist/bundle.js',
     // format: 'iife'
     dir: 'dist',
-    format: 'amd'
+    format: 'es'
   }
 }
 ```
 
 **多入口打包**
 
-- 多入口打包内部会自动提取公共模块，`format` 需要使用 `amd` 形式
+- 多入口打包内部会自动提取公共模块，输出格式需支持代码拆分
 
 ```js
 export default {
@@ -155,7 +157,7 @@ export default {
   },
   output: {
     dir: 'dist',
-    format: 'amd'
+    format: 'es'
   }
 }
 ```
@@ -176,11 +178,10 @@ Rollup 优点
 - 自动移除未引用代码
 - 打包结果依然完全可读
 
-Rollup 缺点
+Rollup 的取舍
 
-- 加载非 ESM 的第三方模块比较复杂
-- 模块最终都被打包到一个函数中，无法实现 HMR
-- 浏览器环境中，代码拆分功能依赖 AMD 库
+- 非 ESM 依赖通常需要 CommonJS 等插件处理
+- 代码拆分的加载方式取决于输出格式与运行环境；现代浏览器通常选择 `es`，而非强依赖 AMD
 
 如果我们正在开发应用程序，Rollup 不是很好的选择；如果我们正在开发一个框架或者类库，Rollup 是很好的选择，大多数知名框架/库都在使用 Rollup
 
@@ -369,10 +370,10 @@ npx eslint --version
 
 **初始化 eslint**
 
-- 按照命令行提问的问题生成 `.eslintrc.js` 文件
+- ESLint 9 起默认使用扁平配置 `eslint.config.js`。旧 `.eslintrc.*` 示例仅适用于旧项目；新项目可使用初始化命令生成起点后再按项目调整。
 
 ```bash
-npx eslint --init
+npm init @eslint/config@latest
 ```
 
 - 修改问题
@@ -383,7 +384,9 @@ npx eslint --init
 npx eslint ./01-prepare.js --fix
 ```
 
-### 配置文件
+### 旧版配置文件（`.eslintrc.*`）
+
+> 新项目请优先使用 `eslint.config.js`。扁平配置不再使用 `env`，应显式声明文件范围、语言选项和 globals。
 
 ```js
 module.exports = {
@@ -497,8 +500,7 @@ module.exports = {
 - [https://github.com/zce/zce-react-app](https://github.com/zce/zce-react-app)
 - 安装对应模块
 - 安装 `eslint` 模块
-- 安装 `eslint-loader` 模块
-- 初始化 `.eslintrc.js` 配置文件
+- `eslint-loader` 已废弃。可在 CI / npm scripts 中运行 ESLint，或使用 `eslint-webpack-plugin` 作为开发期反馈。
 
 **注意：** 顺序是从后往前执行
 
@@ -510,12 +512,6 @@ module.exports = {
         test: /\.js$/, 
         exclude: /node_modules/, 
         use: 'babel-loader'
-      },
-      {
-        test: /\.js$/, 
-        exclude: /node_modules/, 
-        use: 'eslint-loader',
-        enforce: 'pre'
       }
     ]
   }
@@ -551,16 +547,10 @@ module.exports = {
 
 ### 现代化项目集成
 
-全局安装 `@vue/cli`
+Vue 项目推荐由 `create-vue` 创建，并在创建时选择 ESLint：
 
 ```bash
-npm install @vue/cli -g
-```
-
-根据项目需求初始化项目
-
-```bash
-vue create syy-vue-app
+npm create vue@latest
 ```
 
 **检查 TypeScript**

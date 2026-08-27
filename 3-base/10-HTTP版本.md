@@ -1,4 +1,4 @@
-# HTTP版本
+# HTTP 版本
 
 ## HTTP/1.1协议不足
 
@@ -47,7 +47,7 @@ SPDY 与 HTTP 的关系
 
 ## HTTP/2
 
-HTTP/2，于 2015 年 5 月以 [RFC 7540](https://tools.ietf.org/html/rfc7540) 正式发表
+HTTP/2 于 2015 年发布为 RFC 7540；当前语义规范由 [RFC 9113](https://www.rfc-editor.org/rfc/rfc9113) 更新。
 
 - 根据 W3Techs 的数据，截至 2019 年 6 月，全球有 36.5% 的网站支持了 HTTP/2
 
@@ -87,9 +87,9 @@ HTTP/2 在底层传输做了很多的改进和优化，但 **在语意上完全�
 
   - 而是被提前转换为二进制的帧，解析起来会更快
 
-- 主动推送
+- 服务器推送
 
-  - 不用等浏览器解析 HTML 时再一个一个响应，而是把浏览器后续可能需要的文件一次性全部发送过去（服务器推送可能会造成 DDoS 非对称攻击）
+  - HTTP/2 定义了服务器推送，但浏览器支持和部署价值有限，新项目通常使用 `preload`、缓存策略与资源优先级提示，不应默认启用推送。
 
 - 多路复用
 
@@ -207,11 +207,10 @@ HTTP/2 标准允许每个 **数据流** 都有一个关联的权重和依赖关�
 
 ## HTTP/3
 
-Google 觉得 HTTP/2 仍然不够快，于是就有了 HTTP/3
+HTTP/3 建立在 Google QUIC 实验与 IETF 标准化工作之上。
 
-- HTTP/3 由 Google 开发，弃用 TCP 协议，改为使用基于 UDP 协议的 QUIC 协议实现
-- QUIC (Quick UDP Internet Connections)，快速 UDP 网络连接，由 Google 在 2013 年实现
-- 于 2018 年从 HTTP-over-QUIC 改为 HTTP/3
+- HTTP/3 使用基于 UDP 的 QUIC 作为传输层，QUIC 在用户态提供可靠传输、拥塞控制和 TLS 1.3 集成
+- Google 在 2013 年提出 QUIC；HTTP/3 随后由 IETF 标准化，不应与早期 Google QUIC 混为一谈
 
 ![image-20230731161602074](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230731161602074.png)
 
@@ -233,7 +232,7 @@ HTTP/3 的一些疑问：
 - HTTP/2 帧下来就要由 TCP 处理
   - TCP 不知道帧里面的内容哪个和哪个是一起的
   - TCP 会按照自己的数据段来发送，如果有丢失还得重传（TCP 队头阻塞）
-- HTTP/3 把 TCP 和 TLS 握手整合在一起
+- HTTP/3 通过 QUIC 将传输握手与 TLS 1.3 集成，减少建立新安全连接的往返开销
   - 采用 UDP 协议，在 UDP 协议上新增 QUIC 协议（默认就得使用加密传输）
   - 应用层传过来的数据会被封装成 QUIC 帧，和 HTTP/2 帧一样加了流标识符，但是 HTTP/3 应用层没有帧概念
   - QUIC 帧再次封装为 QUIC 数据包，加了 Connection ID，如果网络发生改变（wifi -> 4G）。可以使用连接 ID 标识为同一个连接，避免再次握手

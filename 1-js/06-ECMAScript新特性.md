@@ -1,6 +1,6 @@
-# ECMAScript新特性
+# ECMAScript 新特性
 
-通常会把 ECMAScript 看作 JavaScript 的标准化规范，实际上 JavaScript 是 ECMAScript 的扩展语言，ECMAScript 只提供了最基本的语法
+ECMAScript 是 JavaScript 的语言标准，规定语法、内置对象和运行时语义；浏览器与 Node.js 在其上分别提供 DOM、文件系统等宿主 API。编写项目代码时，应按目标浏览器或 Node.js 版本决定是否需要转译与 polyfill，而非只按 ES 年份判断。
 
 在浏览器 JavaScript
 
@@ -14,16 +14,12 @@ ECMAScript 版本
 
 ![ES](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/ES%E7%89%88%E6%9C%AC.png)
 
-重点：ES5.1 基础上的变化
+本文以 ES2015 及之后的常用能力为主。提案在进入标准前并不保证可用；生产项目应使用已发布的标准，并通过目标环境测试兼容性。
 
 - 解决原有语法上的一些问题或者不足
 - 对原有语法进行增强
 - 全新的对象、全新的方法、全新的功能
 - 全新的数据类型和数据结构
-
-```bash
-npm i nodemon -g
-```
 
 ## let const
 
@@ -55,10 +51,12 @@ var foo = 'bird'
 
 **const**
 
+`const` 约束的是绑定不能重新赋值，不会冻结对象内容。
+
 ```js
 const obj = {}
 obj.name = 'bird'
-obj = {} // TypeError: Assignment to constant variable.
+// obj = {} // TypeError: Assignment to constant variable.
 ```
 
 ## 解构
@@ -264,6 +262,7 @@ const personProxy = new Proxy(person, {
       throw new TypeError(`${value} is not an int`)
     }
     target[property] = value
+    return true
   },
 })
 personProxy.age = 100
@@ -320,8 +319,8 @@ console.log(listProxy) // [ 100 ]
 
 ## Reflect
 
-- 统一对对象操作 API（操作对象有可能使用 Object 上的方法，也有可能使用 delete 这样的操作符），且它是一个静态类（不能 `new Reflect`）
-- `Reflect` 成员方法就是 `Proxy` 处理对象的默认实现
+- `Reflect` 提供统一的对象操作函数，不能通过 `new Reflect()` 实例化
+- `Reflect` 的方法常用于在 Proxy trap 中转发默认行为，但并非所有 trap 都能简单照搬
 
 ```js
 const obj = {
@@ -343,9 +342,9 @@ console.log(Reflect.ownKeys(obj)) // [ 'name' ]
 
 Promise 解决了传统异步编程中回调函数嵌套过深的问题
 
-在此之前，ECMAScript 都是通过定义函数以及函数原型对象实现类
+在 `class` 语法之前，JavaScript 通常通过构造函数与原型对象组织实例行为；`class` 仍基于原型，不是另一套对象模型。
 
-- 实例方法：以前就是在构造函数对象上挂载方法
+- 实例方法：通常定义在构造函数的 `prototype` 上
 - 静态方法：新增静态成员 static 关键词
 
 ```js
@@ -365,7 +364,7 @@ class Student extends Person {
     super(name)
     this.number = number
   }
-  hello () {
+  hello() {
     super.say()
     console.log(`my school number is ${this.number}`)
   }
@@ -379,13 +378,9 @@ s.hello()
 
 ## Map Set
 
-- `Set` 中会对所使用到的数据产生引用
+- `Set` 与 `Map` 会强引用其成员或键；长期缓存时需要自行删除不再使用的值
 
-  即便这个数据在外面被消耗，但是由于 `Set` 引用了这个数据，所以依然不会回收
-
-- `WeakSet` 不会产生引用
-
-  一旦数据销毁，就可以被回收，所以不会产生内存泄漏问题
+- `WeakSet` 与 `WeakMap` 对对象键保持弱引用，不阻止垃圾回收；它们不可枚举，不能用来做可展示的集合或缓存统计
 
 ```js
 // 应用场景：数组去重
@@ -397,13 +392,7 @@ console.log(result) // [ 1, 2, 3, 4 ]
 
 - `Map` 的键可以使任意类型的数据，解决了对象键只能是字符串的问题
 
-- `Map` 中也会对所使用的数据产生引用
-
-  即便这个数据在外面被消耗，但是由于 `Map` 引用了这个数据，所以依然不会回收
-
-- `WeakMap` 不会产生引用
-
-  一旦数据销毁，就可以被回收，所以不会产生内存泄漏问题
+- `WeakMap` 的键只能是对象或非注册的 Symbol；值是否存活由键的可达性决定
 
 ```js
 const obj = {}
@@ -573,19 +562,19 @@ for (const item of todos) {
 ## 生成器
 
 ```js
-function* foo() {
+function* oneValue() {
   console.log('zce')
   return 100
 }
 
 // 生成器对象也实现了iterator接口
-function* foo() {
+function* sequence() {
   yield 100
   // yield不会结束方法的执行  yield值作为next结果返回
   yield 200
   yield 300
 }
-const generator = foo()
+const generator = sequence()
 console.log(generator.next()) // { value: 100, done: false }
 console.log(generator.next()) // { value: 200, done: false }
 console.log(generator.next()) // { value: 300, done: false }
@@ -594,8 +583,8 @@ console.log(generator.next()) // { value: undefined, done: true }
 
 ## ES2016
 
-- `includes`
-- `Math.pow`
+- `Array.prototype.includes()`
+- 指数运算符 `**`（`Math.pow()` 是更早已有的 API）
 
 ```js
 const arr = ['foo', 1, NaN, false]
@@ -619,7 +608,7 @@ console.log(2 ** 10)
 
 - `Object.values` 和 `Object.entries`
 
-```JS
+```js
 const obj = {
   foo: 'value1',
   bar: 'value2',

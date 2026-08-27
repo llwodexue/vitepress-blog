@@ -1,4 +1,4 @@
-# VueRouter
+# Vue Router
 
 ## 路由阶段
 
@@ -85,7 +85,7 @@ hash 的优势就是兼容性更好，在老版 IE 中都可以运行，但是�
 </script>
 ```
 
-history 接口是 HTML5 新增的, 它有六种模式改变 URL 而不刷新页面：
+History API 是 HTML5 新增的接口，提供六个可在不刷新页面的情况下改变历史记录的方法：
 
 - replaceState：替换原来的路径
 - pushState：使用新的路径
@@ -208,6 +208,12 @@ const routes = [
 - 例如，有一个 User 组件，它应该对所有用户进行渲染，但是用户的 ID 是不同的
 - 在 Vue Router 中，我们可以在路径中使用一个动态字段来实现，我们称之为路径参数
 
+### 路由职责与组件边界
+
+- Router 负责将 URL 解析为匹配的路由记录，并渲染对应组件；它不替代业务状态管理。
+- 页面组件根据 `params`、`query` 或路由 `props` 接收输入，再决定是否请求数据和如何展示。
+- 将路由参数映射为组件 props，可以降低组件与 Router 的耦合，便于复用和测试。
+
 ```js
 const routes = [
   {
@@ -245,6 +251,27 @@ export default {
     console.log(route.params.username)
   }
 }
+```
+
+### 参数变化与组件复用
+
+从 `/user/cat` 跳转到 `/user/dog` 时，通常会复用同一个组件实例；因此不会重新触发进入/离开守卫。需要根据参数重新请求数据时，应显式侦听参数变化。
+
+```vue
+<script setup>
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+watch(
+  () => route.params.username,
+  username => {
+    // 根据 username 重新加载页面数据
+  },
+  { immediate: true }
+)
+</script>
 ```
 
 **匹配多个参数**
@@ -296,11 +323,11 @@ const routes = [
   { path: '/:pathMatch(.*)*' } // [ "aaa", "bbb", "ccc" ]
   ```
 
-**VueRouter4**
+**Vue Router 4**
 
 ![image-20220819094418654](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220819094418654.png)
 
-**VueRouter3**
+**Vue Router 3**
 
 ![image-20220819094338770](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220819094338770.png)
 
@@ -336,6 +363,8 @@ const routes = [
 
 ## 编程式导航
 
+**Options API：**
+
 ```js
 export default {
   methods: {
@@ -346,6 +375,12 @@ export default {
     }
   }
 }
+```
+
+**Composition API：**
+
+```js
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
@@ -395,9 +430,9 @@ router.go(100)
 
 ## v-slot
 
-VueRouter3.x，router-link 有一个 tag 属性，可以决定 router-link 到底渲染成什么元素
+Vue Router 3.x 中，`router-link` 的 `tag` 属性可以决定其渲染出的元素
 
-- 在 VueRouter4.x 开始，该属性被移除了
+- Vue Router 4.x 已移除该属性
 - 给我们提供了更加具有灵活性的 v-slot 的方式来定制渲染的内容
 
 **router-link 的 v-slot**

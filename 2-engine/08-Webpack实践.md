@@ -1,4 +1,6 @@
-# Webpack实践
+# Webpack 实践
+
+> 文中 Vue 2、Webpack 4、Vue CLI 与 Create React App 配置均为存量项目示例。新项目应使用框架当前推荐的创建工具；Webpack 5 已以内置 Asset Modules 取代 `file-loader` 与 `url-loader` 的常见用途。
 
 ## 脚手架生成文件
 
@@ -67,9 +69,9 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
      `postcss-loader`：浏览器兼容
 
-   - `file-loader`：拷贝物理文件
+   - Webpack 5 的 `asset/resource`：输出独立资源文件
 
-     `url-loader`：Data Urls 展示文件
+     `asset/inline` 或 `asset`：按规则内联为 Data URL 或自动选择输出形式
 
    - `babel-loader`：兼容 JS
 
@@ -79,7 +81,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
    - `mini-css-extract-plugin`：提取 CSS 到单个文件
 
-     `optimize-css-assets-webpack-plugin` 或 `optimize-cssnano-plugin`：压缩 CSS
+     CSS 压缩通常由 `css-minimizer-webpack-plugin` 负责
 
    - `terser-webpack-plugin` 或 `uglifyjs-webpack-plugin`：压缩 JS
 
@@ -87,7 +89,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
    - `copy-webpack-plugin`：拷贝一些不参与构建的静态文件
 
-   - `clean-webpack-plugin`：清除 dist 目录文件
+   - `output.clean`：清理输出目录；旧项目也可能使用 `clean-webpack-plugin`
 
    - `DefinePlugin`：webpack 内部，为代码注入全局成员
 
@@ -95,7 +97,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
 5. Tree-shaking、sideEffects、Scope Hoisting
 
-   Tree Shaking 前提是 ES Modules，webpack 打包的代码必须是 ESM
+   Tree Shaking 的前提是依赖图中保留 ES Modules 静态结构；Babel 转译时应避免过早将模块语法转换为 CommonJS
 
    注意：如果 Babel 加载模块时已经转换了 ESM，则会导致 Tree Shaking 失效
 
@@ -125,7 +127,7 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
    - `source-map` 文件访问权限（nginx 那一层做），对于 map 这一类文件只允许局域网访问
    - `nosources-source-map` 可以结合监控平台来做
-   - `hidden-source-map` 只暴露行列信息，不暴露源代码
+   - `hidden-source-map` 不在产物中引用 source map，适合将 map 上传至错误监控；map 文件本身仍应限制访问
 
 7. webpack 的核心工作过程
 
@@ -151,11 +153,11 @@ create-react-app 可以在项目根目录执行 `npm run eject` 提取内置配�
 
 - 如果这个 loader 需要设置一些配置选项，可以使用 options
 
-  `file-loader` 可以指定生成 dataURLS 的文件大小。`babel-loader` 可以指定 `preset`
+  Webpack 5 的 Asset Modules 可通过 `parser.dataUrlCondition.maxSize` 设置资源内联阈值；`babel-loader` 可以指定 preset
 
 - 如果需要让这个 loader 选择性的忽略一部分文件，可以使用 `include`、`exclude`
 
-- 如果需要对同一个文件使用多个 loader，例如先使用 `eslint-loader` 再使用 `babel-loader`，可以使用 `enforce: 'pre'` 属性控制当前这个规则的优先与否
+- `enforce: 'pre'` 可控制 loader 的执行阶段；不要再使用已废弃的 `eslint-loader`，应使用 ESLint CLI 或 `eslint-webpack-plugin`
 
 ## 基于 Webpack 构建 Vue.js 应用
 

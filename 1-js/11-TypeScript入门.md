@@ -2,9 +2,9 @@
 
 ## 网站推荐
 
-> [ts-playground](https://typescript-play.js.org/)
+> [TypeScript Playground](https://www.typescriptlang.org/play)
 >
-> [ts 中文手册](https://typescript.bootcss.com/)
+> [TypeScript 官方手册](https://www.typescriptlang.org/docs/)
 >
 > [ts 入门教程](https://ts.xcatliu.com/)
 
@@ -12,8 +12,7 @@
 
 ### 强类型与弱类型
 
-- 强类型语言：不允许改变变量的数据类型，除非进行强制类型转换
-- 弱类型语言：变量可以被赋予不同的数据类型
+- 强弱类型讨论运行时隐式转换是否宽松；变量是否可重新赋值为另一类型属于静态/动态类型的讨论，两者不能混为一谈
 
 ### 静态类型与动态类型
 
@@ -23,11 +22,13 @@
 ### 初始化
 
 ```bash
-npm i typescript -g
+npm install --save-dev typescript
 # 初始化
 npm init -y
-tsc --init
+npx tsc --init
 ```
+
+以下 Webpack 4 配置仅用于维护历史项目。新项目优先使用 Vite、框架脚手架或当前构建工具，不必手工搭建过时的 loader 组合。
 
 ```json
 {
@@ -207,8 +208,8 @@ let un: undefined = undefined
 let nu: null = null
 /*
 解决办法
-  1.tsconfig 中修改 "strictNullChecks": false
-  2.使用联合类型 let num: number | undefined | null = 123
+  1. 保持 "strictNullChecks": true
+  2. 使用联合类型 let num: number | undefined | null = 123
 */
 num = undefined // 报错
 ```
@@ -307,9 +308,9 @@ enum G {
   b = 'banana',
 }
 
-// 不同枚举类型之间是不能进行比较的
-let e: E = 3
-let f: F = 3
+// 不同枚举类型之间不能直接赋值
+let e: E = E.a
+let f: F = F.a
 
 let e1: E.a = 1
 let e2: E.b
@@ -469,7 +470,7 @@ interface add4 {
 
 ### * 函数重载
 
-函数重载好处：不需要为了相似功能的函数选用不同的函数名称（**根据传递进来的参数，决定具体调用哪个函数**），增强了函数的灵活性
+函数重载为同一实现提供多组调用签名；运行时不会由 TypeScript 自动分派，具体分支仍由实现函数自行判断。
 
 **JAVA 两个函数名称相同参数个数 / 类型不同就实现了函数重载**
 
@@ -548,9 +549,9 @@ class Husky extends Dog {
 1. 可以抽离一些事物的共性，有利于代码复用和扩展
 2. 抽象类可以实现多态（在父类中定义一个方法，在多个子类中对这个方法有不同的实现，在程序运行时对不同的对象执行不同的操作，这样就实现了运行时的绑定）
 
-**抽象类就是抽象方法不写实现，但子类必须实现** 。类似于当我的手下必须具备xxx能力
+抽象类可同时拥有已实现成员和抽象成员；具体子类必须实现继承到的抽象成员。
 
-**多态就是父类的实例方法不写具体实现，让子类自己去个性化实现**
+多态表示调用方依赖共同契约，而不同子类提供各自行为；父类方法可以有默认实现。
 
 ```typescript
 abstract class Animal {
@@ -639,8 +640,8 @@ class Asian implements Human {
 
 **implements 和 extends 区别**
 
-- implements 将类当做一个接口，这意味着必须去实现定义在类中的所有方法，无论这些方法是否在类中有没有默认实现，同时也不需要使用 super()
-- extends 需要使用 super()
+- `implements` 只检查类的实例结构，不复用实现；派生类仍要自行提供满足接口的成员
+- `extends` 继承实现；派生构造函数在使用 `this` 前必须调用 `super()`
 
 **接口的继承：可以抽离出可重用的接口也可以将多个接口合并成一个接口**
 
@@ -919,7 +920,7 @@ function overload(a: any, b: any): any {}
 - **枚举和 number 是完全兼容的，枚举之间是完全不兼容的**
 - **在比较两个类是否兼容时，静态成员和构造函数是不参与比较的**
   如果两个类具有相同的实例成员，实例就可以完全相互兼容
-  **如果两个类中有私有成员，两个类就不兼容了**
+  私有或受保护成员只有来自同一声明时才兼容
   父类和子类的实例是可以相互兼容的
 - 如果泛型接口内没有任何成员，则是兼容的；如果有成员，则是不兼容的
   如果泛型函数定义相同，没有指定泛型参数是相互兼容的
@@ -998,7 +999,7 @@ TypeScript 能够在特定的区块中保证变量属于某种确定的类型。
 ```typescript
 enum Type {
   Strong,
-  Week,
+  Weak,
 }
 
 class Java {
@@ -1120,7 +1121,7 @@ function getPet(master: Master) {
   // pet推断为 Dog|Cat 联合类型，在类型未被确定时只能访问类的共有成员
   let pet = master === Master.Boy ? new Dog() : new Cat()
   pet.eat()
-  pet.run() // 只有Dog有，是不能访问
+  // pet.run() // 只有 Dog 有，未缩小类型时不能访问
   return pet
 }
 ```

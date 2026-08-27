@@ -1,4 +1,4 @@
-# uniapp进阶
+# uni-app进阶
 
 ## uni-app页面
 

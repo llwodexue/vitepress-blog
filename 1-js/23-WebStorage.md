@@ -1,6 +1,12 @@
-# WebStorage使用
+# Web Storage 使用
 
-## localStorage和sessionStorage区别
+## localStorage 和 sessionStorage 区别
+
+### 存储边界与安全性
+
+- 两者均按 origin 隔离，且都可被同源 JavaScript 读取；不要存放密码、长期访问令牌等敏感凭据，以免在 XSS 中泄露。
+- `localStorage` 适合可重新获取的持久化界面偏好或缓存；`sessionStorage` 适合单标签页会话状态。它们不是数据库、消息队列或安全会话机制。
+- 认证 Cookie 应由服务端设置 `Secure`、`HttpOnly`、`SameSite` 等属性；`HttpOnly` Cookie 不能被 JavaScript 读取，可降低令牌被 XSS 直接窃取的风险。
 
 > [sessionStorage存储时多窗口之前能否进行状态共享？](https://juejin.cn/post/7197309324275695675)
 
@@ -84,7 +90,7 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 ![image-20240305154610026](https://gitee.com/lilyn/pic/raw/master/md-img/image-20240305154610026.png)
 
 - 可以看到，多窗口之间 `sessionStorage` 不可以共享状态，是**复制**顶级浏览会话的上下文作为新会话的上下文
-- `localStorage` 和 `cookie` 是可以共享状态的
+- `localStorage` 与符合 domain/path 限制的 Cookie 可在同源上下文间生效；Cookie 是否随请求发送还受 `SameSite`、`Secure` 等属性影响。
 
 之后咱们刷新一下页面，再对 a 标签进行测试
 
@@ -115,8 +121,8 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
 - 存储数据大小
 
-  - cookie 数据不能超过 4k，同时因为每次 http 请求都会携带 cookie，所以 cookie 只适合保存很小的数据，如会话标识
-  - sessionStorage 和 localStorage 虽然也有存储大小的限制，但是比 cookie 大的多，可以达到 5M 或更大
+- Cookie 单项与单域总大小受浏览器限制，通常仅适合保存很小的会话标识；每次符合范围的 HTTP 请求都会携带它。
+- `sessionStorage` 和 `localStorage` 的配额由浏览器、设备和站点策略决定，不要把“5 MB”当作跨浏览器保证。
 
 - 数据存储有效期
 
@@ -128,15 +134,15 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
 
     `a标签` 新开的页面同样也会，需要加 `rel="opener"`
 
-  - localStorage 始终有效，窗口或浏览器关闭也一直保存，本地存储，因此用作持久数据
+  - localStorage 在显式清除、浏览器清理、配额回收或站点策略变更前保留，因此适合可丢失、可重建的持久数据
 
-  - cookie 只在设置的 cookie 过期时间之前有效，即使窗口关闭或者浏览器关闭
+  - 设置 `Expires` 或 `Max-Age` 的 Cookie 在到期前有效；未设置时通常是会话 Cookie，浏览器会话结束后可能被清除
 
 - 作用域不同
 
   - sessionStorage 不能在不同的浏览器窗口中共享，即使是同一个页面
-  - localStorage 在所有同源窗口中都是共享的，也就是只要浏览器不关闭，数据仍然存在
-  - cookie 也是在所有同源窗口中都是共享的，也就是说只要浏览器不关闭，数据仍然存在
+  - localStorage 在同一 origin 的页面间共享，是否保留不取决于浏览器是否关闭
+  - Cookie 按 domain、path、SameSite、Secure 等规则生效，不是简单的“所有同源窗口共享”
 
 ## cookie和session区别
 
@@ -150,12 +156,12 @@ MDN 解析里有一个关键词：**复制**，这个需要进行验证
   - session 数据存放在服务器上，session 中保存的是对象
 
 - 安全性
-  - cookie 不是很安全，别人可以分析存放在本地的 cookie 并进行 cookie 欺骗
-  - 考虑到安全应当使用 session，用户验证这种场合一般会用 session
+  - Cookie 与 session 的安全性取决于实现，不是二选一。Cookie 可设置 `HttpOnly`、`Secure`、`SameSite`；服务端 session 需要防止会话固定、劫持并设置过期与轮换策略。
+  - 常见方案是服务端保存会话状态，浏览器仅保存不可预测的会话标识 Cookie；也可使用其他认证方案，但都需要防 XSS、CSRF 和重放攻击。
 
 - 性能考虑
   - session 会在一定时间内保存在服务器上，当访问增多，会比较占用服务器的性能
-  - 考虑减轻服务器性能方面，应当使用 cookie
+- 不应仅为节省服务端内存改用 Cookie 存储业务数据；应结合会话规模、失效策略、缓存与安全要求设计。
 
 - 路径
   - session 不能区分路径，同一个用户在访问一个网站期间，所有的 session 在任何一个地方都可以访问到

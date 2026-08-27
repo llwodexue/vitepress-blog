@@ -109,7 +109,7 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 
 2. **pending callbacks**：执行 I/O 回调，此阶段执行几乎所有的回调函数，除了 **close callbacks（关闭回调）** 和那些由 **timers** 与 `setImmediate()` 调度的回调
 
-   `setImmediate() ≈ setTimeout(cb, 0)`
+   `setImmediate()` 与 `setTimeout(cb, 0)` 不是等价 API：前者安排在当前轮事件循环的 check 阶段，后者只保证达到最小延迟后可执行。
 
 3. idle（空转），prepare：此阶段只在内部使用
 
@@ -132,11 +132,11 @@ Node 的 Event Loop 是基于 `libuv` 实现的，`libuv` 使用异步、事件�
 
 - 如果 `poll` 队列为空，则 Event Loop 将检查 `timer` 是否超时，如果有的话会回到 **timers** 阶段执行回调
 
-**不同版本 Node**
+**微任务与版本差异**
 
 - 浏览器只要执行了一个宏任务就会执行微任务队列
-- Node 10(11 以下) 中只有全部执行了 **timers** 阶段队列的全部任务才执行微任务队列
-- Node 11 在 **timers** 阶段的 `setTimeout()`、`setInterval()` 和在 **check** 阶段的 `setImmediate()` 修改为一旦执行一个阶段里的一个任务就会执行微任务队列
+- 当前 Node 会在执行每个 JavaScript 回调后处理微任务；`process.nextTick()` 队列优先于 Promise 微任务。
+- Node / libuv 的事件循环细节曾随版本调整。不要依赖特定版本中 `setTimeout()` 与 `setImmediate()` 的偶然先后顺序。
 
 ### fs 和 setTimeout 的关系
 
@@ -210,9 +210,7 @@ fileReaderTime 9
 
 ### setTimeout 和 setImmediate
 
-> 在 Node.js 中，`setTimeout(fn, 0) === setTimeout(fn, 1)`
->
-> 在浏览器里，`setTimeout(fn, 0) === setTimeout(fn, 4)`
+> `setTimeout` 的延迟是最小阈值而非精确执行时间；实际触发时间受当前调用栈、I/O 和事件循环负载影响。
 
 setTimeout 和 setImmediate 执行顺序不确定
 

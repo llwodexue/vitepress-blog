@@ -1,19 +1,19 @@
-# WebSocket使用
+# WebSocket 使用
 
 ## WebSocket
 
 ### 为什么需要 WebSocket
 
-WebSocket 是一种基于 TCP 连接的 **全双工** 通信协议，相对于 HTTP 这种非持久协议来说，WebSocket 是 **持久化网络通信协议**
+WebSocket 是一种基于 TCP 的 **全双工** 通信协议。它在 HTTP 握手后升级为长期连接，适合持续双向消息；HTTP 本身也可通过持久连接复用传输通道。
 
 - 服务器可以 **主动推送消息给客户端**
 - 客户端和服务器 **只需要一次握手**
 
-HTTP 是 **半双工** 通信协议（同一时刻信息流向只能是单向）
+HTTP 的请求/响应语义通常由客户端发起；这不表示底层 TCP 是半双工。HTTP/2、HTTP/3 还支持多路复用，但服务端主动实时推送双向消息时仍更适合 WebSocket。
 
 - **通信只能由客户端发起**，服务器才能响应，服务器不能主动向客户端发送数据
-- 客户端与服务器需要 **进行三次握手**
-- HTTP 是 **无状态** 的，每一次请求都会被当作是唯一和独立的，服务器不需要保存有关会话信息，从而不需要存储数据。会通过 Cookie、Session 等方式进行校验当前会话信息，所以每个请求都会发送冗余信息
+- HTTP 连接复用与底层握手由 HTTP 版本、传输协议和连接状态决定，不应简单等同于“每次请求三次握手”
+- HTTP 是无状态应用协议；会话状态可由 Cookie、Session 或 Token 等机制维护
 
 
 
@@ -37,7 +37,13 @@ WebSocket 是一种自然的 **全双工、双向、单套接字连接**，解�
 - 与 HTTP 协议有着良好的兼容性，默认端口也是 80 和 443，并且握手阶段采用 HTTP 协议，因此握手时不容易屏蔽，能通过各种 HTTP 代理服务器
 - 数据格式比较轻量，性能开销小，通信高效
 - 可以发送文本，也可以发送二进制数据
-- 没有同源限制，客户端可以与任意服务器通信
+- 浏览器可发起跨源 WebSocket 连接，但会携带 `Origin`。服务端必须校验来源、身份和权限，不能将“可跨源”当作无需访问控制
+
+### 协议选型与安全边界
+
+- 仅需要服务端单向推送文本更新时，优先评估 SSE；需要双向低延迟消息或二进制帧时使用 WebSocket。
+- 生产环境使用 `wss://`，在握手阶段完成身份校验，并对消息类型、大小、频率和房间权限进行服务端校验。
+- 连接会断开，应设计心跳、重连与幂等消息处理；不要把单个进程内存数组当作多实例广播或可靠消息队列。
 
 ### 通信原理
 
@@ -88,6 +94,7 @@ const wsServer = new Websocket({
 const conArr = []
 // 监听webSocket请求事件
 wsServer.on('request', function (request) {
+  // 生产环境应校验 request.origin 和认证信息
   const connection = request.accept()
   conArr.push(connection)
   connection.on('message', function (msg) {
@@ -96,6 +103,10 @@ wsServer.on('request', function (request) {
       conArr[i].send(msg.utf8Data)
     }
   })
+  connection.on('close', function () {
+    const index = conArr.indexOf(connection)
+    if (index !== -1) conArr.splice(index, 1)
+  })
 })
 ```
 
@@ -103,7 +114,7 @@ wsServer.on('request', function (request) {
 
 - [WebSocket MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket)
 
-  参数：`ws/wss(加密):ip:port`
+  参数：`ws://` 或 `wss://` URL；生产环境应使用 `wss://`。
 
 ```html
 <div id="msg"></div>
@@ -156,7 +167,7 @@ const { Server } = require('socket.io')
 const httpServer = createServer()
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: ['https://app.example.com'],
     methods: ['GET', 'POST'],
   },
 })
@@ -211,7 +222,7 @@ httpServer.listen(3000, function () {
 const express = require('express')
 const app = express()
 app.get('/', (req, res) => {
-  res.send({ cose: 200, data: 'hello world', msg: 'success' })
+  res.send({ code: 200, data: 'hello world', msg: 'success' })
 })
 app.listen(3000, () => {
   console.log('running on http://127.0.0.1:3000')
@@ -239,7 +250,7 @@ const app = express()
 app.get('/', (req, res) => {
   // 等待时间放到服务端做
   setTimeout(() => {
-    res.send({ cose: 200, data: 'hello world', msg: 'success' })
+    res.send({ code: 200, data: 'hello world', msg: 'success' })
   }, 2000)
 })
 app.listen(3000, () => {
@@ -291,12 +302,16 @@ app.use(express.static(__dirname))
 app.use('/events', (req, res) => {
   res.set({
     'content-type': 'text/event-stream',
+    'cache-control': 'no-cache',
+    connection: 'keep-alive'
   })
 
-  setInterval(() => {
+  const timer = setInterval(() => {
     res.write('data: hello world\n')
     res.write('\n\n') // 消息结束
   }, 1000)
+
+  req.on('close', () => clearInterval(timer))
 })
 app.listen(3000, () => {
   console.log('running on http://127.0.0.1:3000')

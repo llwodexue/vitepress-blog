@@ -1,52 +1,53 @@
-# Pinia与Vuex使用区别
+# Pinia 与 Vuex 使用区别
 
-## Pinia优势
+## Pinia 优势与边界
 
-1. **Pinia 是一个全新的 Vue 状态管理库**
+1. **Pinia 是 Vue 官方推荐的状态管理方案**：适合跨组件、跨页面共享的业务状态；组件内部短生命周期状态仍应留在组件中。
 
-2. **Vue2 和 Vue3 都能支持**
+2. **支持 Vue 2 和 Vue 3**
 
-   - options api 和 compositions api 都支持，维护成本低
+   - Options API 和 Composition API 都可以使用。
 
-3. **抛弃传统的 Mutation，只有 state, getter 和 action ，简化状态管理库**
+3. **没有 Mutation**：Store 由 `state`、`getters` 和 `actions` 组成；`actions` 可以同步或异步地组织业务更新。
 
-4. **不需要嵌套模块，符合 Vue3 的 Composition api，让代码扁平化**
+4. **按领域拆分 Store**：不再维护嵌套模块树，每个 Store 以唯一 id 作为命名空间。
 
-5. **TypeScript支持**
+5. **TypeScript 类型推导友好**
 
-6. **代码简单，很好的代码自动分割**
+6. **结构更适合按需引用**：每个 Store 可独立定义和导入，但是否进入独立 chunk 仍由路由懒加载和打包器的依赖图决定。
 
-7. **极轻，仅有 1 KB**
+## 状态与依赖边界
 
+- 用 Store 存放需要共享、缓存或跨路由保留的业务状态；可由现有状态推导出的值优先使用 getter。
+- 通过 action 表达有业务含义的状态变更。简单交互可直接修改状态，但不要把跨领域流程散落在多个组件中。
+- Store 可以直接使用其他 Store；依赖方向应清晰，避免相互调用形成循环依赖。
 
+### 关于按需加载
 
-代码自动分割这里需要说明一下
+假设项目有 `user`、`app`、`tab` 三个 Store，首页只使用 `app`，个人中心使用 `user` 和 `tab`：
 
-举例：某项目有 3 个 store（user、app、tab），2 个页面（首页、个人中心），首页用到 app store，个人中心用到 user 和 tab store
+- Pinia 的独立 Store 便于只在需要它的页面导入；配合路由懒加载，未访问页面相关的 Store 可以不进入首屏资源。
+- 这不是 Pinia 自动保证的优化。只要在入口或公共模块中静态导入所有 Store，它们仍可能进入同一 chunk；Vuex 也可以通过动态模块或动态导入实现按需加载。
 
-- vuex 会把 3 个 store 合并并打包，当首页用到 Vuex 时，这个包会引入到首页一起打包，最后输出 1 个 js chunk
-  - 这样出现的问题是，首页只需要 1 个 store，但其他 2 个无关的 store 也被打包进来，造成资源浪费
-  - 解决方案：首页优化时会考虑到这个场景，一般处理方案是去做 vuex 的按需加载，beforeCreate 时，可以去判断当前页需要加载哪些 store，之后利用 vuex store 实例上的 registerModule 进行动态注册
-- pinia 在打包时会检查引用依赖，当首页用到 app store，打包只会把用到的 store 和页面合并输出 1 个 js chunk，其他 2 个 store 不会耦合在其中
+## 从 Vuex 迁移到 Pinia
 
-## 迁移Pinia
-
-> 官网：[https://pinia.web3doc.top/](https://pinia.web3doc.top/)
+> 官网：[https://pinia.vuejs.org/](https://pinia.vuejs.org/)
 >
-> 从 Vuex 迁移：[Migrating from Vuex ≤4](https://pinia.web3doc.top/cookbook/migration-vuex.html#converting-a-single-module)
+> 从 Vuex 迁移：[Migrating from Vuex ≤4](https://pinia.vuejs.org/cookbook/migration-vuex.html)
 
 其实在使用上区别不大，但是有几点需要改变：
 
 - 如下示例为：Vuex4.x 和 Pinia 代码
 
-### 没有mutations
+### 不再使用 mutations
 
 Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
 
 1. 第一个参数 `context` 被移除
 
    ```js
-   // vuex index.js
+   // Vuex index.js
+   import { createStore } from 'vuex'
    import appModule from './modules/app'
    const store = createStore({
      modules: {
@@ -54,7 +55,7 @@ Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
      }
    })
    
-   // vuex modules/app.js
+   // Vuex modules/app.js
    export default {
      namespaced: true,
      state: {
@@ -77,7 +78,7 @@ Vuex 如何使用 `actions` ？Pinia 这里做了两点改变
 2. 不再使用 `dispatch` 调用 `actions`
 
    ```js
-   // .vue 文件
+   // 组件中
    this.$store.dispatch('app/increment', 2)
    ```
 
@@ -86,11 +87,13 @@ Pinia 如何使用 `actions`？
 - 在 `actions` 里直接使用 this 获取到 `state` 的值
 
 ```js
-// pinia modules/app.js
-const useAppStore = defineStore('app', {
-  state: {
+// stores/app.js
+import { defineStore } from 'pinia'
+
+export const useAppStore = defineStore('app', {
+  state: () => ({
     count: 0
-  },
+  }),
   actions: {
     increment (num) {
       this.count += num
@@ -98,12 +101,17 @@ const useAppStore = defineStore('app', {
   }
 })
 
-// .vue 文件
-import useAppStore from '@/store/modules/app'
-useAppStore().increment(2)
+// 组件的 <script setup>
+import { useAppStore } from '@/stores/app'
+
+const appStore = useAppStore()
+
+function increment () {
+  appStore.increment(2)
+}
 ```
 
-### 没有modules嵌套结构
+### 模块改为领域 Store
 
 ```shell
 # Vuex
@@ -127,15 +135,15 @@ src
     └── nested.js
 ```
 
-Vuex 需要有一个主要的 `Store`，最终会形成一个树形引用结构
+Vuex 通常从一个根 Store 组织模块，最终形成树形结构。
 
-Pinia 不再需要一个主要的 `Store`，是一个平面的结构，可创建不同的 `Store`
+Pinia 的模块根就是 Store。Store 在应用初始化 Pinia 后按需定义和使用，整体保持扁平；目录只是组织方式，真正需要唯一的是 Store id。
 
 
 ```js
 const useAppStore = defineStore('app', { /* ... */ })
 ```
-- 注意：Pinia 每一个文件都需要有一个**唯一的命名**，类似于 Vuex 的命名空间（`namespaced： true`）
+- 注意：Pinia 每个 Store 都需要一个**唯一 id**，其作用类似 Vuex 的命名空间（`namespaced: true`）。
 ```js
 import appModule from './modules/app'
 const store = createStore({
@@ -144,14 +152,14 @@ const store = createStore({
   }
 })
 
-// vuex modules/app.js
+// Vuex modules/app.js
 export default {
   namespaced: true
 }
 ```
 
 
-### getters用法改变
+### getters 用法改变
 
 Vuex 里一个 `getters` 想使用其他 `getters`，需要借助其第二个参数
 
@@ -183,20 +191,20 @@ const useBookStore = createStore({
 })
 ```
 
-Pinia 去掉了第二个参数，可以在里面使用 this 取到其他 `getters`
+Pinia 去掉了第二个参数，可以在 getter 中使用 `this` 访问其他 getter：
 
 ```js
-const useBookStore = createStore({
-  state() {
-    return {
-      books: [
-        { name: 'book1', count: 3, price: 10 },
-        { name: 'book2', count: 1, price: 20 },
-        { name: 'book3', count: 2, price: 15 }
-      ],
-      discount: 0.9
-    }
-  },
+import { defineStore } from 'pinia'
+
+export const useBookStore = defineStore('book', {
+  state: () => ({
+    books: [
+      { name: 'book1', count: 3, price: 10 },
+      { name: 'book2', count: 1, price: 20 },
+      { name: 'book3', count: 2, price: 15 }
+    ],
+    discount: 0.9
+  }),
   getters: {
     totalPrice(state) {
       const totalPrice = state.books.reduce((acc, cur) => {
@@ -211,31 +219,30 @@ const useBookStore = createStore({
 })
 ```
 
-这里补充一点：由于 `getters` 是无法接受参数的，如果想要接受参数可以使用闭包
-
-- 如下示例为：统计所有数量大于 2 的书折扣后总价钱（示例为 Vuex 的）
+这里补充一点：getter 本身不直接接收参数；需要参数时可返回一个闭包。将以下 getter 加入上面的 Pinia Store，即可统计数量大于指定值的书的折后总价：
 
 ```js
-const useBookStore = createStore({
-  getters: {
-    totalPriceGreaterN(state, getters) {
-      return n => {
-        const totalPrice = state.books.reduce((acc, cur) => {
-          if (cur.count > n) {
-            return (acc += cur.count * cur.price)
-          } else {
-            return acc
-          }
-        }, 0)
-        return totalPrice * getters.currentDiscount
-      }
-    }
+getters: {
+  totalPriceGreaterN: state => n => {
+    const totalPrice = state.books.reduce((total, book) => {
+      return book.count > n ? total + book.count * book.price : total
+    }, 0)
+
+    return totalPrice * state.discount
   }
-})
+}
 ```
 
-在模板中可以这样使用（只是单方面举例）
+在 Pinia 中，将返回函数的 getter 当作方法调用即可：
 
-```html
-<h2>{{ $store.getters.totalPriceGreaterN(2) }}</h2>
+```vue
+<script setup>
+import { useBookStore } from '@/stores/book'
+
+const bookStore = useBookStore()
+</script>
+
+<template>
+  <h2>{{ bookStore.totalPriceGreaterN(2) }}</h2>
+</template>
 ```

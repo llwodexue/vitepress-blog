@@ -20,19 +20,24 @@
 
 ## 初始化项目
 
+> Create React App 已不再用于新项目。新 React 应用优先评估官方推荐的框架；纯客户端单页应用可使用 Vite 等构建工具。本节 CRA 与 eject 内容仅用于维护存量项目。
+
 **前端脚手架**
 
-- Vue 的脚手架：`@vue/cli`
+- Vue 的脚手架：`create-vue`
 - Angular 的脚手架：`@angular/cli`
-- React 的脚手架：`create-react-app`
+- React：框架方案或基于 Vite 的项目模板
 
 **创建 React 项目**
 
 ```bash
-$ npm i -g create-react-app
-$ create-react-app 项目名称
-$ cd 项目名称
+npm create vite@latest my-react-app -- --template react-ts
+cd my-react-app
+npm install
+npm run dev
 ```
+
+项目创建工具只提供初始工程结构；路由、数据请求、状态管理和部署边界仍需按产品需求选择。不要仅因脚手架可选就预装所有库。
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221115150403639.png)
 
@@ -52,7 +57,7 @@ PWA 解决哪些问题
 - 实现了**消息推送**
 - 等等一系列类似于 Native App 相关的功能
 
-## 脚手架的 webpack
+## Create React App 的 Webpack（存量项目）
 
 - React 脚手架默认是基于 webpack 来开发的
 
@@ -64,4 +69,4 @@ PWA 解决哪些问题
 
 - 如果我们希望看到 webpack 的配置信息，应该怎么来做呢？
 
-  - 我们可以执行一个 `package.json` 文件中的一个脚本：`"eject": "react-scripts eject"`
+  - 可以执行 `"eject": "react-scripts eject"`，但该操作不可逆，会把构建配置复制到项目中并增加维护成本。优先使用现有配置能力或迁移方案，不要为临时需求 eject。

@@ -1,4 +1,4 @@
-# VirtualDOM的实现原理
+# Virtual DOM的实现原理
 
 ## Virtual DOM
 

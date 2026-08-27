@@ -1,4 +1,6 @@
-# Webpack打包
+# Webpack 打包
+
+> 本文包含 Webpack 4 的教学示例。Webpack 5 项目优先使用 Asset Modules，并根据项目模块类型选择 CommonJS 或 ESM 配置文件。
 
 ## 模块化工具
 
@@ -6,7 +8,7 @@
 
 - ES Modules 存在环境兼容问题
 - 模块文件过多，网络请求频繁
-- 所有的前端资源都需要模块化
+- 构建工具将应用依赖图中的脚本、样式和资源统一处理
 
 ![开发到生产-编译代码](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/%E5%BC%80%E5%8F%91%E5%88%B0%E7%94%9F%E4%BA%A7-%E7%BC%96%E8%AF%91%E4%BB%A3%E7%A0%81.png)
 
@@ -36,7 +38,7 @@ yarn webpack
 
 打包的过程会按照约定将 `src/index.js` 作为打包入口，最终存放在 `dist/main.js` 里，可以添加 `webpack.config.js` 进行配置
 
-- 这个文件是运行在 Node 环境的 JS 文件，我们需要按照 CommonJS 方式编写代码
+- 配置文件运行在 Node 环境。CommonJS 是常见写法；若项目启用 ESM，也可使用 `webpack.config.mjs` 或符合 Node ESM 规则的配置。
 
 ```js
 const path = require('path')
@@ -126,13 +128,16 @@ export default () => {
 }
 ```
 
-### 文件资源加载器
+### 文件资源加载（Webpack 4 与 5）
+
+> `file-loader` 与 `url-loader` 是 Webpack 4 常见方案。Webpack 5 中使用内置 Asset Modules，无须额外安装这两个 loader。
 
 ```bash
+# Webpack 4 存量项目
 yarn add file-loader --dev
 ```
 
-`webpack-dev-server` 在不设置 `publicPath` 的情况下，将默认输出 `bundle.js` 到根目录
+`asset/resource` 会生成独立资源文件；资源在页面中的访问地址由 `output.publicPath` 和部署路径共同决定。
 
 ```js
 module.exports = {
@@ -144,8 +149,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.png$/,
-        use: 'file-loader',
+        test: /\.png$/,
+        type: 'asset/resource',
       },
     ],
   },
@@ -156,15 +161,11 @@ module.exports = {
 
 ![文件加载器图例](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/%E6%96%87%E4%BB%B6%E5%8A%A0%E8%BD%BD%E5%99%A8%E5%9B%BE%E4%BE%8B.png)
 
-URL 加载器
+Data URL 内联
 
-除了 `file-loader` 通过拷贝物理文件形式处理文件，还可以通过 `Data URLs` 方式表示文件
+除输出独立文件外，也可以通过 `Data URLs` 内联小资源。
 
 ![DataURLs类型格式](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/DataURLs%E7%B1%BB%E5%9E%8B%E6%A0%BC%E5%BC%8F.png)
-
-```bash
-yarn add url-loader --dev
-```
 
 - 小文件使用 Data URLs，减少请求次数
 - 大文件单独提取存放，提高加载速度
@@ -174,11 +175,11 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.png$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            limit: 10 * 1024 // 10 KB
+        test: /\.png$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 10 * 1024
           }
         }
       }
@@ -205,7 +206,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.js$/,
+        test: /\.js$/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -567,12 +568,14 @@ yarn add webpack-dev-server --dev
 
 - `CopyWebpackPlugin` 一般只有上线才会使用这个插件，开发如果拷贝得多，效率就低了
 
-- 注释掉 `CopyWebpackPlugin` 就需要在 `devServer` 配置 `contentBase`
+- 开发服务器提供静态目录时，Webpack Dev Server 4+ 使用 `static`，不再使用 `contentBase`。
 
 ```js
 module.exports = {
   devServer: {
-    contentBase: './public',
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
   },
   plugins: [
     // new CopyWebpackPlugin(['public'])
@@ -597,17 +600,18 @@ module.exports = {
 ```js
 module.exports = {
   devServer: {
-    contentBase: './public',
-    proxy: {
-      '/api': {
-        target: 'https://api.github.com',
-        pathRewrite: {
-          '^/api': ''
-        },
-        // 不能使用 localhost:8080 作为请求 GitHub 的主机名
-        changeOrigin: true
-      }
-    }
+    static: {
+      directory: path.join(__dirname, 'public')
+    },
+    proxy: [{
+      context: ['/api'],
+      target: 'https://api.github.com',
+      pathRewrite: {
+        '^/api': ''
+      },
+      // 不能使用 localhost:8080 作为请求 GitHub 的主机名
+      changeOrigin: true
+    }]
   },
 }
 ```

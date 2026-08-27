@@ -1,4 +1,4 @@
-# JavaScript异步编程
+# JavaScript 异步编程
 
 ## 同步异步模式
 
@@ -19,7 +19,7 @@ Call stack（调用栈）
 
 **异步模式（Asynchronous）：** 不会去等待这个任务的结束才开始下一个任务，开启任务过后就立即往后执行下一个任务，该任务后续逻辑一般会通过回调函数的方式定义
 
-- 当碰到 `setTimeout` 会异步对其调用，这里它是单独工作的并不会受到 JS 线程的影响
+- `setTimeout` 由宿主环境登记定时器；到期后回调进入任务队列，仍需等待调用栈清空才会执行，因此延迟是最小阈值而非精确时间
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/异步模式1.png)
 
@@ -29,7 +29,7 @@ Call stack（调用栈）
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/异步模式2.png)
 
-- JavaScript 是单线程，但浏览器不是单线程，JS 里某些 API 也不是单线程的，例如：计时器，单独开了线程
+- JavaScript 主线程按顺序执行代码；浏览器或 Node 的宿主能力可在后台处理计时、I/O 等工作，但回调仍由事件循环调度回 JavaScript 执行
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/消息队列.jpg)
 
@@ -62,7 +62,7 @@ $.get('url1', function (data1) {
 
 ![](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/Promise图.png)
 
-安装 webpack
+以下 Webpack 4 命令仅用于历史示例；现在可直接用现有项目开发服务器或任意静态服务器运行示例。
 
 ```bash
 npm i webpack-cli webpack-dev-server webpack@4 html-webpack-plugin@4
@@ -287,9 +287,11 @@ Promise.race([request, timeout])
   })
 ```
 
+`Promise.race()` 只决定结果采用哪个 Promise，不会自动取消仍在执行的请求。对 `fetch` 等可取消操作，应使用 `AbortController` 在超时后主动终止底层任务。
+
 ### 执行时序
 
-目前绝大多数异步调用都是作为宏任务执行，而 `Promise`、`MutationObserver`、`process.nextTick` 都会作为微任务，在本轮调用末尾执行
+浏览器通常在每个任务结束后清空微任务队列；Promise 回调与 MutationObserver 属于微任务。Node 的 `process.nextTick` 有独立且更高优先级的队列，不应简单与浏览器微任务完全等同。
 
 ```js
 console.log('global start')

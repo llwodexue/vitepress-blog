@@ -1,6 +1,8 @@
-# vue2.6升级vue2.7（panjiachen升级指南）
+# Vue 2.6 升级 Vue 2.7（PanJiaChen 升级指南）
 
-## vue2.6升级vue2.7
+> 本文仅适用于维护 Vue 2 / Vue CLI 存量项目。Vue CLI 已处于维护模式；新项目使用 `create-vue` 创建 Vite 项目。升级前请锁定依赖、在独立分支执行，并完成构建与回归测试，不要将 `--legacy-peer-deps` 作为常规解决方案。
+
+## Vue 2.6 升级 Vue 2.7
 
 > [vue2.7升级指南](https://v2.cn.vuejs.org/v2/guide/migration-vue-2-7.html#升级指南)
 
@@ -44,7 +46,7 @@ Upgrading @vue/cli-plugin-eslint from 4.4.4 to 5.0.8
 
 **vue upgrade 帮你做的事情**
 
-如果不这么做，需要进行如下操作，十分麻烦。如果依赖冲突，可以使用 `npm i --legacy-peer-deps` 进行安装
+如果不使用自动升级，需要逐项处理依赖。出现 peer dependency 冲突时，应先确认版本兼容矩阵；`--legacy-peer-deps` 仅可作为短期排障手段，并记录原因和后续清理计划。
 
 1. 将 `@vue/cli-xxx` 依赖升级至最新版本范围，这里我打算使用 vue-cli5
 
@@ -838,7 +840,7 @@ emitter.off('event', callback)    // 移除
 emitter.all.clear()               // 清除所有
 ```
 
-### Vue3.x 版本间升级
+### Vue 3.x 版本间升级
 
 **Vue 3.2（2021.08）**
 

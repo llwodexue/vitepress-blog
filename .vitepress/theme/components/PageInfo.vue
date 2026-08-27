@@ -22,21 +22,21 @@ if (frontmatter.value?.author) {
   <div class="page_info">
     <span class="page_info_item">
       🎨
-      <span>作者: {{ author }}</span>
+      <span>作者：{{ author }}</span>
     </span>
     <span v-if="publishedTime" class="page_info_item">
       🕐
-      <span>发表于: {{ publishedTime }}</span>
+      <span>发表于：{{ publishedTime }}</span>
     </span>
     <span v-if="words != null" class="page_info_item">
       📝
       <span>
-        字数: {{ words >= 1000 ? `${Math.round(words / 100) / 10}k` : words }}字
+        字数：{{ words >= 1000 ? `${Math.round(words / 100) / 10}k` : words }} 字
       </span>
     </span>
     <span v-if="readTime != null" class="page_info_item">
       📖
-      <span>阅读时间: {{ readTime }}分钟</span>
+      <span>阅读时间：{{ readTime }} 分钟</span>
     </span>
     <!-- <span class="page_info_item">
       📔

@@ -8,6 +8,8 @@
 
 ### 不可逆加密（MD5 SHA）
 
+> `MD5` 和 `SHA-1` 不适合密码存储，也不能由“加盐后再做一次哈希”替代。密码应在服务端使用专用的慢哈希算法（如 Argon2、scrypt 或 bcrypt），每个密码使用独立随机盐，并由框架保存算法参数；前端计算出的摘要仍会成为可重放的凭据。
+
 node 中有原生 crypto 模块，该模块提供了 hash、hmac、加密解密等一整套封装。因为是 node 中的模块，所以需要使用 `const crypto = require('crypto')` 来引入
 
 MD5、SHA1 也称散列算法
@@ -64,7 +66,7 @@ sha256 a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
 
 如果密码安全强度过低，是很容易被彩虹表碰撞上的，所以一般还会做一层加盐加字符串的处理，这样碰撞成功的概率就大大减少了
 
-这里以 MD5 加密方式举例：
+以下 MD5 示例仅用于理解普通摘要，不可用于账户密码：
 
 ```js
 const crypto = require('crypto')
@@ -73,10 +75,10 @@ const createHash = (type, str) => crypto.createHash(type).update(str).digest('he
 
 const psw = '123'
 const md5 = str => createHash('md5', str)
-const encryptPassword = (salt, password) => md5(salt + '@3#!8^k.j$0#qr' + password)
+const digestForDemo = (salt, input) => md5(salt + input)
 const salt = Math.random() * 99999 + new Date().getTime()
 
-encryptPassword(salt, psw) // 5927975bb4e8453b54e244ae4640426f
+digestForDemo(salt, psw)
 ```
 
 crypto 里有 `createHmac()` 方法，hmac 类似加盐版 hash 算法，hmac 是密钥相关的哈希运算消息认证码（Hash-based Message Authentication Code）

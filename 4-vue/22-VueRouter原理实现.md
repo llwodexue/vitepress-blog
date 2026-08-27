@@ -1,4 +1,4 @@
-# VueRouter原理实现
+# Vue Router原理实现
 
 ## 路由基础使用
 
@@ -182,9 +182,9 @@ new Vue({
 }).$mount('#app')
 ```
 
-## VueRouter 实现思路
+## Vue Router 实现思路
 
-### VueRouter 类图
+### Vue Router 类图
 
 VueRouter 有三个属性：
 

@@ -1,12 +1,14 @@
-# Vue-cli和Vite
+# Vue CLI 与 Vite
 
-## Vue-cli
+## Vue CLI
+
+> Vue CLI 已处于维护模式。新建 Vue 项目应使用 `create-vue` 创建基于 Vite 的项目；本节 Vue CLI 内容仅适用于维护既有项目。
 
 - 我们前面学习了如何通过 webpack 配置 Vue 的开发环境，但是在真实开发中我们不可能每一个项目从头来完成所有的 webpack 配置，这样显然开发的效率会大大的降低
 - 所以在真实开发中，我们通常会使用脚手架来创建一个项目，Vue 的项目我们使用的就是 Vue 的脚手架
 - 脚手架其实是建筑工程中的一个概念，在我们软件工程中也会将一些帮助我们搭建项目的工具称之为脚手架
 
-Vue 的脚手架就是 Vue-cli
+Vue 的传统脚手架是 Vue CLI。
 
 - cli 是 Command-Line-Interface，翻译为命令行界面
 - 我们可以通过 CLI 选择项目的配置和创建出我们的项目
@@ -146,12 +148,12 @@ Webpack 是目前整个前端使用最多的构建工具，但是除了 webpack 
 - 构建工具需要很长的时间才能开启服务器，HMR 也需要几秒钟才能在浏览器反映出来
 - 所以也有这样的说法：天下苦 webpack 久矣
 
-### Vite 构造
+### Vite 的职责
 
 Vite (法语意为 "快速的"，发音 /vit/) 是一种新型前端构建工具，能够显著提升前端开发体验。主要由两部分组成：
 
 - 一个开发服务器，它基于原生 ES 模块提供了丰富的内建功能，HMR 的速度非常快速
-- 一套构建指令，它使用 rollup 打包我们的代码，并且它是预配置的，可以输出生产环境的优化过的静态资源
+- 一套生产构建流程，负责依赖分析、代码分割与产物优化
 
 ```html
 <!DOCTYPE html>
@@ -182,14 +184,19 @@ Vite (法语意为 "快速的"，发音 /vit/) 是一种新型前端构建工具
 
 ### Vite 使用
 
-注意：Vite 本身也是依赖 Node 的，所以也需要安装好 Node 环境
-
-- 并且 Vite 要求 Node 版本 >= 12.0.0（现在官网写的要求 \>= 14.18.0）
+注意：Vite 依赖 Node.js。当前 Vite 要求 Node.js `20.19+` 或 `22.12+`；以官方文档和创建命令给出的版本提示为准。
 
 ```bash
-npm install vite -g # 全局安装
-npm install vite -D # 局部安装
-npx vite
+npm create vite@latest my-app
+cd my-app
+npm install
+npm run dev
+```
+
+Vue 项目也可使用官方脚手架：
+
+```bash
+npm create vue@latest
 ```
 
 ### Vite 对文件的支持
@@ -230,7 +237,7 @@ npm install postcss postcss-preset-env -D
 
 - Vue 3 单文件组件支持：[@vitejs/plugin-vue](https://github.com/vitejs/vite/tree/main/packages/plugin-vue)
 - Vue 3 JSX 支持：[@vitejs/plugin-vue-jsx](https://github.com/vitejs/vite/tree/main/packages/plugin-vue-jsx)
-- Vue 2 支持：[underfin/vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2)
+- Vue 2.7 单文件组件支持：[@vitejs/plugin-vue2](https://github.com/vitejs/vite-plugin-vue2)
 
 ```bash
 npm install @vitejs/plugin-vue -D
@@ -280,15 +287,9 @@ JavaScript -> AST语法树 -> 字节码 -> 机器代码
 
 - 这个时候 vite 还给我们提供了对应的脚手架工具
 
-所以 Vite 实际上是有两个工具的：
-
-- vite：相当于是一个构建工具，类似于 webpack、rollup
-- @vitejs/create-app：类似 vue-cli、create-react-app
+Vite 是构建工具；`create-vite` 是其项目模板创建器。创建器通常通过包管理器的临时执行命令调用，无须全局安装。
 
 ```bash
-npm install @vitejs/create-app -g
-create-app
-
-npm init @vitejs/app
+npm create vite@latest
 ```
 

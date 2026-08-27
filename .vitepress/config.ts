@@ -28,7 +28,7 @@ export default withPwa(
       hostname: 'https://www.llmysnow.top/'
     },
     markdown: markdown,
-    ignoreDeadLinks: true, // 忽略所有死链接检测
+    ignoreDeadLinks: true, // 禁用死链接检测
     themeConfig: {
       search: {
         provider: 'local'
@@ -57,10 +57,8 @@ export default withPwa(
       sidebar
     },
     head: [
-      // not never(no-referer), image cannot be accessed
+      // 不发送 Referer。
       ['meta', { name: 'referrer', content: 'never' }],
-      // must be referer, get the number of articles accessed
-      // ['meta', { name: 'referrer', content: 'no-referrer-when-downgrade' }],
       ['meta', { name: 'keywords', content: keywords }],
       ['meta', { name: 'author', content: 'lyn' }],
 

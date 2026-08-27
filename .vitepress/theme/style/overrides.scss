@@ -1,17 +1,17 @@
-/* 大屏大一点 */
+/* 在大屏幕上扩展正文宽度 */
 @media (min-width: 1440px) {
   .VPDoc.has-aside .content-container.content-container {
     max-width: 100%;
   }
 }
 
-/* nav 换行问题（6 个还是有点小多，后面看看怎么优化） */
+/* 在窄屏幕中压缩导航项，减少换行 */
 @media (max-width: 1080px) {
   :root {
     --vp-sidebar-width: 260px;
   }
   .VPNav {
-    // 借鉴 https://cn.vuejs.org 的处理
+    // 参考 Vue 中文文档的处理方式。
     .DocSearch-Button-Placeholder {
       display: none;
     }
@@ -63,7 +63,7 @@
   color: var(--vp-c-brand);
 }
 
-/* 首页样式修改 */
+/* 首页样式 */
 .VPHero {
   .image-bg {
     opacity: 0.8;
@@ -80,13 +80,12 @@ table {
 }
 
 /**
- * VitePress: Custom fix
+ * VitePress 自定义修复
  * -------------------------------------------------------------------------- */
 
 /*
-  Use lighter colors for links in dark mode for a11y.
-  Also specify some classes twice to have higher specificity
-  over scoped class data attribute.
+  在深色模式下为链接使用更浅的颜色，以提升可访问性。
+  重复指定部分选择器，以提高相对于作用域属性选择器的优先级。
 */
 .dark .vp-doc a,
 .dark .vp-doc a > code,
@@ -108,12 +107,12 @@ table {
   opacity: 1;
 }
 
-/* Transition by color instead of opacity */
+/* 使用颜色而非透明度实现过渡 */
 .dark .vp-doc .custom-block a {
   transition: color 0.25s;
 }
 
-/* logo */
+/* 徽标 */
 .VPImage.logo {
   border-radius: 50%;
 }

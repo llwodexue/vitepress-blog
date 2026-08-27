@@ -2,7 +2,7 @@
 
 > [Fetch API 教程](http://www.ruanyifeng.com/blog/2020/12/fetch-tutorial.html)
 
-`fetch()` 是 XMLHttpRequest 的升级版，用于在 JavaScript 脚本里发出 HTTP 请求
+`fetch()` 是现代 Web 平台的请求 API，用于在 JavaScript 脚本中发出 HTTP 请求；它不是 XMLHttpRequest 的完全替代，具体能力与兼容性仍应按场景选择。
 
 ## 基本用法
 
@@ -144,13 +144,14 @@ image2.src = URL.createObjectURL(myBlob2)
 ```js
 async function fetchImg() {
   const response = await fetch('./sea.png')
+  if (!response.body) throw new Error('响应不包含可读流')
   const reader = response.body.getReader()
   while (true) {
     const { done, value } = await reader.read()
     if (done) {
       break
     }
-    console.log(`Received ${value.length} bytes`)
+    console.log(`Received ${value.byteLength} bytes`)
   }
 }
 ```
@@ -233,7 +234,7 @@ window.onunload = function () {
 
 - `follow`：默认值，`fetch()`跟随 HTTP 跳转
 - `error`：如果发生跳转，`fetch()`就报错
-- `manual`：`fetch()`不跟随 HTTP 跳转，但是 `response.url` 属性会指向新的 URL，`response.redirected`属性会变为`true`，由开发者自己决定后续如何处理跳转
+- `manual`：不自动跟随跳转。跨域场景可能得到 `opaqueredirect` 响应，浏览器不会暴露跳转目标，不能依赖它实现通用的客户端重定向逻辑
 
 **integrity**
 
@@ -266,11 +267,10 @@ onbeforeunload 事件在即将离开当前页面（刷新或关闭）时触发
 
 上面的 keepalive 容易在页面卸载过程中发生阻塞，导致数据丢失
 
-`navigator.sendBeacon` 可以在页面卸载时，可靠地发送数据
+`navigator.sendBeacon` 会尽力在页面卸载期间发送小型 POST 数据，但不保证送达，也无法读取响应；关键业务数据不能只依赖它。
 
 应用场景：
 
-- 发送心跳包：可以使用 `navigator.sendBeacon` 发送心跳包，以保持与服务器长连接，避免因为长时间没有网络请求而导致被关闭
 - 埋点：可以使用 `navigator.sendBeacon` 在页面关闭或卸载时记录用户在线时间，pv uv，以及错误日志上报，按钮点击次数
 - 发送用户反馈：可以使用 `navigator.sendBeacon` 发送用户反馈信息，如用户意见、bug 报告等，以便进行产品优化和改进
 

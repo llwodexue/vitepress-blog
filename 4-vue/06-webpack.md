@@ -1,6 +1,8 @@
-# webpack
+# Webpack
 
 ## webpack 基础
+
+> Webpack 适合需要细粒度构建控制或维护既有配置的项目。新项目应先评估框架推荐的构建工具；构建配置的职责是转换、依赖分析和产物优化，不应混入业务逻辑。
 
 事实上随着前端的快速发展，目前前端的开发已经变的越来越复杂了：
 
@@ -61,7 +63,6 @@ webpack 的安装目前分为两个：webpack、webpack-cli
 ![image-20220628172426300](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220628172426300.png)
 
 ```bash
-npm install webpack webpack-cli –g # 全局安装
 npm install webpack webpack-cli –D # 局部安装
 ```
 
@@ -87,7 +88,7 @@ npm install webpack webpack-cli –D # 局部安装
 npx webpack --entry ./src/main.js --output-path ./build
 ```
 
-**创建局部的 webpack**
+**创建局部的 Webpack**
 
 1. 创建 package.json 文件，用于管理项目的信息、库依赖等 `npm init -y`
 2. 安装局部的 webpack `npm install webpack webpack-cli -D`

@@ -1,5 +1,7 @@
 # Redux
 
+> 本文用传统 Redux 讲解核心概念。新项目优先使用 Redux Toolkit；传统写法适合帮助理解 action、reducer 与 store 的协作关系。
+
 ## 纯函数和副作用
 
 **React 中组件就被要求像是一个纯函数**（为什么是像，因为还有 Class 组件），**Redux 中有一个 reducer 的概念**，也是要求必须是一个纯函数
@@ -38,8 +40,8 @@
 
 **Redux 要求我们通过 action 来更新数据：**
 
-- 所有数据的变化，必须通过派发（dispatch）action 来更新
-- action 是一个普通的 JavaScript 对象，用来描述这次更新的 type 和 content
+- 所有状态变化都必须由派发（dispatch）的 action 触发
+- action 是一个普通的 JavaScript 对象，用 `type` 描述事件；附加数据通常放在 `payload` 中
 
 ![image-20221213221205960](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221213221205960.png)
 
@@ -49,6 +51,15 @@
 - reducer 做的事情就是将传入的 state 和 action 结合起来生成一个新的 state
 
 ![image-20221213221231473](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221213221231473.png)
+
+### 最小数据流与职责边界
+
+`UI → dispatch(action) → middleware → reducer → store → UI`
+
+- `action` 只描述“发生了什么”，额外数据统一放在 `payload`；它不直接修改状态。
+- `reducer` 只根据旧状态和 `action` 计算新状态，不承担请求、随机数或其他副作用。
+- 异步请求、日志和鉴权等横切逻辑放在 middleware；请求完成后再派发普通 action。
+- UI 通过 selector 读取所需状态，并只在选中的数据变化时重渲染；组件不直接修改 store。
 
 ## 三大原则
 
@@ -62,7 +73,7 @@
 
 - 唯一修改 State 的方法一定是触发 action，不要试图在其他地方通过任何的方式来修改 State
 - 这样就确保了 View 或网络请求都不能直接修改 state，它们只能通过 action 来描述自己想要如何修改 state
-- 这样可以保证所有的修改都被集中化处理，并且按照严格的顺序来执行，所以不需要担心 race condition（竞态）的问题
+- 这样可以将同步状态更新集中处理，并按 dispatch 顺序执行；异步请求仍需通过取消、请求标识或结果校验处理竞态问题
 
 **使用纯函数来执行修改**
 
@@ -89,7 +100,7 @@
 
 ![image-20221214110301614](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214110301614.png)
 
-# react-redux
+## react-redux
 
 **Redux 和 React 没有直接的关系，你完全可以在 React、Angular、Ember、jQuery 或 vanilla JavaScript 中使用 Redux**
 
@@ -223,7 +234,7 @@ export default mySaga
 
 - 事实上，它也是将我们传入的 reducers 合并到一个对象中，最终返回一个 combination 的函数（相当于我们之前的 reducer 函数了）
 - 在执行 combination 函数的过程中，它会通过判断前后返回的数据是否相同来决定返回之前的 state 还是新的 state
-- 新的 state 会触发订阅者发生对应的刷新，而旧的 state 可以有效的阻止订阅者发生刷新
+- Store 会在 dispatch 后通知订阅者；UI 层应通过 selector 的结果比较，避免无关状态变化引发重渲染
 
 ```js
 function reducer(state = {}, action) {
@@ -235,7 +246,7 @@ function reducer(state = {}, action) {
 }
 ```
 
-# Redux Toolkit
+## Redux Toolkit
 
 **Redux Toolkit 是官方推荐的编写 Redux 逻辑的方法**
 
@@ -244,11 +255,11 @@ function reducer(state = {}, action) {
 
 ## configureStore
 
-**Redux Toolkit 的核心 API 主要是如下几个：**
+**Redux Toolkit 的核心 API 主要包括：**
 
 - configureStore：包装 createStore 以提供简化的配置选项和良好的默认值。它可以自动组合你的 slice reducer，添加你提供的任何 Redux 中间件，默认包含 Redux Thunk，并启用 Redux DevTools Extension
-- createSlice：接受 reducer 函数的对象、切片名称和初始状态值，并自动生成切片. reducer，并带有相应的 actions
-- createAsyncThunk: 接受一个动作类型字符串和一个返回 Promise 的函数，并生成一个 pending/fulfilled/rejected 基于该 Promise 分派动作类型的 thunk
+- createSlice：接收切片名称、初始状态和 reducer 配置，并自动生成对应的 action creator 与 reducer
+- createAsyncThunk：接收 action 类型前缀和返回 Promise 的函数，并生成 `pending`、`fulfilled`、`rejected` 三类 action
 
 ![image-20221214164322621](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221214164322621.png)
 
@@ -290,7 +301,7 @@ reducers：相当于之前的 reducer 函数
 
 ![image-20221215102830153](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20221215102830153.png)
 
-**extraReducer 还可以传入一个函数，函数接受一个 builder 参数**
+**extraReducers 还可以传入一个函数，函数接受一个 builder 参数**
 
 - 我们可以向 builder 中添加 case 来监听异步操作的结果
 
@@ -307,7 +318,7 @@ reducers：相当于之前的 reducer 函数
 - 比如过大的对象，进行浅拷贝也会造成性能的浪费
 - 比如浅拷贝后的对象，在深层改变时，依然会对之前的对象产生影响
 
-**事实上 Redux Toolkit 底层使用了 immerjs 的一个库来保证数据的不可变性**
+**Redux Toolkit 底层使用 Immer，帮助 reducer 以更接近“可变写法”的方式生成不可变更新。**
 
 **为了节约内存，又出现了一个新的算法：Persistent Data Structure（持久化数据结构或一致性数据结构）**
 
@@ -318,7 +329,7 @@ reducers：相当于之前的 reducer 函数
 
 ![640 (613×575)](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/640.gif)
 
-# 实现原理
+## 实现原理
 
 ## connect 函数实现
 

@@ -1,5 +1,5 @@
 /**
- * 来源于 unocss
+ * 来源于 UnoCSS。
  * https://github.com/unocss/unocss/blob/f3bf5218294928f48f5745cd8686261334a7c78d/docs/.vitepress/theme/rainbow.css
  */
 
@@ -661,7 +661,7 @@
   --vp-c-brand-dark: #008269;
   --vp-c-brand-darker: #005d47;
   --vp-c-brand-next: #009ff7;
-  // 一共 82 种颜色，颜色过度时间 3s->246，2s->164
+  // 共 82 种颜色；每种颜色阶段持续 2 秒，总时长为 164 秒。
   animation: rainbow 164s linear infinite;
 }
 

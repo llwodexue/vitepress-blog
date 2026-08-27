@@ -57,8 +57,10 @@ class MYRequest {
     return this.request({ ...options, method: 'post' })
   }
 }
-export const myReqInstance = new MYRequest()
+export const myReqInstance = new MYRequest('https://api.example.com')
 ```
+
+示例只展示请求封装，不代表可以绕过服务端鉴权或把密钥放进小程序。生产环境应限制服务器域名、校验服务端身份，并统一处理超时、错误码和重试。
 
 ## 展示弹窗和页面分享
 
@@ -139,7 +141,7 @@ onShareAppMessage() {
 
  在开发中，我们需要经常获取当前设备的信息，用于搜集信息或者进行一些适配工作
 
-- 小程序提供了相关个API：wx.getSystemInfo(Object object)
+- 小程序提供了相关 API：`wx.getSystemInfo(Object object)`。新代码按需使用拆分后的设备信息 API，避免收集与业务无关的数据。
 
 ```js
 wx.getSystemInfo({

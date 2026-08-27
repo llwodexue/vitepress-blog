@@ -1,18 +1,16 @@
-# TypeScript进阶
+# TypeScript 进阶
 
 ## 问题
 
 你觉得使用 TS 的好处是什么？
 
-1. TypeScript 是 JavaScript 的超集，它给 JavaScript 添加了可选的静态类型和基于类的面向对象编程，它拓展了 JavaScript 的语法
-
-   TypeScript 是面向对象的编程语言，包含类和接口的概念
+1. TypeScript 是 JavaScript 的超集，提供可选的静态类型、类型推断和工具支持；`class` 是 JavaScript 已有语法，TypeScript 额外提供接口、访问修饰符等类型层能力
 
 2. TypeScript 开发时能给出编译错误，JavaScript 需要运行时暴露
 
-3. TypeScript 为强类型语言，代码可读性强
+3. TypeScript 在编译期提供类型约束与重构提示；类型会擦除，外部输入仍需运行时校验
 
-4. TypeScript 添加很多方便的特性，比如可选链
+4. TypeScript 可以率先支持部分新语法，但可选链等已进入 ECMAScript 标准，是否可运行仍取决于输出目标与运行环境
 
 type 和 interface 的异同？
 
@@ -42,9 +40,9 @@ type 和 interface 的异同？
 
 - any 指的是一个任意类型，它是官方提供的一个选择性绕过静态类型检测的作弊方式
 - unknown 是 TypeScript 3.0 中添加的一个类型，它主要用来描述类型并不确定的变量
-- void 类型，它仅适用于表示没有返回值的函数
-- undefined 的最大价值主要体现在接口类型上，它表示一个可缺省、未定义的属性
-- null 的价值我认为主要体现在接口制定上，它表明对象或属性可能是空值
+- `void` 主要表示调用方不应依赖函数返回值；它与 `undefined` 的可赋值关系受上下文影响
+- `undefined` 表示值缺失，`prop?: T` 表示属性可省略；在 `strictNullChecks` 下两者需显式处理
+- `null` 通常表示刻意的空值，应作为领域模型的一部分而非默认兜底
 - never 表示永远不会发生值的类型
 - object 类型表示非原始类型的类型，即非 number、string、boolean、bigint、symbol、null、undefined 的类型。然而，它也是个没有什么用武之地的类型
 
@@ -196,10 +194,16 @@ enum FileAccess {
 **对于 React 开发者而言，组件也支持泛型**
 
 ```tsx
-function GenericCom<P>(props: { prop1: string }) {
-  return <></>;
-};
-<GenericCom<{ name: string }> prop1="1" ... />
+type GenericProps<T> = {
+  value: T
+  render: (value: T) => React.ReactNode
+}
+
+function GenericCom<T>({ value, render }: GenericProps<T>) {
+  return <>{render(value)}</>
+}
+
+<GenericCom value={{ name: 'Ada' }} render={item => item.name} />
 ```
 
 在条件类型判断的情况下（比如上边示例中出现的 extends），如果入参是联合类型，则会被拆解成一个个独立的（原子）类型（成员）进行类型运算
@@ -472,12 +476,12 @@ infer（条件类型中的类型推断 ）
 
 ```typescript
 type ElementTypeOfArray<T> = T extends (infer E)[] ? E : never
-type isNumber = ElementTypeOfArray<number[]> // number
-type isNever = ElementTypeOfArray<number> // never
+type IsNumber = ElementTypeOfArray<number[]> // number
+type IsNeverArray = ElementTypeOfArray<number> // never
 
 type ElementTypeOfObj<T> = T extends { name: infer E; id: infer I } ? [E, I] : never
-type isArray = ElementTypeOfObj<{ name: 'name'; id: 1; age: 30 }> // ['name', 1]
-type isNever = ElementTypeOfObj<number> // never
+type IsArray = ElementTypeOfObj<{ name: 'name'; id: 1; age: 30 }> // ['name', 1]
+type IsNeverObject = ElementTypeOfObj<number> // never
 ```
 
 keyof
@@ -491,7 +495,7 @@ typeof
 
 ```typescript
 let StrA = 'a'
-const unions = typeof StrA // "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function"
+type ValueType = typeof StrA // string
 const str: typeof StrA = 'string' // string
 type DerivedFromStrA = typeof StrA // string
 ```
@@ -855,11 +859,11 @@ Element implicitly has an 'any' type because expression of type 'string' can't b
    }
    ```
 
-3. 使用泛型
+3. 使用泛型与 `keyof`
 
    ```typescript
    function test<T extends object>(foo: T) {
-     for (const key in foo) {
+     for (const key of Object.keys(foo) as Array<keyof T>) {
        console.log(foo[key]) // 报错消失
        // do something
      }

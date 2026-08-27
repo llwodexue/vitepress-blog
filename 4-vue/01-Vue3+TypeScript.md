@@ -1,10 +1,10 @@
-# Vue3+TypeScript
+# Vue 3 + TypeScript
 
-## 为什么要学习 Vue3
+## 为什么要学习 Vue 3
 
-> [Vue3+TS系统学习一 - 邂逅Vue3和TypeScript](https://mp.weixin.qq.com/s?__biz=Mzg5MDAzNzkwNA==&mid=2247484667&idx=1&sn=a1fda6ea5a1c76c6d03c1c6a78936f7d&chksm=cfe3f704f8947e129de78e6353492c7dd5d9154ed2d141c38e91dea737ff8ab80da5d861f682&scene=178&cur_album_id=1913817193960488964#rd)
+> [Vue 3 + TypeScript 系统学习一：邂逅 Vue 3 与 TypeScript](https://mp.weixin.qq.com/s?__biz=Mzg5MDAzNzkwNA==&mid=2247484667&idx=1&sn=a1fda6ea5a1c76c6d03c1c6a78936f7d&chksm=cfe3f704f8947e129de78e6353492c7dd5d9154ed2d141c38e91dea737ff8ab80da5d861f682&scene=178&cur_album_id=1913817193960488964#rd)
 
-在 2020 年的 9 月 19 日，万众期待的 Vue3 终于发布了正式版，命名为 **One Piece**
+2020 年 9 月 19 日，万众期待的 Vue 3 正式版终于发布，代号为 **One Piece**。
 
 - 它也带来了很多新的特性：**更好的性能、更小的包体积、更好的 TypeScript 集成，更优秀的 API 设计**
 
@@ -12,17 +12,17 @@
 
 **源码通过 monorepo 的形式来管理源代码**
 
-- mono：单个的意思；repo： repository仓库的简写
+- mono：单个的意思；repo：repository（仓库）的简写
 - 主要是将许多项目的代码存储在同一个 repository 中
 
-我们来看下面的图片，对比 vue2 和 vue3 源码的不同管理方式：
+我们来看下面的图片，对比 Vue 2 和 Vue 3 源码的不同管理方式：
 
-- Vue2.x 是将所有的源代码编写到了 src 的目录下，并且依照不同的功能划分成了多个文件夹，比如 compiler 是和模板编译相关的，core 是通用的核心运行时代码等
+- Vue 2.x 将所有源代码放在 `src` 目录下，并按不同功能划分为多个文件夹。例如，`compiler` 与模板编译相关，`core` 是通用的核心运行时代码
 
-- Vue3.x 是将不同的模块拆分到不同 packages 下的子目录中，并且每一个模块都可以看成是一个独立的项目
+- Vue 3.x 将不同模块拆分到 `packages` 下的子目录中，每个模块都可以看作一个独立项目
 
   - 这个独立的项目可以有自己的类型定义、自己的 API、自己的测试用例
-  - 这样每一个模块的划分更加清晰，开发者更容易阅读、理解、修改模块的代码，也提供了代码的可维护性、可扩展性
+  - 这样模块划分更加清晰，开发者更容易阅读、理解和修改代码，也提升了代码的可维护性与可扩展性
   - 并且每一个模块可以单独的进行编译，而无需从大量的 src 代码中抽离出一部分代码
 
 ![image-20220622110847315](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220622110847315.png)

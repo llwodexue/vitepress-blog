@@ -1,4 +1,4 @@
-# CompositionAPI
+# Composition API
 
 ## Mixin
 
@@ -83,6 +83,12 @@ app.mixin({
 - 为了开始使用 Composition API，我们需要有一个可以实际使用它（编写代码）的地方
 - 在 Vue 组件中，这个位置就是 setup 函数
 
+### 组合式 API 的职责边界
+
+- `ref` 和 `reactive` 保存源状态；不要为可由现有状态推导出的值额外创建状态。
+- `computed` 只负责派生数据；`watch` 和 `watchEffect` 只负责请求、缓存写入等副作用。
+- 组件负责组合 UI 和交互；跨组件复用的有状态逻辑再抽取为 composable，避免让单个组件同时承担数据、请求和展示职责。
+
 ### setup
 
 **setup 函数参数** 主要有两个参数
@@ -113,11 +119,11 @@ context：可以称之为是一个 SetupContext，它里面包含三个属性：
 
 ![image-20220725101850285](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220725101850285.png)
 
-### setup 不可以使用 this
+### setup 中不能使用 this
 
-- this 并没有指向当前组件实例
-- 并且在 setup 被调用之前，data、computed、methods 等都没有被解析
-- 所以无法在 setup 中获取 this
+- 虽然组件实例已创建，但 `setup` 不会绑定组件实例代理作为 `this`
+- 并且在 `setup` 被调用时，`data`、`computed`、`methods` 等选项尚未初始化
+- 因此应通过 `props`、`context` 和组合式 API 获取所需能力，而不是访问 `this`
 
 ![image-20220727105958669](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20220727105958669.png)
 
@@ -215,7 +221,7 @@ export default {
 
 **Ref 自动解包**
 
-- 模板中的解包是浅层解包
+- 模板中的 ref 解包只发生在顶层渲染上下文
 - 如果我们将 ref 放到一个 reactive 的属性中，那么在模板使用时，它会自动解包
 
 ```html
@@ -255,7 +261,7 @@ export default {
 
 我们通过 reactive 或 ref 可以获取到一个响应式对象，但是某些情况下，我们希望传递给其他组件使用的响应式对象不被修改，这时就可以使用 readonly 方法
 
-- readonly 会返回原生对象的只读代理（也就是它依然是一个 Proxy，这是一个 proxy 的 set 方法被劫持，并且不能对其进行修改）
+- 对对象调用 `readonly` 会返回深层只读代理；对 ref 调用时会返回只读 ref。它们都不能通过返回值修改状态
 
 在开发中常见的 readonly 方法会传入三个类型的参数：
 
@@ -271,7 +277,7 @@ export default {
 
   比如：`const info = readonly(obj)`，info 对象是不允许修改的，但是 obj 被修改时，readonly 返回的 info 对象会被修改
 
-- 其实本质上就是 readonly 返回的对象的 setter 方法被劫持而已
+- 只读约束只作用于返回值，不会冻结原始对象；原始对象变化时，只读视图仍会同步更新
 
 ```html
 <button @click="updateState">修改状态</button>
@@ -521,17 +527,17 @@ const changeAge = () => {
 
 比如在开发中我们需要在侦听函数中执行网络请求，但是在网络请求还没有达到的时候，我们停止了侦听器，或者侦听器侦听函数再次被执行了，那么上一次的网络请求应该被取消掉，这个时候我们就可以清除上一次的副作用
 
-- 在我们给 watchEffect 传入的函数被回调时，其实可以获取到一个参数：onInvalidate
+- `watchEffect` 的回调会收到 `onCleanup` 参数，用于注册清理函数
 
   当 **副作用即将重新执行** 或者 **侦听器被停止** 时会执行该函数传入的回调函数
 
 ```js
-const stop = watchEffect(onInvalidate => {
+const stop = watchEffect(onCleanup => {
   const timer = setTimeout(() => {
     console.log('网络请求成功~')
   }, 2000)
   // 在这个函数中清除额外的副作用
-  onInvalidate(() => {
+  onCleanup(() => {
     clearTimeout(timer)
   })
   console.log('name:', name.value, 'age:', age.value)

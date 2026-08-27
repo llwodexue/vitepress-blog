@@ -6,7 +6,7 @@
 
 **HTTPS (HyperText Transfer Protocol Secure)**，译为：**超文本传输安全协议**
 
-- 常称为 **HTTP over TLS**、**HTTP over SSL**、**HTTP Secure**
+- 常称为 **HTTP over TLS**；“HTTP over SSL”只是历史叫法，生产环境不应启用 SSL
 - 由网景公司于 1994 年首次提出
 
 ![image-20230727170937384](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230727170937384.png)
@@ -40,11 +40,11 @@ TLS（**T**ransport **L**ayer **S**ecurity），译为：传输层安全性协�
 - SSL 1.0：因存在严重的安全漏洞，从未公开过
 - SSL 2.0：1995年，已于2011年弃用 ([RFC 6176](https://tools.ietf.org/html/rfc6176))
 - SSL 3.0：1996年，已于2015年弃用 ([RFC 7568](https://tools.ietf.org/html/rfc7568))
-- TLS 1.0：1999年 ([RFC 2246](https://tools.ietf.org/html/rfc2246))
-- TLS 1.1：2006年 ([RFC 4346](https://tools.ietf.org/html/rfc4346))
+- TLS 1.0：1999 年，已弃用（[RFC 8996](https://www.rfc-editor.org/rfc/rfc8996)）
+- TLS 1.1：2006 年，已弃用（[RFC 8996](https://www.rfc-editor.org/rfc/rfc8996)）
 - TLS 1.2：2008年 ([RFC 5246](https://tools.ietf.org/html/rfc5246))
 - TLS 1.3：2018年 ([RFC 8446](https://tools.ietf.org/html/rfc8446))
-- 小细节：TLS 的 RFC 文档编号都是以 46 结尾
+- 生产部署通常至少启用 TLS 1.2，并优先支持 TLS 1.3；具体套件和最低版本仍应遵循运行平台与组织的安全基线。
 
 ![image-20230727172454996](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230727172454996.png)
 
@@ -53,7 +53,7 @@ TLS（**T**ransport **L**ayer **S**ecurity），译为：传输层安全性协�
 [OpenSSL](https://www.openssl.org/) 是 SSL/TLS 协议的开源实现，始于 1998 年，支持 Windows、Mac、Linux 等平台
 
 - Linux、Mac 一般自带 OpenSSL
-- Windows 下载安装 OpenSSL：[https://slproweb.com/products/Win32OpenSSL.html](https://slproweb.com/products/Win32OpenSSL.html)
+- Windows 应使用受信任的软件源或组织统一分发的 OpenSSL，并验证发布者与校验和；不要从不明镜像下载二进制。
 
 常用命令
 
@@ -70,9 +70,9 @@ TLS（**T**ransport **L**ayer **S**ecurity），译为：传输层安全性协�
 
 - 证书的费用
 - 加解密计算
-- 降低了访问速度
+- 存在握手和加解密成本，但连接复用、TLS 1.3 和现代硬件已显著降低影响；是否优化应以真实链路数据判断。
 
-有些企业的做法是：包含敏感数据的请求才使用 HTTPS，其他保持使用 HTTP
+生产站点应全站使用 HTTPS，并将 HTTP 安全地重定向到 HTTPS。只保护“敏感接口”会让 Cookie、跳转、页面内容和子资源仍暴露于篡改或窃听风险。
 
 ### 通信过程
 
@@ -84,7 +84,9 @@ TLS（**T**ransport **L**ayer **S**ecurity），译为：传输层安全性协�
 
 ![image-20230727174538768](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230727174538768.png)
 
-## TLS1.2连接
+## TLS 1.2 连接（历史流程）
+
+以下流程用于理解 TLS 1.2 的 ECDHE 握手。现代客户端与服务端应优先协商 TLS 1.3；TLS 1.3 合并并精简了握手消息，不能按下列 10 步直接套用。
 
 ECDHE 密钥交换算法
 
@@ -163,7 +165,7 @@ TLS1.2 的连接大概有 10 大步骤:（图中省略了中间产生的一些 A
 
 ### 9.Change Cipher Spec
 
-### 10.Finshed
+### 10. Finished
 
 - 到此为止，客户端服务器都验证加密解密没问题，握手正式结束
 
@@ -177,7 +179,7 @@ TLS1.2 的连接大概有 10 大步骤:（图中省略了中间产生的一些 A
 
 ![image-20230728164955789](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230728164955789.png)
 
-### TLS1.2
+### TLS 1.2
 
 TLS1.2 里面有两个核心算法 RSA（Rivest-Shamir-Adleman） 和 DH（Diffie-Hellman）
 
@@ -190,10 +192,7 @@ TLS1.2 里面有两个核心算法 RSA（Rivest-Shamir-Adleman） 和 DH（Diffi
   - 服务器和客户端都有私钥且有自己的协商参数
   - 服务器和客户端交换协商参数，双方用各自参数和私钥算出同一个密钥
 
-TLS1.2 支持降级且一开始握手是明文的
-
-- 黑客还是可以截获客户端和服务端之间的内容，让服务器进行 TLS 降级
-- 破解 1024bit DH 算法依旧很难，但是如果使用 512bit 就容易很多了
+TLS 1.2 的 ClientHello 等握手信息在建立会话密钥前可见，但证书校验、握手完整性和降级防护用于阻止静默篡改。实际风险取决于实现是否仍允许旧协议、弱套件或错误的证书校验，而不是“握手明文”本身。
 
 ![image-20230728171843913](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230728171843913.png)
 
@@ -203,7 +202,7 @@ TLS1.2 分组密码：填充 + 异或运算，是可以猜出来的
 
 ![image-20230728173501087](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230728173501087.png)
 
-### TLS1.3
+### TLS 1.3
 
 TLS1.3 移除 RSA+静态密钥 和 DH+静态密钥，废弃了 DH 算法里很多弱的参数组合
 
@@ -238,9 +237,9 @@ TLS1.3 采用 PSS 进行填充加密
 
 ![image-20230728144540833](https://gitee.com/lilyn/pic/raw/master/lagoulearn-img/image-20230728144540833.png)
 
-## 配置服务器HTTPS
+## 配置服务器 HTTPS
 
-> 一个生成免费证书的网站： [https://freessl.org/](https://freessl.org/)
+> 生产证书应由受信任 CA 签发并自动续期；自签名证书只适用于受控测试环境。私钥、密钥库密码和证书链不得提交到仓库或写入示例中的明文配置。
 >
 > [Https 生成证书（keytool），并在Springboot中进行配置](https://blog.csdn.net/zyx1260168395/article/details/112802464)
 
@@ -250,7 +249,7 @@ TLS1.3 采用 PSS 进行填充加密
 2. 可信任的证书实体（trusted certificate entiries）：只包含公钥
 3. alias（别名）：每个 keystore 都关联着一个独一无二的 alias
 
-环境：Tomcat9.0.34、JDK1.8.0_251
+以下是历史 Tomcat/JDK 场景的演示，不应据此固定生产版本。
 
 - 使用 JDK 自带的 **keytool** 生成证书
 
@@ -263,8 +262,10 @@ TLS1.3 采用 PSS 进行填充加密
 # -validity  证书有效期
 # -keystore  密钥库的生成路径、名称
 # -storepass 密钥库密
-keytool -genkeypair -alias mj -keyalg RSA -keysize 1024 -validity 365 -keystore F:/mj.jks -storepass 123456
+keytool -genkeypair -alias app -keyalg RSA -keysize 2048 -validity 365 -keystore ./app.p12 -storetype PKCS12
 ```
+
+执行时交互式输入强密码，或从受限的密钥管理系统注入；不要将密码写入命令历史、文档或配置仓库。
 
 修改 TOMCAT_HOME/conf/server.xml 中的 Connector
 
