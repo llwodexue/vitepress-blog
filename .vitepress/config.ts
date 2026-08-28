@@ -20,6 +20,13 @@ export default withPwa(
       root: { label: '简体中文', lang: 'zh-CN' }
     },
     vite: {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            silenceDeprecations: ['legacy-js-api']
+          }
+        }
+      },
       build: {
         chunkSizeWarningLimit: 1500
       }
