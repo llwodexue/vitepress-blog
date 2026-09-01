@@ -12,43 +12,39 @@ hero:
     alt: lyn
   actions:
     - theme: brand
-      text: 计算机基础
-      link: /3-base/01-基本概念
+      text: JS 工程化
+      link: /1-js/01-函数式编程范式
     - theme: alt
-      text: 运维部署
-      link: /7-ops/云服务器-1.免密登录
+      text: 生活绿洲
+      link: /8-notes/生活绿洲/家庭与教育/好的家庭教育
 
 features:
-  - icon: 📕
-    title: JavaScript
-    details: 函数式编程、ECMAScript、TypeScript、HTML5...
+  - icon: ⚙️
+    title: JS 工程化
+    details: JavaScript、TypeScript、浏览器 API、模块化与构建工具
     link: /1-js/01-函数式编程范式
-  - icon: 📦
-    title: 工程化
-    details: Webpack、Vite、Grunt、Gulp、性能优化...
-    link: /2-engine/01-工程化和脚手架入门
-  - icon: 📚
+  - icon: 🧠
     title: 计算机基础
-    details: 计算机网络、数据结构与算法、操作系统、linux...
+    details: 网络协议、数据结构与算法、操作系统与 Linux
     link: /3-base/01-基本概念
-  - icon: 🔧
+  - icon: 🟩
     title: Vue
-    details: Vue基础、构建工具、组件化开发、Vue生态、Vue源码...
+    details: Vue 生态、组件化开发、源码与项目实践
     link: /4-vue/01-Vue3+TypeScript
-  - icon: 🔨
+  - icon: ⚛️
     title: React
-    details: React基础、组件化开发、React生态、React源码...
+    details: React 基础、组件化开发、生态与源码
     link: /5-react/01-React基本使用
-  - icon: 🧰
-    title: Node
-    details: Koa、SSR、加解密、Web安全、文件下载、pnpm...
+  - icon: 🖥️
+    title: Node 运维
+    details: Node.js、服务端框架、服务器、容器与部署运维
     link: /6-node/01-Node基础
-  - icon: 💻
-    title: 运维部署
-    details: 前端环境、后端环境、数据库环境、容器环境、自动部署...
-    link: /7-ops/云服务器-1.免密登录
-  - icon: 🏳️‍🌈
+  - icon: 🌿
+    title: 生活绿洲
+    details: 旅游、听书、家庭与教育等生活笔记
+    link: /8-notes/生活绿洲/家庭与教育/好的家庭教育
+  - icon: 🧩
     title: 其他
-    details: 微信小程序、uniapp、性能优化、数学、调研...
+    details: 小程序、跨端、性能优化、数学与调研
     link: /10-other/01-邂逅小程序开发
 ---

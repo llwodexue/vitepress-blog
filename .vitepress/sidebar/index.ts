@@ -6,6 +6,7 @@ import sidebarVue from './sidebarVue'
 import sidebarReact from './sidebarReact'
 import sidebarNode from './sidebarNode'
 import sidebarOps from './sidebarOps'
+import sidebarNotes from './sidebarNotes'
 import sidebarOther from './sidebarOther'
 
 const sections = [
@@ -16,6 +17,7 @@ const sections = [
   { key: 'React', path: '/5-react/', sidebar: sidebarReact },
   { key: 'Node', path: '/6-node/', sidebar: sidebarNode },
   { key: '运维部署', path: '/7-ops/', sidebar: sidebarOps },
+  { key: '生活绿洲', path: '/8-notes/', sidebar: sidebarNotes },
   { key: '其他', path: '/10-other/', sidebar: sidebarOther }
 ]
 
@@ -36,7 +38,7 @@ function withRouteLinks(
   }))
 }
 
-for (const section of [...sections.slice(2, 5), sections[7]]) {
+for (const section of [...sections.slice(2, 5), ...sections.slice(7)]) {
   sidebar[section.path] = { base: section.path, items: section.sidebar }
 }
 
@@ -71,7 +73,8 @@ const navGroups = [
   { text: 'JS 工程化', sections: sections.slice(0, 2) },
   ...sections.slice(2, 5).map(section => ({ text: section.key, sections: [section] })),
   { text: 'Node 运维', sections: sections.slice(5, 7) },
-  { text: sections[7].key, sections: [sections[7]] }
+  { text: sections[7].key, sections: [sections[7]] },
+  { text: sections[8].key, sections: [sections[8]] }
 ]
 
 const nav: DefaultTheme.NavItem[] = navGroups.map(group => ({
