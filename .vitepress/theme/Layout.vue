@@ -1,32 +1,34 @@
 <template>
+  <ReadingProgress />
+  <PwaUpdatePrompt />
   <Layout :class="layoutClass">
-    <!-- <template #home-features-after>
-      <Statistics />
-    </template> -->
-    <!-- <template #doc-before>
-      <PageInfo />
-    </template> -->
+    <template #home-features-after>
+      <HomeDiscover />
+    </template>
     <template #doc-after>
       <Comment />
     </template>
   </Layout>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
-import Comment from './components/Comment.vue'
 import { useData } from 'vitepress'
-import { ref } from 'vue'
-// import PageInfo from './components/PageInfo.vue'
-// import Statistics from './components/Statistics.vue'
+import { defineAsyncComponent, shallowRef, watch } from 'vue'
+import HomeDiscover from './components/HomeDiscover.vue'
+import PwaUpdatePrompt from './components/PwaUpdatePrompt.vue'
+import ReadingProgress from './components/ReadingProgress.vue'
 
 const { Layout } = DefaultTheme
-
 const { frontmatter } = useData()
+const Comment = defineAsyncComponent(() => import('./components/Comment.vue'))
+const layoutClass = shallowRef('')
 
-const layoutClass = ref('')
-
-if (frontmatter.value?.layoutClass) {
-  layoutClass.value = frontmatter.value.layoutClass
-}
+watch(
+  frontmatter,
+  value => {
+    layoutClass.value = typeof value?.layoutClass === 'string' ? value.layoutClass : ''
+  },
+  { immediate: true }
+)
 </script>

@@ -38,12 +38,19 @@ export default withPwa(
     ignoreDeadLinks: true, // 禁用死链接检测
     themeConfig: {
       search: {
-        provider: 'local'
+        provider: 'local',
+        options: {
+          detailedView: true
+        }
       },
       logo: '/images/avatar.png',
       docFooter: {
         prev: '上一篇',
         next: '下一篇'
+      },
+      editLink: {
+        pattern: 'https://github.com/llwodexue/vitepress-blog/edit/main/:path',
+        text: '在 GitHub 上编辑此页'
       },
       returnToTopLabel: '返回顶部',
       outlineTitle: '导航栏',

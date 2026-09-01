@@ -18,24 +18,24 @@ export const pwa: Partial<VitePWAOptions> = {
     cwd: resolve(__dirname, '../../public')
   }),
   manifest: {
-    id: '/',
+    id: './',
     name,
     short_name: name,
     description: keywords,
     theme_color: '#009ff7',
     icons: [
       {
-        src: '/icons/rem128x128.png',
+        src: 'icons/rem128x128.png',
         sizes: '128x128',
         type: 'image/png'
       },
       {
-        src: '/icons/rem192x192.png',
+        src: 'icons/rem192x192.png',
         sizes: '192x192',
         type: 'image/png'
       },
       {
-        src: '/icons/icons/rem512x512.png',
+        src: 'icons/rem512x512.png',
         sizes: '512x512',
         type: 'image/png'
       }

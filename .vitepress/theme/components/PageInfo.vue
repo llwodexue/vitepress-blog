@@ -1,20 +1,42 @@
-<script setup>
+<script setup lang="ts">
+import { computed, shallowRef } from 'vue'
 import { useData } from 'vitepress'
-import { ref } from 'vue'
 import { getDate } from '../../utils'
 
-defineProps({
-  readTime: Number,
-  words: Number
-})
+interface Props {
+  readTime?: number | string
+  words?: number | string
+}
 
+const props = defineProps<Props>()
 const defaultAuthor = 'Lyn'
-const author = ref(defaultAuthor)
 const { frontmatter } = useData()
+const copied = shallowRef(false)
 
-const publishedTime = getDate(frontmatter.value?.date)
-if (frontmatter.value?.author) {
-  author.value = frontmatter.value?.author
+const author = computed(() =>
+  typeof frontmatter.value?.author === 'string' ? frontmatter.value.author : defaultAuthor
+)
+const publishedTime = computed(() => getDate(frontmatter.value?.date))
+
+async function copyLink() {
+  try {
+    await navigator.clipboard.writeText(window.location.href)
+  } catch {
+    const textArea = document.createElement('textarea')
+    textArea.value = window.location.href
+    textArea.setAttribute('readonly', '')
+    textArea.style.position = 'fixed'
+    textArea.style.opacity = '0'
+    document.body.appendChild(textArea)
+    textArea.select()
+    document.execCommand('copy')
+    textArea.remove()
+  }
+
+  copied.value = true
+  window.setTimeout(() => {
+    copied.value = false
+  }, 1600)
 }
 </script>
 
@@ -28,16 +50,24 @@ if (frontmatter.value?.author) {
       🕐
       <span>发表于：{{ publishedTime }}</span>
     </span>
-    <span v-if="words != null" class="page_info_item">
+    <span v-if="props.words != null" class="page_info_item">
       📝
       <span>
-        字数：{{ words >= 1000 ? `${Math.round(words / 100) / 10}k` : words }} 字
+        字数：{{ Number(props.words) >= 1000 ? `${Math.round(Number(props.words) / 100) / 10}k` : props.words }} 字
       </span>
     </span>
-    <span v-if="readTime != null" class="page_info_item">
+    <span v-if="props.readTime != null" class="page_info_item">
       📖
-      <span>阅读时间：{{ readTime }} 分钟</span>
+      <span>阅读时间：{{ props.readTime }} 分钟</span>
     </span>
+    <button
+      class="page_info_copy"
+      type="button"
+      :aria-label="copied ? '链接已复制' : '复制文章链接'"
+      @click="copyLink"
+    >
+      {{ copied ? '已复制' : '复制链接' }}
+    </button>
     <!-- <span class="page_info_item">
       📔
       <span id="busuanzi_container_page_pv">
@@ -48,8 +78,12 @@ if (frontmatter.value?.author) {
   </div>
 </template>
 
-<style>
+<style scoped>
 .page_info {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
   margin-top: 15px;
   margin-bottom: 25px;
 }
@@ -57,6 +91,22 @@ if (frontmatter.value?.author) {
 .page_info .page_info_item {
   font-size: 16px;
   color: #7f7f7f;
-  margin-right: 10px;
+}
+
+.page_info_copy {
+  padding: 3px 10px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.page_info_copy:hover {
+  border-color: var(--vp-c-brand);
+  color: var(--vp-c-brand);
 }
 </style>
