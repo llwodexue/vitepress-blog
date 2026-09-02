@@ -135,7 +135,7 @@ ctx.set('Content-Security-Policy', "child-src 'none'")
 - 输入处理：用户输入、URL 参数、POST 请求参数、Ajax
 - 输出处理：转为实体名称
 
-```ejs
+```html
 <% code %> 用于执行其中JavaScript代码
 <%= code %> 会对code进行html转义
 <%- code %> 不会进行转义

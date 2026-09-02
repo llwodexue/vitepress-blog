@@ -1,11 +1,28 @@
 <script setup lang="ts">
-import { useRegisterSW } from 'virtual:pwa-register/vue'
+import { onMounted, shallowRef, watch } from 'vue'
 
-const {
-  needRefresh,
-  offlineReady,
-  updateServiceWorker
-} = useRegisterSW()
+const needRefresh = shallowRef(false)
+const offlineReady = shallowRef(false)
+let updateServiceWorker = () => Promise.resolve()
+
+onMounted(async () => {
+  const { useRegisterSW } = await import('virtual:pwa-register/vue')
+  const registration = useRegisterSW()
+
+  updateServiceWorker = registration.updateServiceWorker
+
+  watch(registration.needRefresh, value => {
+    needRefresh.value = value
+  }, { immediate: true })
+
+  watch(registration.offlineReady, value => {
+    offlineReady.value = value
+  }, { immediate: true })
+})
+
+function applyUpdate() {
+  void updateServiceWorker()
+}
 
 function closePrompt() {
   offlineReady.value = false
@@ -23,7 +40,7 @@ function closePrompt() {
         v-if="needRefresh"
         class="pwa-update__button pwa-update__button--primary"
         type="button"
-        @click="updateServiceWorker()"
+        @click="applyUpdate"
       >
         立即刷新
       </button>
