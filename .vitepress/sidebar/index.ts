@@ -17,7 +17,7 @@ const sections = [
   { key: 'React', path: '/5-react/', sidebar: sidebarReact },
   { key: 'Node', path: '/6-node/', sidebar: sidebarNode },
   { key: '运维部署', path: '/7-ops/', sidebar: sidebarOps },
-  { key: '生活绿洲', path: '/8-notes/', sidebar: sidebarNotes },
+  { key: '家庭与教育', path: '/8-notes/', sidebar: sidebarNotes },
   { key: '其他', path: '/10-other/', sidebar: sidebarOther }
 ]
 
