@@ -16,7 +16,7 @@ hero:
       link: /1-js/01-函数式编程范式
     - theme: alt
       text: 生活绿洲
-      link: /8-notes/生活绿洲/家庭与教育/好的家庭教育
+      link: /8-notes/家庭与教育/好的家庭教育：先搭好家庭系统
 
 features:
   - icon: ⚙️
@@ -42,7 +42,7 @@ features:
   - icon: 🌿
     title: 生活绿洲
     details: 旅游、听书、家庭与教育等生活笔记
-    link: /8-notes/生活绿洲/家庭与教育/好的家庭教育
+    link: /8-notes/家庭与教育/好的家庭教育：先搭好家庭系统
   - icon: 🧩
     title: 其他
     details: 小程序、跨端、性能优化、数学与调研

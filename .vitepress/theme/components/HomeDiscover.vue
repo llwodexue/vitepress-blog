@@ -34,7 +34,7 @@ const featuredNotes: LearningRoute[] = [
     icon: '🌿',
     title: '家庭与教育',
     description: '从听书与生活笔记中整理可复盘的沟通、成长和关系方法。',
-    link: '/8-notes/生活绿洲/家庭与教育/10到25岁：激励年轻人的科学——引领下一代的突破性方法，并让你的生活更加轻松'
+    link: '/8-notes/家庭与教育/10到25岁：用高标准与高支持激励年轻人'
   },
   {
     icon: '🧩',
