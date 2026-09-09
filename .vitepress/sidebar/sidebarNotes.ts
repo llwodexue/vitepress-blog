@@ -5,6 +5,10 @@ const sidebarNotes: DefaultTheme.SidebarItem[] = [
     text: '家庭与教育',
     items: [
       {
+        text: '鼓励孩子：把金句变成看见、边界与行动',
+        link: '家庭与教育/鼓励孩子：把金句变成看见、边界与行动'
+      },
+      {
         text: '好的家庭教育：先搭好家庭系统',
         link: '家庭与教育/好的家庭教育：先搭好家庭系统'
       },
