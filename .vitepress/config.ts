@@ -7,6 +7,8 @@ import { withPwa } from '@vite-pwa/vitepress'
 import { pwa } from './config/pwa'
 
 const base = process.env.BASE || '/'
+// sitemap 的 URL 由 hostname + 页面相对路径拼成，不含 base，所以 hostname 必须带上 base
+const origin = process.env.SITE_ORIGIN || 'https://llwodexue.github.io'
 
 export default withPwa(
   defineConfig({
@@ -32,7 +34,7 @@ export default withPwa(
       }
     },
     sitemap: {
-      hostname: 'https://www.llmysnow.top/'
+      hostname: origin + base
     },
     markdown: markdown,
     ignoreDeadLinks: true, // 禁用死链接检测
