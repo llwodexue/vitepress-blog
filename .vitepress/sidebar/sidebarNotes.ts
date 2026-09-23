@@ -51,6 +51,15 @@ const sidebarNotes: DefaultTheme.SidebarItem[] = [
     ]
   },
   {
+    text: '旅行',
+    items: [
+      {
+        text: '徽州秋色 · 婺源晒秋 9 日',
+        link: '旅行/徽州秋色·婺源晒秋9日'
+      }
+    ]
+  },
+  {
     text: '美食与饮食',
     items: [
       {
