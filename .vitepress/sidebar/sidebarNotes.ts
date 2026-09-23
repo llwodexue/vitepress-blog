@@ -56,6 +56,10 @@ const sidebarNotes: DefaultTheme.SidebarItem[] = [
       {
         text: '徽州秋色 · 婺源晒秋 9 日',
         link: '旅行/徽州秋色·婺源晒秋9日'
+      },
+      {
+        text: '长沙 · 武汉 9 日：含徽州西递的长假大空间版',
+        link: '旅行/长沙武汉9日：含徽州西递的长假大空间版'
       }
     ]
   },
