@@ -8,5 +8,6 @@ export default autoSidebar('/10-other/', [
   { text: '有趣的植物', items: ['31'] },
   { text: '美食合集', items: ['41'] },
   { text: '配置电脑', items: ['51'] },
-  { text: '游戏攻略', items: ['61'] }
+  { text: '游戏攻略', items: ['61'] },
+  { text: '智能家居', items: ['HomeAssistant'] }
 ])
